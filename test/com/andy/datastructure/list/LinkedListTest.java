@@ -1,7 +1,7 @@
 package com.andy.datastructure.list;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -41,12 +41,11 @@ public class LinkedListTest {
 
 	@Test
 	public void testGet() {
-		linkedList.add(1);
-		assertNotNull(linkedList.get(0));
-		linkedList.add(2);
-		assertNotNull(linkedList.get(1));
-		linkedList.add(3);
-		assertNotNull(linkedList.get(2));
+		for(int index = 0; index < 10 ; index++) {
+			linkedList.add((index + 1));
+			System.out.println(linkedList.get(index));
+			assertEquals(Integer.valueOf((index + 1)),linkedList.get(index));
+		}		
 	}
 	
 	@Test(expected=IndexOutOfBoundsException.class)
