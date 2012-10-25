@@ -1,31 +1,22 @@
 package com.andy.datastructure.list;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-
-import com.andy.datastructure.DataObject;
 
 public class LinkedListTest {
-	@Mock DataObject<Integer> node;
+	private LinkedList<Integer> linkedList = new LinkedList<Integer>();
 	
-	private LinkedList<Integer> linkedList; 
-	@Before
-	public void setUp() throws Exception {
-		linkedList = new LinkedList<Integer>();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		linkedList = null;
-	}
-
 	@Test
 	public void testAdd() {
-		assertTrue(linkedList.add(node));
+		assertTrue(linkedList.add(1));
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void testAdd_whenParamIsNull() {
+		assertTrue(linkedList.add(null));
 	}
 
 	@Test
@@ -50,7 +41,22 @@ public class LinkedListTest {
 
 	@Test
 	public void testGet() {
-		fail("Not yet implemented"); // TODO
+		linkedList.add(1);
+		assertNotNull(linkedList.get(0));
+		linkedList.add(2);
+		assertNotNull(linkedList.get(1));
+		linkedList.add(3);
+		assertNotNull(linkedList.get(2));
+	}
+	
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testGet_whenIndexIsLessThanZero() {
+		linkedList.get(-1);
+	}
+	
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testGet_whenIndexIsGreaterThanOrEqualToLengthOfList() {
+		linkedList.get(linkedList.size());
 	}
 
 }
