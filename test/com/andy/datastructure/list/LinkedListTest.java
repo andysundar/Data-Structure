@@ -12,6 +12,7 @@ public class LinkedListTest {
 	@Test
 	public void testAdd() {
 		assertTrue(linkedList.add(1));
+		assertTrue(linkedList.add(2));
 	}
 
 	@Test(expected=IllegalArgumentException.class)
@@ -41,9 +42,8 @@ public class LinkedListTest {
 
 	@Test
 	public void testGet() {
-		for(int index = 0; index < 10 ; index++) {
+		for(int index = 0; index < 100 ; index++) {
 			linkedList.add((index + 1));
-			System.out.println(linkedList.get(index));
 			assertEquals(Integer.valueOf((index + 1)),linkedList.get(index));
 		}		
 	}
