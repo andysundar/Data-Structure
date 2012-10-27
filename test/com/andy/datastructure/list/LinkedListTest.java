@@ -4,10 +4,22 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class LinkedListTest {
-	private LinkedList<Integer> linkedList = new LinkedList<Integer>();
+	private LinkedList<Integer> linkedList = null;
+	
+	@Before
+	public void beforeEveryMethod() {
+		linkedList = new LinkedList<Integer>();
+	}
+	
+	@After
+	public void afterEveryMethod() {
+		linkedList = null;
+	}
 	
 	@Test
 	public void testAdd() {
@@ -22,14 +34,69 @@ public class LinkedListTest {
 
 	@Test
 	public void testAddAt() {
-		fail("Not yet implemented"); // TODO
+		assertTrue(linkedList.addAt(1,0));
+		assertEquals(Integer.valueOf(1),linkedList.get(0));
+		assertTrue(linkedList.addAt(2,1));
+		assertEquals(Integer.valueOf(2),linkedList.get(1));
+		assertTrue(linkedList.addAt(3,2));
+		assertEquals(Integer.valueOf(3),linkedList.get(2));
+		assertTrue(linkedList.addAt(4,1));
+		assertEquals(Integer.valueOf(4),linkedList.get(1));
+		assertTrue(linkedList.addAt(5,0));
+		assertEquals(Integer.valueOf(5),linkedList.get(0));
+		assertTrue(linkedList.addAt(6,5));
+		assertEquals(Integer.valueOf(6),linkedList.get(5));
 	}
 
+	@Test(expected=IllegalArgumentException.class)
+	public void testAddAt_WhenDataIsNull() {
+		linkedList.addAt(null,0);
+	}
+	
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testAddAt_WhenIndexIs2ForEmptyList() {
+		linkedList.addAt(1,2);
+	}
+	
 	@Test
 	public void testRemoveAt() {
-		fail("Not yet implemented"); // TODO
+		assertTrue(linkedList.add(Integer.valueOf(1)));
+		assertTrue(linkedList.add(Integer.valueOf(2)));
+		assertTrue(linkedList.removeAt(0));
+		assertTrue(linkedList.removeAt(0));
+		assertEquals(Integer.valueOf(0), Integer.valueOf(linkedList.size()));
+		
+		assertTrue(linkedList.add(Integer.valueOf(1)));
+		assertTrue(linkedList.add(Integer.valueOf(2)));
+		assertTrue(linkedList.add(Integer.valueOf(3)));
+		assertTrue(linkedList.removeAt(1));
+		assertEquals(Integer.valueOf(2), Integer.valueOf(linkedList.size()));
+		
+		assertTrue(linkedList.add(Integer.valueOf(1)));
+		assertTrue(linkedList.add(Integer.valueOf(2)));
+		assertTrue(linkedList.add(Integer.valueOf(3)));
+		assertTrue(linkedList.removeAt(0));
+		
+		assertEquals(Integer.valueOf(2), Integer.valueOf(linkedList.size()));
+		assertTrue(linkedList.add(Integer.valueOf(1)));
+		assertTrue(linkedList.add(Integer.valueOf(2)));
+		assertTrue(linkedList.add(Integer.valueOf(3)));
+		assertTrue(linkedList.removeAt(2));
+		assertEquals(Integer.valueOf(2), Integer.valueOf(linkedList.size()));
+		
+		
 	}
 
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testRemoveAt_whenIndexIsLessThanZero() {
+		linkedList.removeAt(-1);
+	}
+	
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testRemoveAt_whenIndexIsGreaterThanOrEqualToLengthOfList() {
+		linkedList.removeAt(linkedList.size());
+	}
+	
 	@Test
 	public void testRemove() {
 		fail("Not yet implemented"); // TODO
