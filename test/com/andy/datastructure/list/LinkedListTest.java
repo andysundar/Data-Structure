@@ -76,13 +76,13 @@ public class LinkedListTest {
 		assertTrue(linkedList.add(Integer.valueOf(2)));
 		assertTrue(linkedList.add(Integer.valueOf(3)));
 		assertTrue(linkedList.removeAt(0));
+		assertEquals(Integer.valueOf(4), Integer.valueOf(linkedList.size()));
 		
-		assertEquals(Integer.valueOf(2), Integer.valueOf(linkedList.size()));
 		assertTrue(linkedList.add(Integer.valueOf(1)));
 		assertTrue(linkedList.add(Integer.valueOf(2)));
 		assertTrue(linkedList.add(Integer.valueOf(3)));
 		assertTrue(linkedList.removeAt(2));
-		assertEquals(Integer.valueOf(2), Integer.valueOf(linkedList.size()));
+		assertEquals(Integer.valueOf(6), Integer.valueOf(linkedList.size()));
 		
 		
 	}
@@ -102,9 +102,18 @@ public class LinkedListTest {
 		fail("Not yet implemented"); // TODO
 	}
 
+	@Test(expected=IllegalArgumentException.class)
+	public void testRemove_WhenDataIsNull() {
+		linkedList.remove(null);
+	}
+	
 	@Test
 	public void testRemoveAll() {
-		fail("Not yet implemented"); // TODO
+		for(int index = 1; index <= 10 ; index++) {
+			assertTrue(linkedList.add(index));
+		}
+		assertTrue(linkedList.removeAll());
+		assertEquals(Integer.valueOf(0), Integer.valueOf(linkedList.size()));
 	}
 
 	@Test
