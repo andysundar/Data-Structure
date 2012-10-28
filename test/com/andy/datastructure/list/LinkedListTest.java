@@ -1,8 +1,7 @@
 package com.andy.datastructure.list;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -99,7 +98,20 @@ public class LinkedListTest {
 	
 	@Test
 	public void testRemove() {
-		fail("Not yet implemented"); // TODO
+		for(int index = 1; index <= 10 ; index++) {
+			assertTrue(linkedList.add(index));
+		}
+		assertTrue(linkedList.remove(5));
+		assertEquals(Integer.valueOf(9), Integer.valueOf(linkedList.size()));
+		
+		assertTrue(linkedList.remove(10));
+		assertEquals(Integer.valueOf(8), Integer.valueOf(linkedList.size()));
+		
+		assertTrue(linkedList.remove(1));
+		assertEquals(Integer.valueOf(7), Integer.valueOf(linkedList.size()));
+		
+		assertEquals(Integer.valueOf(2), linkedList.get(0));
+		assertEquals(Integer.valueOf(9), linkedList.get((linkedList.size() - 1)));
 	}
 
 	@Test(expected=IllegalArgumentException.class)
