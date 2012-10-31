@@ -1,19 +1,19 @@
 package com.andy.datastructure.list;
 
-import com.andy.datastructure.DataObject;
+import com.andy.datastructure.SingleLinkListDataObject;
 
 public class LinkedList<T> {
 	private int length; 
 	private static final int INDEX_START = 0;
-	private DataObject<T> startNode;
-	private DataObject<T> lastNode;
+	private SingleLinkListDataObject<T> startNode;
+	private SingleLinkListDataObject<T> lastNode;
 	
 	/**
 	 * addFirst add object at the beginning of the list
 	 * @param data
 	 */
 	private void addFirst(T data) {
-		DataObject<T> node  = new DataObject<T>();
+		SingleLinkListDataObject<T> node  = new SingleLinkListDataObject<T>();
 		node.setData(data);
 		node.setNextReference(startNode);
 		startNode = node;
@@ -25,7 +25,7 @@ public class LinkedList<T> {
 	 * @param data
 	 */
 	private void addLast(T data) {
-		DataObject<T> node  = new DataObject<T>();
+		SingleLinkListDataObject<T> node  = new SingleLinkListDataObject<T>();
 		lastNode.setNextReference(node);
 		node.setData(data);
 		lastNode = node;
@@ -36,7 +36,7 @@ public class LinkedList<T> {
 	 * This method return start node of the list
 	 * @return DataObject<T> object
 	 */
-	public DataObject<T> getStartNode() {
+	public SingleLinkListDataObject<T> getStartNode() {
 		return startNode;
 	}
 	
@@ -44,7 +44,7 @@ public class LinkedList<T> {
 	 *  This method return last node of the list
 	 * @return DataObject<T> object
 	 */
-	public DataObject<T> getLastNode() {
+	public SingleLinkListDataObject<T> getLastNode() {
 		return lastNode;
 	}
 	
@@ -97,8 +97,8 @@ public class LinkedList<T> {
 		 addLast(data);
 		 isOk = true;
 	 } else {
-		 DataObject<T> ithNode = getIthNode((index - 1));
-		 DataObject<T> node = new DataObject<T>();
+		 SingleLinkListDataObject<T> ithNode = getIthNode((index - 1));
+		 SingleLinkListDataObject<T> node = new SingleLinkListDataObject<T>();
 		 node.setData(data);
 		 node.setNextReference(ithNode.getNextReference());
 		 ithNode.setNextReference(node);
@@ -110,7 +110,7 @@ public class LinkedList<T> {
  }
  
   private void removeFirst() {
-	 DataObject<T> nextStartNode = startNode.getNextReference();
+	 SingleLinkListDataObject<T> nextStartNode = startNode.getNextReference();
 	 startNode.setData(null);
 	 startNode.setNextReference(null);
 	 startNode = nextStartNode; 
@@ -130,8 +130,8 @@ public class LinkedList<T> {
 		 removeFirst();
 		 isOk = true;
 	 } else {
-		 DataObject<T> beforeDeleteNode = getIthNode((index - 1));
-		 DataObject<T> deleteNode = beforeDeleteNode.getNextReference();
+		 SingleLinkListDataObject<T> beforeDeleteNode = getIthNode((index - 1));
+		 SingleLinkListDataObject<T> deleteNode = beforeDeleteNode.getNextReference();
 		 if(deleteNode.getNextReference() == null){
 			 lastNode = beforeDeleteNode;
 		 }
@@ -152,19 +152,34 @@ public class LinkedList<T> {
   */
  
  public boolean remove(T dataToBeRemoved) {
-	 boolean isOk = false;
+	
 	 if(dataToBeRemoved == null) {
 		 throw new IllegalArgumentException("Parameter cannot be null.");
 	 }
 	 
-	
+	return remove(dataToBeRemoved, false);
+ }
+ 
+ /**
+  * 
+  * @param dataToBeRemoved
+  * @param removeAll
+  * @return
+  */
+ private boolean remove(T dataToBeRemoved,boolean removeAll) {
+	 boolean isOk = false;
+	 boolean enableBreaker = !removeAll;
 	 if(dataToBeRemoved.equals(startNode.getData())) {
 		 removeFirst();
 		 isOk = true;
 	 } else {
-		 DataObject<T> canBeDeletedNode = startNode.getNextReference();
-		 DataObject<T> nextLinkingNode = (canBeDeletedNode== null)?null:canBeDeletedNode.getNextReference();
-		 DataObject<T> beforeDeleteNode = startNode;
+		 removeAll =true;
+	 }
+	 
+	 if(removeAll){
+		 SingleLinkListDataObject<T> canBeDeletedNode = startNode.getNextReference();
+		 SingleLinkListDataObject<T> nextLinkingNode = (canBeDeletedNode== null)?null:canBeDeletedNode.getNextReference();
+		 SingleLinkListDataObject<T> beforeDeleteNode = startNode;
 		 
 		 for(int index = (INDEX_START + 1); index < length ; index++ ) {
 			 if(dataToBeRemoved.equals(canBeDeletedNode.getData())) {
@@ -174,24 +189,41 @@ public class LinkedList<T> {
 				 }
 				 canBeDeletedNode.setData(null);
 				 canBeDeletedNode.setNextReference(null);
+				 
+				 canBeDeletedNode = nextLinkingNode;
+				 nextLinkingNode = (canBeDeletedNode== null)?null:canBeDeletedNode.getNextReference();
+				 
 				 isOk = true;
-				 break;
+				 length--;
+				 if(enableBreaker) {
+					 break;
+				 }
 			 } else {
 				 canBeDeletedNode = canBeDeletedNode.getNextReference();
 				 nextLinkingNode = (canBeDeletedNode== null)?null:canBeDeletedNode.getNextReference();
 				 beforeDeleteNode = beforeDeleteNode.getNextReference();
+				 if(canBeDeletedNode == null){
+					 break;
+				 }
 			 }
 		 }
-		 
-		 if(isOk) {
-			 length--;
-		 }
-	 
 	 }
-		
+	 
 	 return isOk;
  }
  
+ /**
+  * 
+  * @param dataToBeRemoved
+  * @return
+  */
+ public boolean removeAll(T dataToBeRemoved){
+	 if(dataToBeRemoved == null) {
+		 throw new IllegalArgumentException("Parameter cannot be null.");
+	 }
+	 
+	return remove(dataToBeRemoved, true);
+ }
  /**
   * Remove all elements from list
   * @return if node successfully remove then true else false
@@ -210,7 +242,7 @@ public class LinkedList<T> {
   * @return <T> type object from list
   */
  public T get(int index) {
-	 DataObject<T> node = getIthNode(index);
+	 SingleLinkListDataObject<T> node = getIthNode(index);
 	 return node.getData();
  }
  
@@ -220,11 +252,11 @@ public class LinkedList<T> {
   * @return the i th node from the list
   */
  
- private DataObject<T> getIthNode(int index) {
+ private SingleLinkListDataObject<T> getIthNode(int index) {
 	 if(index < INDEX_START || index >= length) {
 		 throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
 	 }
-	 DataObject<T> node = startNode;
+	 SingleLinkListDataObject<T> node = startNode;
 	 
 	 if(index != INDEX_START && index < (length - 1)) {
 		 int tempIndex = INDEX_START;
