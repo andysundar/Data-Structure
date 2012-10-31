@@ -119,8 +119,29 @@ public class LinkedListTest {
 		linkedList.remove(null);
 	}
 	
+
 	@Test
-	public void testRemoveAll() {
+	public void testRemoveAll_withDataAsParam() {
+		for(int index = 1; index <= 10 ; index++) {
+			assertTrue(linkedList.add(index));
+		}
+		for(int index = 1; index <= 10 ; index++) {
+			assertTrue(linkedList.add(index));
+		}
+		assertTrue(linkedList.removeAll(5));
+		assertEquals(Integer.valueOf(18), Integer.valueOf(linkedList.size()));
+		
+		assertTrue(linkedList.removeAll(1));
+		assertEquals(Integer.valueOf(16), Integer.valueOf(linkedList.size()));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testRemoveAll_withDataAsParam_WhenDataIsNull() {
+		assertTrue(linkedList.removeAll(null));
+	}
+	
+	@Test
+	public void testRemoveAll_withoutParam() {
 		for(int index = 1; index <= 10 ; index++) {
 			assertTrue(linkedList.add(index));
 		}
