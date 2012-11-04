@@ -42,7 +42,19 @@ public class DoubleLinkedListTest {
 
 	@Test
 	public void testRemoveAt() {
-		fail("Not yet implemented"); // TODO
+		for(int counter = 1; counter < 11 ; counter++ ) {
+			assertTrue(doubleLinkedList.add(counter));
+		}
+		assertEquals(10,doubleLinkedList.size());
+		 
+		assertTrue("Reomved from 1st position.",doubleLinkedList.removeAt(0));
+		assertEquals(9,doubleLinkedList.size());
+		
+		assertTrue("Reomved from last position.",doubleLinkedList.removeAt((doubleLinkedList.size() - 1)));
+		assertEquals(8,doubleLinkedList.size());
+		
+		assertTrue("Removed from middle position.", doubleLinkedList.removeAt(5));
+		assertEquals(7, doubleLinkedList.size());
 	}
 
 	@Test
