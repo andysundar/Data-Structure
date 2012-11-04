@@ -74,7 +74,12 @@ public class DoubleLinkedListTest {
 
 	@Test
 	public void testSize() {
-		fail("Not yet implemented"); // TODO
+		int counter= 1;
+		for( ; counter < 11 ; counter++) {
+		assertTrue(doubleLinkedList.add(counter));
+		}
+		assertEquals((counter - 1), doubleLinkedList.size());
 	}
 
 }
+ 
