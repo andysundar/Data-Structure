@@ -23,8 +23,11 @@ public class DoubleLinkedListTest {
 
 	@Test
 	public void testAdd() {
-		assertTrue(doubleLinkedList.add(1));
-		assertEquals(1,doubleLinkedList.size());
+		for(int counter = 1; counter < 11 ; counter++ ) {
+			assertTrue(doubleLinkedList.add(counter));
+		}
+		
+		assertEquals(10,doubleLinkedList.size());
 	}
 
 	@Test
