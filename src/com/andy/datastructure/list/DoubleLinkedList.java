@@ -4,6 +4,7 @@ import com.andy.datastructure.DoubleLinkListDataObject;
 
 public class DoubleLinkedList<T> {
 	private int length;
+	public static final int INDEX_START = 0;
 	private DoubleLinkListDataObject<T> startNode;
 	private DoubleLinkListDataObject<T> lastNode;
 	
@@ -19,6 +20,7 @@ public class DoubleLinkedList<T> {
 		DoubleLinkListDataObject<T> dataObject = new DoubleLinkListDataObject<T>();
 		dataObject.setData(data);
 		dataObject.setPreviousReference(lastNode);
+		lastNode.setNextReference(dataObject);
 		lastNode = dataObject;
 		length++;
 	}
@@ -41,11 +43,19 @@ public class DoubleLinkedList<T> {
 	}
 	
 	private void removeFirst(){
-		
+		DoubleLinkListDataObject<T> deleteNode = startNode;
+		startNode = deleteNode.getNextReference();
+		deleteNode.setData(null);
+		deleteNode.setNextReference(null);
+		length--;
 	}
 	
 	private void removeLast(){
-		
+		DoubleLinkListDataObject<T> deleteNode = lastNode;
+		lastNode = deleteNode.getPreviousReference();
+		deleteNode.setData(null);
+		deleteNode.setPreviousReference(null);
+		length--;
 	}
 	
 	public boolean remove(T data){
@@ -53,7 +63,24 @@ public class DoubleLinkedList<T> {
 	}
 
 	public boolean removeAt(int index){
-		return false;
+		boolean isOk = false;
+		if(index == INDEX_START) {
+			removeFirst();
+			isOk = true;
+		}else if(index == (length - 1)) {
+			removeLast();
+			isOk = true;
+		} else {
+			DoubleLinkListDataObject<T> dataObject = getIthNode(index);
+			dataObject.getNextReference().setPreviousReference(dataObject.getPreviousReference());
+			dataObject.getPreviousReference().setNextReference(dataObject.getNextReference());
+			dataObject.setData(null);
+			dataObject.setNextReference(null);
+			dataObject.setPreviousReference(null);
+			length--;
+			isOk = true;
+		}
+		return isOk;
 	}
 
 	public boolean removeAll(T data){
@@ -64,11 +91,24 @@ public class DoubleLinkedList<T> {
 		return false;
 	}
 
-	public T get(int T) {
+	public T get(int index) {
 		return null;
 	}
 	
 	public int size() {
 		return length;
+	}
+	
+	private DoubleLinkListDataObject<T> getIthNode(int index) {
+		DoubleLinkListDataObject<T> dataObjectToBeReturned = startNode;
+		if(index == (length - 1)) {
+			dataObjectToBeReturned = lastNode;
+		} else if(index != INDEX_START) {
+			for(int tempIndex = (INDEX_START + 1); tempIndex <= index; tempIndex++) {
+				dataObjectToBeReturned = dataObjectToBeReturned.getNextReference();
+			}
+		}
+		
+		return dataObjectToBeReturned;
 	}
 }
