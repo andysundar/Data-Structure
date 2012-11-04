@@ -92,7 +92,7 @@ public class DoubleLinkedList<T> {
 	}
 
 	public T get(int index) {
-		return null;
+		return getIthNode(index).getData();
 	}
 	
 	public int size() {
