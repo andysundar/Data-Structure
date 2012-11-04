@@ -3,16 +3,49 @@ package com.andy.datastructure.list;
 import com.andy.datastructure.DoubleLinkListDataObject;
 
 public class DoubleLinkedList<T> {
-	
+	private int length;
 	private DoubleLinkListDataObject<T> startNode;
 	private DoubleLinkListDataObject<T> lastNode;
 	
+	private void addFirst(T data) {
+		DoubleLinkListDataObject<T> dataObject = new DoubleLinkListDataObject<T>();
+		dataObject.setData(data);
+		dataObject.setNextReference(startNode);
+		startNode = dataObject;
+		length++;
+	}
+	
+	private void addLast(T data){
+		DoubleLinkListDataObject<T> dataObject = new DoubleLinkListDataObject<T>();
+		dataObject.setData(data);
+		dataObject.setPreviousReference(lastNode);
+		lastNode = dataObject;
+		length++;
+	}
+	
 	public boolean add(T data) {
-		return false;
+		boolean isOk = false;
+		if(startNode == null) {
+			addFirst(data);
+			lastNode = startNode;
+			isOk = true;
+		} else {
+			addLast(data);
+			isOk = true;
+		}
+		return isOk;
 	}
 	
 	public boolean addAt(T data,int index) {
 		return false;
+	}
+	
+	private void removeFirst(){
+		
+	}
+	
+	private void removeLast(){
+		
 	}
 	
 	public boolean remove(T data){
@@ -36,6 +69,6 @@ public class DoubleLinkedList<T> {
 	}
 	
 	public int size() {
-		return 0;
+		return length;
 	}
 }
