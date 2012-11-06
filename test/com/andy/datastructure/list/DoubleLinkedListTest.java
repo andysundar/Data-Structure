@@ -64,7 +64,12 @@ public class DoubleLinkedListTest {
 
 	@Test
 	public void testRemoveAll() {
-		fail("Not yet implemented"); // TODO
+		for(int counter = 1; counter < 11 ; counter++ ) {
+			assertTrue(doubleLinkedList.add(counter));
+		}
+		
+		assertTrue("Remove all from list.", doubleLinkedList.removeAll());
+		assertEquals(0, doubleLinkedList.size());		
 	}
 
 	@Test
