@@ -32,7 +32,16 @@ public class DoubleLinkedListTest {
 
 	@Test
 	public void testAddAt() {
-		fail("Not yet implemented"); // TODO
+		for(int counter = 1; counter < 11 ; counter++ ) {
+			assertTrue(doubleLinkedList.add(counter));
+		}
+		assertTrue(doubleLinkedList.addAt(0,0));
+		
+		assertTrue(doubleLinkedList.addAt(11,doubleLinkedList.size()));
+		
+		assertTrue(doubleLinkedList.addAt(5,5));
+		
+		assertEquals(13,doubleLinkedList.size());
 	}
 
 	@Test
