@@ -39,7 +39,27 @@ public class DoubleLinkedList<T> {
 	}
 	
 	public boolean addAt(T data,int index) {
-		return false;
+		if(index < INDEX_START || index > length){
+			throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
+		}
+		boolean isOk = false;
+		if(index == INDEX_START){
+			addFirst(data);
+			isOk = true;
+		} else if(index == length) {
+			addLast(data);
+			isOk = true;
+		} else {
+			DoubleLinkListDataObject<T> dataObject = new DoubleLinkListDataObject<T>();
+			DoubleLinkListDataObject<T> iThDataObject = getIthNode(index);
+			dataObject.setData(data);
+			dataObject.setNextReference(iThDataObject);
+			dataObject.setPreviousReference(iThDataObject.getPreviousReference());
+			iThDataObject.setPreviousReference(dataObject);
+			length++;
+			isOk = true;
+		}
+		return isOk;
 	}
 	
 	private void removeFirst(){
@@ -63,6 +83,9 @@ public class DoubleLinkedList<T> {
 	}
 
 	public boolean removeAt(int index){
+		if(index < INDEX_START || index >= length){
+			throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
+		}
 		boolean isOk = false;
 		if(index == INDEX_START) {
 			removeFirst();
@@ -105,6 +128,9 @@ public class DoubleLinkedList<T> {
 	}
 
 	public T get(int index) {
+		if(index < INDEX_START || index > length){
+			throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
+		}
 		return getIthNode(index).getData();
 	}
 	
