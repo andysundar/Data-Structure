@@ -88,7 +88,20 @@ public class DoubleLinkedList<T> {
 	}
 	
 	public boolean removeAll() {
-		return false;
+		boolean isOk = false;
+		DoubleLinkListDataObject<T> deleteObject = startNode;
+		DoubleLinkListDataObject<T> tempObject = null;
+		
+		while(deleteObject != null){
+			deleteObject.setData(null);
+			deleteObject.setPreviousReference(null);
+			tempObject = deleteObject.getNextReference();
+			deleteObject.setNextReference(null);
+			deleteObject = tempObject;
+			isOk = true;
+			length--;
+		}
+		return isOk;
 	}
 
 	public T get(int index) {
