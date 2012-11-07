@@ -143,9 +143,19 @@ public class DoubleLinkedList<T> {
 		if(index == (length - 1)) {
 			dataObjectToBeReturned = lastNode;
 		} else if(index != INDEX_START) {
-			for(int tempIndex = (INDEX_START + 1); tempIndex <= index; tempIndex++) {
-				dataObjectToBeReturned = dataObjectToBeReturned.getNextReference();
+			int middle = length/2;
+			if(index > middle) {
+				dataObjectToBeReturned = lastNode;
+				for(int tempIndex = (length - 2); tempIndex >= index; tempIndex--) {
+					dataObjectToBeReturned = dataObjectToBeReturned.getPreviousReference();
+				}
+			} else {
+				dataObjectToBeReturned = startNode;
+				for(int tempIndex = (INDEX_START + 1); tempIndex <= index; tempIndex++) {
+					dataObjectToBeReturned = dataObjectToBeReturned.getNextReference();
+				}
 			}
+			
 		}
 		
 		return dataObjectToBeReturned;
