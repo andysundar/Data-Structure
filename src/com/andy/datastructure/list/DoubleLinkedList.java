@@ -26,6 +26,9 @@ public class DoubleLinkedList<T> {
 	}
 	
 	public boolean add(T data) {
+		if(data == null) {
+			throw new IllegalArgumentException("Data to be added cannot be null.");
+		}
 		boolean isOk = false;
 		if(startNode == null) {
 			addFirst(data);
@@ -39,6 +42,9 @@ public class DoubleLinkedList<T> {
 	}
 	
 	public boolean addAt(T data,int index) {
+		if(data == null) {
+			throw new IllegalArgumentException("Data to be added cannot be null.");
+		}
 		if(index < INDEX_START || index > length){
 			throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
 		}
@@ -79,9 +85,46 @@ public class DoubleLinkedList<T> {
 	}
 	
 	public boolean remove(T data){
-		return false;
+		if(data == null) {
+			throw new IllegalArgumentException("Data to be removed cannot be null.");
+		}
+		boolean isOk = false;
+		DoubleLinkListDataObject<T> findToBeDeleteNode = startNode;
+		while((findToBeDeleteNode != null) && (!data.equals(findToBeDeleteNode.getData()))){
+			findToBeDeleteNode = findToBeDeleteNode.getNextReference();
+		}
+			if(findToBeDeleteNode != null) {
+				DoubleLinkListDataObject<T> beforeDeleteNode = findToBeDeleteNode.getPreviousReference();
+				DoubleLinkListDataObject<T> afterDeleteNode = findToBeDeleteNode.getNextReference();
+				if(beforeDeleteNode != null) {
+					beforeDeleteNode.setNextReference(afterDeleteNode);
+				} else {
+					startNode = afterDeleteNode;
+				}
+				if(afterDeleteNode != null) {
+					afterDeleteNode.setPreviousReference(beforeDeleteNode);
+				} else {
+					lastNode = beforeDeleteNode;
+				}
+				findToBeDeleteNode.setData(null);
+				findToBeDeleteNode.setNextReference(null);
+				findToBeDeleteNode.setPreviousReference(null);
+				length--;
+				isOk = true;
+			}
+		return isOk;
 	}
 
+	public boolean removeAll(T data){
+		if(data == null) {
+			throw new IllegalArgumentException("Data to be removed cannot be null.");
+		}
+		
+		return false;
+	}
+	
+	
+	
 	public boolean removeAt(int index){
 		if(index < INDEX_START || index >= length){
 			throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
@@ -104,10 +147,6 @@ public class DoubleLinkedList<T> {
 			isOk = true;
 		}
 		return isOk;
-	}
-
-	public boolean removeAll(T data){
-		return false;
 	}
 	
 	public boolean removeAll() {
