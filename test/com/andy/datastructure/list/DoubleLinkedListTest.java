@@ -1,8 +1,8 @@
 package com.andy.datastructure.list;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -44,9 +44,27 @@ public class DoubleLinkedListTest {
 		assertEquals(13,doubleLinkedList.size());
 	}
 
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testAddAt_whenIndexLessThanZero() {
+		doubleLinkedList.addAt(null, 1);
+	}
+	
 	@Test
 	public void testRemove() {
-		fail("Not yet implemented"); // TODO
+		for(int counter = 1; counter < 11; counter++) {
+			assertTrue(doubleLinkedList.add(counter));
+		}
+		
+		assertFalse(doubleLinkedList.remove(11));
+		
+		assertTrue(doubleLinkedList.remove(5));
+		assertEquals(9, doubleLinkedList.size());
+		
+		assertTrue(doubleLinkedList.remove(1)); 
+		assertEquals(8, doubleLinkedList.size());
+		
+		assertTrue(doubleLinkedList.remove(10));
+		assertEquals(7, doubleLinkedList.size());
 	}
 
 	@Test
@@ -68,7 +86,15 @@ public class DoubleLinkedListTest {
 
 	@Test
 	public void testRemoveAllT() {
-		fail("Not yet implemented"); // TODO
+		for(int counter = 1; counter < 11 ; counter++ ) {
+			assertTrue(doubleLinkedList.add(counter));
+		}
+		for(int counter = 1; counter < 11 ; counter++ ) {
+			assertTrue(doubleLinkedList.add(counter));
+		}
+		
+		assertTrue("Remove all 5 from list.", doubleLinkedList.removeAll(5));
+		assertEquals(18, doubleLinkedList.size());	
 	}
 
 	@Test
