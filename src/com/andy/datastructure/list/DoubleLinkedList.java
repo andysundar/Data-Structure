@@ -88,39 +88,65 @@ public class DoubleLinkedList<T> {
 		if(data == null) {
 			throw new IllegalArgumentException("Data to be removed cannot be null.");
 		}
-		boolean isOk = false;
+
 		DoubleLinkListDataObject<T> findToBeDeleteNode = startNode;
 		while((findToBeDeleteNode != null) && (!data.equals(findToBeDeleteNode.getData()))){
 			findToBeDeleteNode = findToBeDeleteNode.getNextReference();
 		}
-			if(findToBeDeleteNode != null) {
-				DoubleLinkListDataObject<T> beforeDeleteNode = findToBeDeleteNode.getPreviousReference();
-				DoubleLinkListDataObject<T> afterDeleteNode = findToBeDeleteNode.getNextReference();
-				if(beforeDeleteNode != null) {
-					beforeDeleteNode.setNextReference(afterDeleteNode);
-				} else {
-					startNode = afterDeleteNode;
-				}
-				if(afterDeleteNode != null) {
-					afterDeleteNode.setPreviousReference(beforeDeleteNode);
-				} else {
-					lastNode = beforeDeleteNode;
-				}
-				findToBeDeleteNode.setData(null);
-				findToBeDeleteNode.setNextReference(null);
-				findToBeDeleteNode.setPreviousReference(null);
-				length--;
-				isOk = true;
-			}
-		return isOk;
+			
+		return unLinkNode(findToBeDeleteNode);
 	}
 
+	private boolean unLinkNode(DoubleLinkListDataObject<T> node) {
+		boolean isOk = false;
+		if(node != null) {
+			DoubleLinkListDataObject<T> beforeDeleteNode = node.getPreviousReference();
+			DoubleLinkListDataObject<T> afterDeleteNode = node.getNextReference();
+			if(beforeDeleteNode != null) {
+				beforeDeleteNode.setNextReference(afterDeleteNode);
+			} else {
+				startNode = afterDeleteNode;
+			}
+			if(afterDeleteNode != null) {
+				afterDeleteNode.setPreviousReference(beforeDeleteNode);
+			} else {
+				lastNode = beforeDeleteNode;
+			}
+			node.setData(null);
+			node.setNextReference(null);
+			node.setPreviousReference(null);
+			length--;
+			isOk = true;
+		}
+		return isOk;
+	}
 	public boolean removeAll(T data){
 		if(data == null) {
 			throw new IllegalArgumentException("Data to be removed cannot be null.");
 		}
-		
-		return false;
+		boolean isOk = false;
+		int halfLength = (int)Math.ceil(length/2);
+		DoubleLinkListDataObject<T> fromBeginingNode = startNode;
+		DoubleLinkListDataObject<T> fromEndNode = lastNode;
+				
+		while(halfLength > -1) {
+			if((fromBeginingNode != null) && (data.equals(fromBeginingNode.getData()))) {
+				isOk = unLinkNode(fromBeginingNode);
+				--halfLength;
+			} else if(fromBeginingNode != null){
+				fromBeginingNode = fromBeginingNode.getNextReference();
+			}
+			
+			if((fromEndNode != null) && (data.equals(fromEndNode.getData()))) {
+				isOk = unLinkNode(fromEndNode);
+				--halfLength;
+			} else if(fromEndNode != null){
+				fromEndNode = fromEndNode.getPreviousReference();
+			}
+
+			halfLength--;
+		}
+		return isOk;
 	}
 	
 	
@@ -137,14 +163,7 @@ public class DoubleLinkedList<T> {
 			removeLast();
 			isOk = true;
 		} else {
-			DoubleLinkListDataObject<T> dataObject = getIthNode(index);
-			dataObject.getNextReference().setPreviousReference(dataObject.getPreviousReference());
-			dataObject.getPreviousReference().setNextReference(dataObject.getNextReference());
-			dataObject.setData(null);
-			dataObject.setNextReference(null);
-			dataObject.setPreviousReference(null);
-			length--;
-			isOk = true;
+			isOk = unLinkNode(getIthNode(index));
 		}
 		return isOk;
 	}
