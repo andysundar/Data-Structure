@@ -94,6 +94,11 @@ public class DoubleLinkedListTest {
 		assertEquals(7, doubleLinkedList.size());
 	}
 
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testRemoveAt_whenIndexLessThanLengthOfList(){
+		doubleLinkedList.removeAt(0);
+	}
+	
 	@Test
 	public void testRemoveAllT() {
 		for(int counter = 1; counter < 11 ; counter++ ) {
@@ -107,6 +112,11 @@ public class DoubleLinkedListTest {
 		assertEquals(18, doubleLinkedList.size());	
 	}
 
+	@Test(expected=IllegalArgumentException.class)
+	public void testRemoveAll_whenDataIsNull() {
+		doubleLinkedList.removeAll(null);
+	}
+	
 	@Test
 	public void testRemoveAll() {
 		for(int counter = 1; counter < 11 ; counter++ ) {
