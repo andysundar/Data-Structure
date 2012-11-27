@@ -46,6 +46,11 @@ public class DoubleLinkedListTest {
 
 	@Test(expected=IndexOutOfBoundsException.class)
 	public void testAddAt_whenIndexLessThanZero() {
+		doubleLinkedList.addAt(1, 1);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testAddAt_whenDataIsNull() {
 		doubleLinkedList.addAt(null, 1);
 	}
 	
@@ -67,6 +72,11 @@ public class DoubleLinkedListTest {
 		assertEquals(7, doubleLinkedList.size());
 	}
 
+	@Test(expected=IllegalArgumentException.class)
+	public void testRemove_whenDataIsNull(){
+		doubleLinkedList.remove(null);
+	}
+	
 	@Test
 	public void testRemoveAt() {
 		for(int counter = 1; counter < 11 ; counter++ ) {
