@@ -120,7 +120,9 @@ public class DoubleLinkedList<T> {
 		}
 		return isOk;
 	}
+	
 	public boolean removeAll(T data){
+	
 		if(data == null) {
 			throw new IllegalArgumentException("Data to be removed cannot be null.");
 		}
@@ -152,7 +154,7 @@ public class DoubleLinkedList<T> {
 	
 	
 	public boolean removeAt(int index){
-		if(index < INDEX_START || index >= length){
+		if(index < INDEX_START || index >= length) {
 			throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
 		}
 		boolean isOk = false;
@@ -186,10 +188,8 @@ public class DoubleLinkedList<T> {
 	}
 
 	public T get(int index) {
-		if(index < INDEX_START || index > length){
-			throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
-		}
-		return getIthNode(index).getData();
+		DoubleLinkListDataObject<T> dataObject = getIthNode(index);
+		return (dataObject == null)?null:dataObject.getData();
 	}
 	
 	public int size() {
