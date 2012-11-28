@@ -2,6 +2,7 @@ package com.andy.datastructure.list;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -30,6 +31,11 @@ public class DoubleLinkedListTest {
 		assertEquals(10,doubleLinkedList.size());
 	}
 
+	@Test(expected=IllegalArgumentException.class)
+	public void testAdd_WhenDataIsNull() {
+		doubleLinkedList.add(null);
+	}
+	
 	@Test
 	public void testAddAt() {
 		for(int counter = 1; counter < 11 ; counter++ ) {
@@ -115,6 +121,7 @@ public class DoubleLinkedListTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void testRemoveAll_whenDataIsNull() {
 		doubleLinkedList.removeAll(null);
+		
 	}
 	
 	@Test
@@ -137,6 +144,11 @@ public class DoubleLinkedListTest {
 		for( ; counter < 11 ; counter++) {
 			assertEquals(Integer.valueOf(counter),doubleLinkedList.get((counter - 1)));
 		}
+	}
+	
+	@Test
+	public void testGet_whenIndexInvalid(){
+		assertNull(doubleLinkedList.get(0));
 	}
 
 	@Test
