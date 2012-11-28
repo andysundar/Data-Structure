@@ -8,6 +8,10 @@ public class DoubleLinkedList<T> {
 	private DoubleLinkListDataObject<T> startNode;
 	private DoubleLinkListDataObject<T> lastNode;
 	
+	/**
+	 * Add element at front of list.
+	 * @param data
+	 */
 	private void addFirst(T data) {
 		DoubleLinkListDataObject<T> dataObject = new DoubleLinkListDataObject<T>();
 		dataObject.setData(data);
@@ -16,6 +20,10 @@ public class DoubleLinkedList<T> {
 		length++;
 	}
 	
+	/**
+	 * Add element at last of list.
+	 * @param data
+	 */
 	private void addLast(T data){
 		DoubleLinkListDataObject<T> dataObject = new DoubleLinkListDataObject<T>();
 		dataObject.setData(data);
@@ -25,6 +33,11 @@ public class DoubleLinkedList<T> {
 		length++;
 	}
 	
+	/**
+	 * Added element sequentially to the list.
+	 * @param data
+	 * @return return true if added successfully else false.
+	 */
 	public boolean add(T data) {
 		if(data == null) {
 			throw new IllegalArgumentException("Data to be added cannot be null.");
@@ -41,6 +54,12 @@ public class DoubleLinkedList<T> {
 		return isOk;
 	}
 	
+	/**
+	 * Add element to list at particular index.
+	 * @param data
+	 * @param index at which element will be added.
+	 * @return return true if added successfully else false.
+	 */
 	public boolean addAt(T data,int index) {
 		if(data == null) {
 			throw new IllegalArgumentException("Data to be added cannot be null.");
@@ -68,6 +87,9 @@ public class DoubleLinkedList<T> {
 		return isOk;
 	}
 	
+	/**
+	 * Remove first element from list.
+	 */
 	private void removeFirst(){
 		DoubleLinkListDataObject<T> deleteNode = startNode;
 		startNode = deleteNode.getNextReference();
@@ -76,6 +98,9 @@ public class DoubleLinkedList<T> {
 		length--;
 	}
 	
+	/**
+	 * Remove last element from list.
+	 */
 	private void removeLast(){
 		DoubleLinkListDataObject<T> deleteNode = lastNode;
 		lastNode = deleteNode.getPreviousReference();
@@ -84,6 +109,11 @@ public class DoubleLinkedList<T> {
 		length--;
 	}
 	
+	/**
+	 * Remove the fist element matched.
+	 * @param data
+	 * @return return true if removed successfully else false.
+	 */
 	public boolean remove(T data){
 		if(data == null) {
 			throw new IllegalArgumentException("Data to be removed cannot be null.");
@@ -97,6 +127,11 @@ public class DoubleLinkedList<T> {
 		return unLinkNode(findToBeDeleteNode);
 	}
 
+	/**
+	 * Unlink the node from the list chain.
+	 * @param node
+	 * @return return true if object found and removed successfully.
+	 */
 	private boolean unLinkNode(DoubleLinkListDataObject<T> node) {
 		boolean isOk = false;
 		if(node != null) {
@@ -121,8 +156,12 @@ public class DoubleLinkedList<T> {
 		return isOk;
 	}
 	
+	/**
+	 * Remove all element matching from the list.
+	 * @param data
+	 * @return return true if object found and removed successfully.
+	 */
 	public boolean removeAll(T data){
-	
 		if(data == null) {
 			throw new IllegalArgumentException("Data to be removed cannot be null.");
 		}
@@ -151,8 +190,11 @@ public class DoubleLinkedList<T> {
 		return isOk;
 	}
 	
-	
-	
+	/**
+	 * 	
+	 * @param index
+	 * @return return true if object found and removed successfully.
+	 */
 	public boolean removeAt(int index){
 		if(index < INDEX_START || index >= length) {
 			throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
@@ -169,7 +211,10 @@ public class DoubleLinkedList<T> {
 		}
 		return isOk;
 	}
-	
+	/**
+	 * 
+	 * @return return true if object found and removed successfully.
+	 */
 	public boolean removeAll() {
 		boolean isOk = false;
 		DoubleLinkListDataObject<T> deleteObject = startNode;
@@ -187,15 +232,29 @@ public class DoubleLinkedList<T> {
 		return isOk;
 	}
 
+	/**
+	 * 
+	 * @param index
+	 * @return data content object from the list.
+	 */
 	public T get(int index) {
 		DoubleLinkListDataObject<T> dataObject = getIthNode(index);
 		return (dataObject == null)?null:dataObject.getData();
 	}
 	
+	/**
+	 * 
+	 * @return length of the list.
+	 */
 	public int size() {
 		return length;
 	}
 	
+	/**
+	 * 
+	 * @param index
+	 * @return data object from the list.
+	 */
 	private DoubleLinkListDataObject<T> getIthNode(int index) {
 		DoubleLinkListDataObject<T> dataObjectToBeReturned = startNode;
 		if(index == (length - 1)) {
@@ -215,7 +274,6 @@ public class DoubleLinkedList<T> {
 			}
 			
 		}
-		
 		return dataObjectToBeReturned;
 	}
 }
