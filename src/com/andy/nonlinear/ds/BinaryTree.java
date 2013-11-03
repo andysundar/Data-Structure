@@ -1,6 +1,6 @@
-package com.andy.datastructure.list;
+package com.andy.nonlinear.ds;
 
-import com.andy.datastructure.BinaryTreeDataObject;
+import com.andy.adt.BinaryTreeDataObject;
 
 public class BinaryTree<T extends Comparable<T>> {
 	private int numberOfNodes;
@@ -24,7 +24,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	
 	private boolean insertChild(T data) {
 		boolean isOk = false;
-		BinaryTreeDataObject<T> parentNode = findNodePosition(data);
+		BinaryTreeDataObject<T> parentNode = findParentNode(data);
 
 		if(data.compareTo(parentNode.getData()) <= 0){
 			insertLeftChild(parentNode,data);
@@ -39,7 +39,6 @@ public class BinaryTree<T extends Comparable<T>> {
 	private void insertLeftChild(BinaryTreeDataObject<T> parentNode,T data){
 		BinaryTreeDataObject<T> childNode = new BinaryTreeDataObject<T>();
 		childNode.setData(data);
-		childNode.setLevel((parentNode.getLevel()+ 1));
 		parentNode.setLeftNode(childNode);
 		childNode.setParentNode(parentNode);
 	}
@@ -47,14 +46,12 @@ public class BinaryTree<T extends Comparable<T>> {
 	private void insertRightChild(BinaryTreeDataObject<T> parentNode,T data){
 		BinaryTreeDataObject<T> childNode = new BinaryTreeDataObject<T>();
 		childNode.setData(data);
-		childNode.setLevel((parentNode.getLevel()+ 1));
 		parentNode.setRightNode(childNode);
 		childNode.setParentNode(parentNode);
 	}
 
 	private boolean insertRoot(T data) {
 		BinaryTreeDataObject<T> rootNodeObject = new BinaryTreeDataObject<T>();
-		rootNodeObject.setLevel(0);
 		rootNodeObject.setData(data);
 		root = rootNodeObject;
 		return true;
@@ -64,56 +61,65 @@ public class BinaryTree<T extends Comparable<T>> {
 		if(data == null){
 			throw new IllegalArgumentException("Null cannot be deleted.");
 		}
-		BinaryTreeDataObject<T> node = findNodePosition(data);
+		BinaryTreeDataObject<T> node = findParentNode(data);
 		boolean isOk = ((node != null) && (data.equals(node.getData())));
-		BinaryTreeDataObject<T> childNode = null;
+		BinaryTreeDataObject<T> successorNode = null;
 		if(isOk){
 			if((node.getLeftNode() == null) && (node.getRightNode() == null)) {
 				unlinkNode(node,null);
 			} else if((node.getLeftNode() != null) && (node.getRightNode() != null)) {
-				childNode = inorderSuccessor(node);
-				childNode.setParentNode(node.getParentNode());
-				childNode.setLevel(node.getLevel());
-				childNode.setRightNode(node.getRightNode());
-				childNode.setLeftNode(node.getLeftNode());
-				unlinkNode(node, childNode);
+				successorNode = findDeleteNodeSuccessor(node);
+				successorNode.setParentNode(node.getParentNode());
+				if(!successorNode.equals(node.getRightNode())){
+					successorNode.setRightNode(node.getRightNode());
+				}
+				successorNode.setLeftNode(node.getLeftNode());
+				unlinkNode(node, successorNode);
 			} else {
 				if(node.getLeftNode() != null) {
-					childNode = node.getLeftNode();
+					successorNode = node.getLeftNode();
 					node.setLeftNode(null);
 				} else {
-					childNode = node.getRightNode();
+					successorNode = node.getRightNode();
 					node.setRightNode(null);
 				}
-				childNode.setParentNode(node.getParentNode());
-				unlinkNode(node, childNode);
+				successorNode.setParentNode(node.getParentNode());
+				unlinkNode(node, successorNode);
 			}
 			numberOfNodes--;
 		}
 		return isOk;
 	}
 	
-	private BinaryTreeDataObject<T> inorderSuccessor(BinaryTreeDataObject<T> deleteNode) {
+	private BinaryTreeDataObject<T> findDeleteNodeSuccessor(BinaryTreeDataObject<T> deleteNode) {
+		BinaryTreeDataObject<T> findExtreamLeftChild = deleteNode.getRightNode().getLeftNode();
 		
-		return null;
+		while(findExtreamLeftChild != null) {
+			if(findExtreamLeftChild.getLeftNode() == null){
+				break;
+			}
+			findExtreamLeftChild = findExtreamLeftChild.getLeftNode();
+		}
+		return findExtreamLeftChild;
 	}
 	
-	private void unlinkNode(BinaryTreeDataObject<T> deleteNode,BinaryTreeDataObject<T> parentNodeChildLink){
+	
+	private void unlinkNode(BinaryTreeDataObject<T> deleteNode,BinaryTreeDataObject<T> deleteNodeChildLink){
 		deleteNode.setData(null);
 		BinaryTreeDataObject<T> parentNode = deleteNode.getParentNode();
 		if(parentNode != null){
 			if(deleteNode.equals(parentNode.getLeftNode())){
-				parentNode.setLeftNode(parentNodeChildLink);
+				parentNode.setLeftNode(deleteNodeChildLink);
 			} else {
-				parentNode.setRightNode(parentNodeChildLink);
+				parentNode.setRightNode(deleteNodeChildLink);
 			}
 		}
-		deleteNode.setLevel(0);
 		deleteNode.setParentNode(null);
 		deleteNode.setLeftNode(null);
 		deleteNode.setRightNode(null);
 	}
-	protected BinaryTreeDataObject<T> findNodePosition(T data){
+	
+	protected BinaryTreeDataObject<T> findParentNode(T data){
 		BinaryTreeDataObject<T> element = root;
 		BinaryTreeDataObject<T> parentNode = null;
 		if(element != null){
@@ -130,15 +136,20 @@ public class BinaryTree<T extends Comparable<T>> {
 		return parentNode;
 	}
 	
-	public T[] visitPreOrder() {
+	
+	public T[] visitPreOrder() {//VLR
+		BinaryTreeDataObject<T>[] templateArray;
+		templateArray = new BinaryTreeDataObject[numberOfNodes];
+		
 		return null;
 	}
 	
-	public T[] visitInOrder() {
+	public T[] visitInOrder() { // LVR
+		
 		return null;
 	}
 	
-	public T[] visitPostOrder() {
+	public T[] visitPostOrder() { // LRV
 		return null;
 	}
 

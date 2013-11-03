@@ -1,4 +1,4 @@
-package com.andy.datastructure;
+package com.andy.adt;
 
 public class DoubleLinkListDataObject<T> {
 	private T data;

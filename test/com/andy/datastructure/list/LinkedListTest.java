@@ -7,6 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.andy.ds.linear.LinkedList;
+
 public class LinkedListTest {
 	private LinkedList<Integer> linkedList = null;
 	

@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.andy.ds.linear.DoubleLinkedList;
+
 public class DoubleLinkedListTest {
 	private DoubleLinkedList<Integer> doubleLinkedList = null;
 

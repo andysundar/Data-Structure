@@ -1,6 +1,6 @@
-package com.andy.datastructure.list;
+package com.andy.ds.linear;
 
-import com.andy.datastructure.DoubleLinkListDataObject;
+import com.andy.adt.DoubleLinkListDataObject;
 
 public class DoubleLinkedList<T> {
 	private int length;
@@ -211,6 +211,7 @@ public class DoubleLinkedList<T> {
 		}
 		return isOk;
 	}
+	
 	/**
 	 * 
 	 * @return return true if object found and removed successfully.
@@ -275,5 +276,13 @@ public class DoubleLinkedList<T> {
 			
 		}
 		return dataObjectToBeReturned;
+	}
+
+	protected DoubleLinkListDataObject<T> getLastNode() {
+		return lastNode;
+	}
+
+	protected DoubleLinkListDataObject<T> getStartNode() {
+		return startNode;
 	}
 }

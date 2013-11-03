@@ -1,4 +1,4 @@
-package com.andy.datastructure;
+package com.andy.adt;
 
 public class SingleLinkListDataObject<T> {
 	private T data;
@@ -19,5 +19,4 @@ public class SingleLinkListDataObject<T> {
 	public void setNextReference(SingleLinkListDataObject<T> nextReference) {
 		this.nextReference = nextReference;
 	}
-
 }

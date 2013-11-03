@@ -7,6 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.andy.nonlinear.ds.BinaryTree;
+
 public class BinaryTreeTest {
 	private BinaryTree<Integer> binaryTree;
 	
@@ -45,6 +47,10 @@ public class BinaryTreeTest {
 
 	@Test
 	public void testDeleteNode() {
+		assertTrue(binaryTree.insertNode(5));
+		assertTrue(binaryTree.insertNode(2));
+		assertTrue(binaryTree.insertNode(8));
+		
 		assertTrue(binaryTree.deleteNode(5));
 		assertTrue(binaryTree.deleteNode(1));
 		assertTrue(binaryTree.deleteNode(6));

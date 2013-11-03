@@ -1,6 +1,6 @@
-package com.andy.datastructure.list;
+package com.andy.ds.linear;
 
-import com.andy.datastructure.SingleLinkListDataObject;
+import com.andy.adt.SingleLinkListDataObject;
 
 public class LinkedList<T> {
 	private int length; 
