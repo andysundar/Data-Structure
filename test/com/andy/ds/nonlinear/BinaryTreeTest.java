@@ -1,4 +1,4 @@
-package com.andy.datastructure.list;
+package com.andy.ds.nonlinear;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.andy.nonlinear.ds.BinaryTree;
+import com.andy.ds.nonlinear.BinaryTree;
 
 public class BinaryTreeTest {
 	private BinaryTree<Integer> binaryTree;
