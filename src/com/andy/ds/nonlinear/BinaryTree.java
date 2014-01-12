@@ -76,7 +76,7 @@ public class BinaryTree<T extends Comparable<T>> {
 		if(data == null){
 			throw new IllegalArgumentException("Null cannot be deleted.");
 		}
-		BinaryTreeDataObject<T> node = findParentNode(data);
+		BinaryTreeDataObject<T> node = findNode(data);
 		boolean isOk = ((node != null) && (data.equals(node.getData())));
 		BinaryTreeDataObject<T> successorNode = null;
 		if(isOk){
@@ -107,7 +107,14 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 	
 	private BinaryTreeDataObject<T> findDeleteNodeSuccessor(BinaryTreeDataObject<T> deleteNode) {
-		BinaryTreeDataObject<T> findExtreamLeftChild = deleteNode.getRightNode().getLeftNode();
+		BinaryTreeDataObject<T> rightChild = deleteNode.getRightNode();
+		BinaryTreeDataObject<T> findExtreamLeftChild = null;
+		if(rightChild != null ) {
+			findExtreamLeftChild = deleteNode.getRightNode().getLeftNode();
+			if(findExtreamLeftChild == null){
+				findExtreamLeftChild = rightChild;
+			}
+		}
 		
 		while(findExtreamLeftChild != null) {
 			if(findExtreamLeftChild.getLeftNode() == null){
@@ -128,6 +135,8 @@ public class BinaryTree<T extends Comparable<T>> {
 			} else {
 				parentNode.setRightNode(deleteNodeChildLink);
 			}
+		} else {
+			root = deleteNodeChildLink;
 		}
 		deleteNode.setParentNode(null);
 		deleteNode.setLeftNode(null);
@@ -151,6 +160,28 @@ public class BinaryTree<T extends Comparable<T>> {
 		return parentNode;
 	}
 
+	protected BinaryTreeDataObject<T> findNode(T data){
+		BinaryTreeDataObject<T> element = root;
+		BinaryTreeDataObject<T> parentNode = null;
+		if(element != null){
+			while(element != null) {
+				if(data.compareTo(element.getData()) <= 0) {
+					parentNode = element;
+					if(data.equals(element.getData())){
+						break;
+					}
+					element = getLeftChild(element);
+				} else {
+					parentNode = element;
+					if(data.equals(element.getData())){
+						break;
+					}
+					element = getRightChild(element);
+				}
+			}
+		}
+		return parentNode;
+	}
 	public int getNumberOfNodes() {
 		return numberOfNodes;
 	}
