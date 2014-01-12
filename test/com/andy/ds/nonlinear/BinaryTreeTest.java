@@ -1,3 +1,18 @@
+/**
+ * Copyright [2012] Anindya Bandopadhyay
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.andy.ds.nonlinear;
 
 import static org.junit.Assert.assertEquals;
@@ -56,33 +71,6 @@ public class BinaryTreeTest {
 		assertTrue(binaryTree.deleteNode(6));
 		
 		assertEquals(0, binaryTree.getNumberOfNodes());
-	}
-
-	@Test
-	public void testVisitPreOrder() {
-		assertTrue(binaryTree.deleteNode(5));
-		assertTrue(binaryTree.deleteNode(1));
-		assertTrue(binaryTree.deleteNode(6));
-		
-		assertEquals(new Integer[]{5,1,6},binaryTree.visitPreOrder());
-	}
-
-	@Test
-	public void testVisitInOrder() {
-		assertTrue(binaryTree.deleteNode(5));
-		assertTrue(binaryTree.deleteNode(1));
-		assertTrue(binaryTree.deleteNode(6));
-		
-		assertEquals(new Integer[]{1,5,6},binaryTree.visitInOrder());
-	}
-
-	@Test
-	public void testVisitPostOrder() {
-		assertTrue(binaryTree.deleteNode(5));
-		assertTrue(binaryTree.deleteNode(1));
-		assertTrue(binaryTree.deleteNode(6));
-		
-		assertEquals(new Integer[]{1,6,5},binaryTree.visitPostOrder());
 	}
 
 	@Test

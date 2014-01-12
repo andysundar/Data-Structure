@@ -1,3 +1,18 @@
+/**
+ * Copyright [2012] Anindya Bandopadhyay
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.andy.ds.nonlinear;
 
 import com.andy.adt.BinaryTreeDataObject;
@@ -126,31 +141,14 @@ public class BinaryTree<T extends Comparable<T>> {
 			while(element != null) {
 				if(data.compareTo(element.getData()) <= 0) {
 					parentNode = element;
-					element = element.getLeftNode();
+					element = getLeftChild(element);
 				} else {
 					parentNode = element;
-					element = element.getRightNode();
+					element = getRightChild(element);
 				}
 			}
 		}
 		return parentNode;
-	}
-	
-	
-	public T[] visitPreOrder() {//VLR
-		BinaryTreeDataObject<T>[] templateArray;
-		templateArray = new BinaryTreeDataObject[numberOfNodes];
-		
-		return null;
-	}
-	
-	public T[] visitInOrder() { // LVR
-		
-		return null;
-	}
-	
-	public T[] visitPostOrder() { // LRV
-		return null;
 	}
 
 	public int getNumberOfNodes() {
@@ -159,5 +157,13 @@ public class BinaryTree<T extends Comparable<T>> {
 
 	public BinaryTreeDataObject<T> getRoot() {
 		return root;
+	}
+	
+	public BinaryTreeDataObject<T> getLeftChild(BinaryTreeDataObject<T> node){
+		return node.getLeftNode();
+	}
+	
+	public BinaryTreeDataObject<T> getRightChild(BinaryTreeDataObject<T> node){
+		return node.getRightNode();
 	}
 }
