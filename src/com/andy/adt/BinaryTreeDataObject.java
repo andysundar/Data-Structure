@@ -16,6 +16,7 @@
 package com.andy.adt;
 
 public class BinaryTreeDataObject<T extends Comparable<T>> {
+	private byte colour;
 	private T data;
 	private BinaryTreeDataObject<T> leftNode;
 	private BinaryTreeDataObject<T> rightNode;
@@ -45,6 +46,12 @@ public class BinaryTreeDataObject<T extends Comparable<T>> {
 	}
 	public void setParentNode(BinaryTreeDataObject<T> parentNode) {
 		this.parentNode = parentNode;
+	}
+	public byte getColour() {
+		return colour;
+	}
+	public void setColour(byte colour) {
+		this.colour = colour;
 	}
 	
 }
