@@ -15,42 +15,47 @@
  */
 package com.andy.adt;
 
-public class BinaryTreeDataObject<T extends Comparable<T>> {
-	private byte colour;
+public class TreeDataObject<T extends Comparable<T>> {
+	private boolean colour;
+	
 	private T data;
-	private BinaryTreeDataObject<T> leftNode;
-	private BinaryTreeDataObject<T> rightNode;
-	private BinaryTreeDataObject<T> parentNode;
+	
+	private TreeDataObject<T> leftNode;
+	private TreeDataObject<T> rightNode;
+	private TreeDataObject<T> parentNode;
+	
+	public static final boolean RED = false;
+	public static final boolean BLACK = true;
 	
 	public T getData() {
 		return data;
 	}
-	public BinaryTreeDataObject<T> getLeftNode() {
+	public TreeDataObject<T> getLeftNode() {
 		return leftNode;
 	}
-	public BinaryTreeDataObject<T> getRightNode() {
+	public TreeDataObject<T> getRightNode() {
 		return rightNode;
 	}
 	public void setData(T data) {
 		this.data = data;
 	}
-	public void setLeftNode(BinaryTreeDataObject<T> leftNode) {
+	public void setLeftNode(TreeDataObject<T> leftNode) {
 		this.leftNode = leftNode;
 	}
-	public void setRightNode(BinaryTreeDataObject<T> rightNode) {
+	public void setRightNode(TreeDataObject<T> rightNode) {
 		this.rightNode = rightNode;
 	}
 	
-	public BinaryTreeDataObject<T> getParentNode() {
+	public TreeDataObject<T> getParentNode() {
 		return parentNode;
 	}
-	public void setParentNode(BinaryTreeDataObject<T> parentNode) {
+	public void setParentNode(TreeDataObject<T> parentNode) {
 		this.parentNode = parentNode;
 	}
-	public byte getColour() {
+	public boolean getColour() {
 		return colour;
 	}
-	public void setColour(byte colour) {
+	public void setColour(boolean colour) {
 		this.colour = colour;
 	}
 	

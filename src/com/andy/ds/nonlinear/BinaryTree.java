@@ -15,11 +15,11 @@
  */
 package com.andy.ds.nonlinear;
 
-import com.andy.adt.BinaryTreeDataObject;
+import com.andy.adt.TreeDataObject;
 
 public class BinaryTree<T extends Comparable<T>> {
 	private int numberOfNodes;
-	private BinaryTreeDataObject<T> root;
+	private TreeDataObject<T> root;
 	
 	public boolean insertNode(T data){
 		if(data == null){
@@ -39,7 +39,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	
 	private boolean insertChild(T data) {
 		boolean isOk = false;
-		BinaryTreeDataObject<T> parentNode = findParentNode(data);
+		TreeDataObject<T> parentNode = findParentNode(data);
 
 		if(data.compareTo(parentNode.getData()) <= 0){
 			insertLeftChild(parentNode,data);
@@ -51,22 +51,22 @@ public class BinaryTree<T extends Comparable<T>> {
 		return isOk;
 	}
 
-	private void insertLeftChild(BinaryTreeDataObject<T> parentNode,T data){
-		BinaryTreeDataObject<T> childNode = new BinaryTreeDataObject<T>();
+	private void insertLeftChild(TreeDataObject<T> parentNode,T data){
+		TreeDataObject<T> childNode = new TreeDataObject<T>();
 		childNode.setData(data);
 		parentNode.setLeftNode(childNode);
 		childNode.setParentNode(parentNode);
 	}
 	
-	private void insertRightChild(BinaryTreeDataObject<T> parentNode,T data){
-		BinaryTreeDataObject<T> childNode = new BinaryTreeDataObject<T>();
+	private void insertRightChild(TreeDataObject<T> parentNode,T data){
+		TreeDataObject<T> childNode = new TreeDataObject<T>();
 		childNode.setData(data);
 		parentNode.setRightNode(childNode);
 		childNode.setParentNode(parentNode);
 	}
 
 	private boolean insertRoot(T data) {
-		BinaryTreeDataObject<T> rootNodeObject = new BinaryTreeDataObject<T>();
+		TreeDataObject<T> rootNodeObject = new TreeDataObject<T>();
 		rootNodeObject.setData(data);
 		root = rootNodeObject;
 		return true;
@@ -76,9 +76,9 @@ public class BinaryTree<T extends Comparable<T>> {
 		if(data == null){
 			throw new IllegalArgumentException("Null cannot be deleted.");
 		}
-		BinaryTreeDataObject<T> node = findNode(data);
+		TreeDataObject<T> node = findNode(data);
 		boolean isOk = ((node != null) && (data.equals(node.getData())));
-		BinaryTreeDataObject<T> successorNode = null;
+		TreeDataObject<T> successorNode = null;
 		if(isOk){
 			if((node.getLeftNode() == null) && (node.getRightNode() == null)) {
 				unlinkNode(node,null);
@@ -106,9 +106,9 @@ public class BinaryTree<T extends Comparable<T>> {
 		return isOk;
 	}
 	
-	private BinaryTreeDataObject<T> findDeleteNodeSuccessor(BinaryTreeDataObject<T> deleteNode) {
-		BinaryTreeDataObject<T> rightChild = deleteNode.getRightNode();
-		BinaryTreeDataObject<T> findExtreamLeftChild = null;
+	private TreeDataObject<T> findDeleteNodeSuccessor(TreeDataObject<T> deleteNode) {
+		TreeDataObject<T> rightChild = deleteNode.getRightNode();
+		TreeDataObject<T> findExtreamLeftChild = null;
 		if(rightChild != null ) {
 			findExtreamLeftChild = deleteNode.getRightNode().getLeftNode();
 			if(findExtreamLeftChild == null){
@@ -126,9 +126,9 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 	
 	
-	private void unlinkNode(BinaryTreeDataObject<T> deleteNode,BinaryTreeDataObject<T> deleteNodeChildLink){
+	private void unlinkNode(TreeDataObject<T> deleteNode,TreeDataObject<T> deleteNodeChildLink){
 		deleteNode.setData(null);
-		BinaryTreeDataObject<T> parentNode = deleteNode.getParentNode();
+		TreeDataObject<T> parentNode = deleteNode.getParentNode();
 		if(parentNode != null){
 			if(deleteNode.equals(parentNode.getLeftNode())){
 				parentNode.setLeftNode(deleteNodeChildLink);
@@ -143,9 +143,9 @@ public class BinaryTree<T extends Comparable<T>> {
 		deleteNode.setRightNode(null);
 	}
 	
-	protected BinaryTreeDataObject<T> findParentNode(T data){
-		BinaryTreeDataObject<T> element = root;
-		BinaryTreeDataObject<T> parentNode = null;
+	protected TreeDataObject<T> findParentNode(T data){
+		TreeDataObject<T> element = root;
+		TreeDataObject<T> parentNode = null;
 		if(element != null){
 			while(element != null) {
 				if(data.compareTo(element.getData()) <= 0) {
@@ -160,9 +160,9 @@ public class BinaryTree<T extends Comparable<T>> {
 		return parentNode;
 	}
 
-	protected BinaryTreeDataObject<T> findNode(T data){
-		BinaryTreeDataObject<T> element = root;
-		BinaryTreeDataObject<T> parentNode = null;
+	protected TreeDataObject<T> findNode(T data){
+		TreeDataObject<T> element = root;
+		TreeDataObject<T> parentNode = null;
 		if(element != null){
 			while(element != null) {
 				if(data.compareTo(element.getData()) <= 0) {
@@ -186,15 +186,15 @@ public class BinaryTree<T extends Comparable<T>> {
 		return numberOfNodes;
 	}
 
-	public BinaryTreeDataObject<T> getRoot() {
+	public TreeDataObject<T> getRoot() {
 		return root;
 	}
 	
-	public BinaryTreeDataObject<T> getLeftChild(BinaryTreeDataObject<T> node){
+	public TreeDataObject<T> getLeftChild(TreeDataObject<T> node){
 		return node.getLeftNode();
 	}
 	
-	public BinaryTreeDataObject<T> getRightChild(BinaryTreeDataObject<T> node){
+	public TreeDataObject<T> getRightChild(TreeDataObject<T> node){
 		return node.getRightNode();
 	}
 }
