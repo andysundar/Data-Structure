@@ -29,4 +29,10 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 		h.setColour(TreeDataObject.RED);
 		return temp;
 	}
+	
+	public void flipColors(TreeDataObject<T> h){
+		h.setColour(!h.getColour());
+		h.getLeftNode().setColour(!h.getLeftNode().getColour());
+		h.getRightNode().setColour(!h.getRightNode().getColour());
+	}
 }
