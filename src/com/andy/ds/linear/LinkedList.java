@@ -293,4 +293,8 @@ public class LinkedList<T> {
  public int size() {
 	 return length;
  }
+ 
+ public boolean isEmpty(){
+	 return (getStartNode() == null);
+ }
 }

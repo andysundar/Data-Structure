@@ -301,4 +301,8 @@ public class DoubleLinkedList<T> {
 	protected DoubleLinkListDataObject<T> getStartNode() {
 		return startNode;
 	}
+	
+	public boolean isEmpty() {
+		return (getStartNode() == null);
+	}
 }

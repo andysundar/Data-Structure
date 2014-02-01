@@ -39,6 +39,11 @@ public class LinkedListTest {
 	}
 	
 	@Test
+	public void testIsEmpty() {
+		assertTrue(linkedList.isEmpty());
+	}
+	
+	@Test
 	public void testAdd() {
 		assertTrue(linkedList.add(1));
 		assertTrue(linkedList.add(2));

@@ -90,4 +90,7 @@ public class CircularLinkedList<T> extends DoubleLinkedList<T> {
 		return flag;
 	}
 	
+	public boolean isEmpty() {
+		return (getStartNode() == null);
+	}
 }

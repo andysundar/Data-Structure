@@ -16,6 +16,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 		TreeDataObject<T> temp = h.getRightNode();
 		h.setRightNode(temp.getLeftNode());
 		temp.setLeftNode(h);
+		temp.getLeftNode().setParentNode(h);
 		temp.setColour(h.getColour());
 		h.setColour(TreeDataObject.RED);
 		return temp;
@@ -25,6 +26,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 		TreeDataObject<T> temp = h.getLeftNode();
 		h.setLeftNode(temp.getRightNode());
 		temp.setRightNode(h);
+		temp.getRightNode().setParentNode(h);
 		temp.setColour(h.getColour());
 		h.setColour(TreeDataObject.RED);
 		return temp;

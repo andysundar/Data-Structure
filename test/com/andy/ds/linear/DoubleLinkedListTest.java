@@ -177,5 +177,10 @@ public class DoubleLinkedListTest {
 		}
 		assertEquals((counter - 1), doubleLinkedList.size());
 	}
+	
+	@Test
+	public void testIsEmpty() {
+		assertTrue(doubleLinkedList.isEmpty());
+	}
 }
  
