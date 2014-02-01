@@ -39,7 +39,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	
 	private boolean insertChild(T data) {
 		boolean isOk = false;
-		TreeDataObject<T> parentNode = findParentNode(data);
+		TreeDataObject<T> parentNode = findParentNodeForNewNode(data);
 
 		if(data.compareTo(parentNode.getData()) <= 0){
 			insertLeftChild(parentNode,data);
@@ -143,44 +143,34 @@ public class BinaryTree<T extends Comparable<T>> {
 		deleteNode.setRightNode(null);
 	}
 	
-	protected TreeDataObject<T> findParentNode(T data){
+	private TreeDataObject<T> findParentNodeForNewNode(T data){
 		TreeDataObject<T> element = root;
 		TreeDataObject<T> parentNode = null;
-		if(element != null){
-			while(element != null) {
-				if(data.compareTo(element.getData()) <= 0) {
-					parentNode = element;
-					element = getLeftChild(element);
-				} else {
-					parentNode = element;
-					element = getRightChild(element);
-				}
+		while(element != null) {
+			if(data.compareTo(element.getData()) <= 0) {
+				parentNode = element;
+				element = getLeftChild(element);
+			} else {
+				parentNode = element;
+				element = getRightChild(element);
 			}
 		}
 		return parentNode;
 	}
 
-	protected TreeDataObject<T> findNode(T data){
+	public TreeDataObject<T> findNode(T data){
 		TreeDataObject<T> element = root;
-		TreeDataObject<T> parentNode = null;
-		if(element != null){
-			while(element != null) {
-				if(data.compareTo(element.getData()) <= 0) {
-					parentNode = element;
-					if(data.equals(element.getData())){
-						break;
-					}
+		while(element != null) {
+				int compairValue = data.compareTo(element.getData());
+				if(compairValue < 0) {
 					element = getLeftChild(element);
-				} else {
-					parentNode = element;
-					if(data.equals(element.getData())){
-						break;
-					}
+				} else if(compairValue > 0) {
 					element = getRightChild(element);
+				} else {
+					return element;
 				}
-			}
 		}
-		return parentNode;
+		return null;
 	}
 	public int getNumberOfNodes() {
 		return numberOfNodes;
