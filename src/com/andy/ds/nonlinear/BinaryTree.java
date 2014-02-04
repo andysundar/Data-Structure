@@ -54,14 +54,14 @@ public class BinaryTree<T extends Comparable<T>> {
 	private void insertLeftChild(TreeDataObject<T> parentNode,T data){
 		TreeDataObject<T> childNode = new TreeDataObject<T>();
 		childNode.setData(data);
-		parentNode.setLeftNode(childNode);
+		parentNode.setLeftChildNode(childNode);
 		childNode.setParentNode(parentNode);
 	}
 	
 	private void insertRightChild(TreeDataObject<T> parentNode,T data){
 		TreeDataObject<T> childNode = new TreeDataObject<T>();
 		childNode.setData(data);
-		parentNode.setRightNode(childNode);
+		parentNode.setRightChildNode(childNode);
 		childNode.setParentNode(parentNode);
 	}
 
@@ -80,23 +80,23 @@ public class BinaryTree<T extends Comparable<T>> {
 		boolean isOk = ((node != null) && (data.equals(node.getData())));
 		TreeDataObject<T> successorNode = null;
 		if(isOk){
-			if((node.getLeftNode() == null) && (node.getRightNode() == null)) {
+			if((node.getLeftChildNode() == null) && (node.getRightChildNode() == null)) {
 				unlinkNode(node,null);
-			} else if((node.getLeftNode() != null) && (node.getRightNode() != null)) {
+			} else if((node.getLeftChildNode() != null) && (node.getRightChildNode() != null)) {
 				successorNode = findDeleteNodeSuccessor(node);
 				successorNode.setParentNode(node.getParentNode());
-				if(!successorNode.equals(node.getRightNode())){
-					successorNode.setRightNode(node.getRightNode());
+				if(!successorNode.equals(node.getRightChildNode())){
+					successorNode.setRightChildNode(node.getRightChildNode());
 				}
-				successorNode.setLeftNode(node.getLeftNode());
+				successorNode.setLeftChildNode(node.getLeftChildNode());
 				unlinkNode(node, successorNode);
 			} else {
-				if(node.getLeftNode() != null) {
-					successorNode = node.getLeftNode();
-					node.setLeftNode(null);
+				if(node.getLeftChildNode() != null) {
+					successorNode = node.getLeftChildNode();
+					node.setLeftChildNode(null);
 				} else {
-					successorNode = node.getRightNode();
-					node.setRightNode(null);
+					successorNode = node.getRightChildNode();
+					node.setRightChildNode(null);
 				}
 				successorNode.setParentNode(node.getParentNode());
 				unlinkNode(node, successorNode);
@@ -107,20 +107,20 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 	
 	private TreeDataObject<T> findDeleteNodeSuccessor(TreeDataObject<T> deleteNode) {
-		TreeDataObject<T> rightChild = deleteNode.getRightNode();
+		TreeDataObject<T> rightChild = deleteNode.getRightChildNode();
 		TreeDataObject<T> findExtreamLeftChild = null;
 		if(rightChild != null ) {
-			findExtreamLeftChild = deleteNode.getRightNode().getLeftNode();
+			findExtreamLeftChild = deleteNode.getRightChildNode().getLeftChildNode();
 			if(findExtreamLeftChild == null){
 				findExtreamLeftChild = rightChild;
 			}
 		}
 		
 		while(findExtreamLeftChild != null) {
-			if(findExtreamLeftChild.getLeftNode() == null){
+			if(findExtreamLeftChild.getLeftChildNode() == null){
 				break;
 			}
-			findExtreamLeftChild = findExtreamLeftChild.getLeftNode();
+			findExtreamLeftChild = findExtreamLeftChild.getLeftChildNode();
 		}
 		return findExtreamLeftChild;
 	}
@@ -130,17 +130,17 @@ public class BinaryTree<T extends Comparable<T>> {
 		deleteNode.setData(null);
 		TreeDataObject<T> parentNode = deleteNode.getParentNode();
 		if(parentNode != null){
-			if(deleteNode.equals(parentNode.getLeftNode())){
-				parentNode.setLeftNode(deleteNodeChildLink);
+			if(deleteNode.equals(parentNode.getLeftChildNode())){
+				parentNode.setLeftChildNode(deleteNodeChildLink);
 			} else {
-				parentNode.setRightNode(deleteNodeChildLink);
+				parentNode.setRightChildNode(deleteNodeChildLink);
 			}
 		} else {
 			root = deleteNodeChildLink;
 		}
 		deleteNode.setParentNode(null);
-		deleteNode.setLeftNode(null);
-		deleteNode.setRightNode(null);
+		deleteNode.setLeftChildNode(null);
+		deleteNode.setRightChildNode(null);
 	}
 	
 	private TreeDataObject<T> findParentNodeForNewNode(T data){
@@ -181,10 +181,10 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 	
 	public TreeDataObject<T> getLeftChild(TreeDataObject<T> node){
-		return node.getLeftNode();
+		return node.getLeftChildNode();
 	}
 	
 	public TreeDataObject<T> getRightChild(TreeDataObject<T> node){
-		return node.getRightNode();
+		return node.getRightChildNode();
 	}
 }

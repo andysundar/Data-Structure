@@ -20,8 +20,8 @@ public class TreeDataObject<T extends Comparable<T>> {
 	
 	private T data;
 	
-	private TreeDataObject<T> leftNode;
-	private TreeDataObject<T> rightNode;
+	private TreeDataObject<T> leftChildNode;
+	private TreeDataObject<T> rightChildNode;
 	private TreeDataObject<T> parentNode;
 	
 	public static final boolean RED = false;
@@ -30,20 +30,20 @@ public class TreeDataObject<T extends Comparable<T>> {
 	public T getData() {
 		return data;
 	}
-	public TreeDataObject<T> getLeftNode() {
-		return leftNode;
+	public TreeDataObject<T> getLeftChildNode() {
+		return leftChildNode;
 	}
-	public TreeDataObject<T> getRightNode() {
-		return rightNode;
+	public TreeDataObject<T> getRightChildNode() {
+		return rightChildNode;
 	}
 	public void setData(T data) {
 		this.data = data;
 	}
-	public void setLeftNode(TreeDataObject<T> leftNode) {
-		this.leftNode = leftNode;
+	public void setLeftChildNode(TreeDataObject<T> leftNode) {
+		this.leftChildNode = leftNode;
 	}
-	public void setRightNode(TreeDataObject<T> rightNode) {
-		this.rightNode = rightNode;
+	public void setRightChildNode(TreeDataObject<T> rightNode) {
+		this.rightChildNode = rightNode;
 	}
 	
 	public TreeDataObject<T> getParentNode() {

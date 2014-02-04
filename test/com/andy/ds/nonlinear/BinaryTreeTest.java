@@ -48,14 +48,14 @@ public class BinaryTreeTest {
 		assertTrue(binaryTree.insertNode(1));
 		assertTrue(binaryTree.insertNode(9)); 
 		
-		assertEquals(Integer.valueOf(2), binaryTree.getRoot().getLeftNode().getData());
-		assertEquals(Integer.valueOf(8), binaryTree.getRoot().getRightNode().getData());
+		assertEquals(Integer.valueOf(2), binaryTree.getRoot().getLeftChildNode().getData());
+		assertEquals(Integer.valueOf(8), binaryTree.getRoot().getRightChildNode().getData());
 		
-		assertEquals(Integer.valueOf(1), binaryTree.getRoot().getLeftNode().getLeftNode().getData());
-		assertEquals(Integer.valueOf(9), binaryTree.getRoot().getRightNode().getRightNode().getData()); 
+		assertEquals(Integer.valueOf(1), binaryTree.getRoot().getLeftChildNode().getLeftChildNode().getData());
+		assertEquals(Integer.valueOf(9), binaryTree.getRoot().getRightChildNode().getRightChildNode().getData()); 
 		
-		assertEquals(Integer.valueOf(3), binaryTree.getRoot().getLeftNode().getRightNode().getData());
-		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getRightNode().getLeftNode().getData());
+		assertEquals(Integer.valueOf(3), binaryTree.getRoot().getLeftChildNode().getRightChildNode().getData());
+		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getRightChildNode().getLeftChildNode().getData());
 		
 		assertEquals(7, binaryTree.getNumberOfNodes());
 		
