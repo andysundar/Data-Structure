@@ -23,10 +23,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.andy.adt.TreeDataObject;
 import com.andy.ds.nonlinear.BinaryTree;
 
 public class BinaryTreeTest {
 	private BinaryTree<Integer> binaryTree;
+	private TreeDataObject<Integer> node =null;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -40,13 +42,20 @@ public class BinaryTreeTest {
 
 	@Test
 	public void testInsertNode() {
-		assertTrue(binaryTree.insertNode(5));
-		assertTrue(binaryTree.insertNode(2));
-		assertTrue(binaryTree.insertNode(8));
-		assertTrue(binaryTree.insertNode(3));
-		assertTrue(binaryTree.insertNode(6)); 
-		assertTrue(binaryTree.insertNode(1));
-		assertTrue(binaryTree.insertNode(9)); 
+		node = binaryTree.insertNode(5);
+		assertEquals(node.getData(), binaryTree.getRoot().getData());
+		node = binaryTree.insertNode(2);
+		assertEquals(node.getData(), Integer.valueOf(2));
+		node = binaryTree.insertNode(8);
+		assertEquals(node.getData(), Integer.valueOf(8));
+		node = binaryTree.insertNode(3);
+		assertEquals(node.getData(), Integer.valueOf(3));
+		node = binaryTree.insertNode(6); 
+		assertEquals(node.getData(), Integer.valueOf(6));
+		node = binaryTree.insertNode(1);
+		assertEquals(node.getData(), Integer.valueOf(1));
+		node = binaryTree.insertNode(9);
+		assertEquals(node.getData(), Integer.valueOf(9));
 		
 		assertEquals(Integer.valueOf(2), binaryTree.getRoot().getLeftChildNode().getData());
 		assertEquals(Integer.valueOf(8), binaryTree.getRoot().getRightChildNode().getData());
@@ -63,9 +72,14 @@ public class BinaryTreeTest {
 
 	@Test
 	public void testDeleteNode() {
-		assertTrue(binaryTree.insertNode(5));
-		assertTrue(binaryTree.insertNode(2));
-		assertTrue(binaryTree.insertNode(8));
+		node = binaryTree.insertNode(5);
+		assertEquals(node.getData(), binaryTree.getRoot().getData());
+		node = binaryTree.insertNode(2);
+		assertEquals(node.getData(), Integer.valueOf(2));
+		node = binaryTree.insertNode(8);
+		assertEquals(node.getData(), Integer.valueOf(8));
+		
+		assertEquals(3, binaryTree.getNumberOfNodes()); 
 		
 		assertTrue(binaryTree.deleteNode(5));
 		assertTrue(binaryTree.deleteNode(2));
@@ -76,10 +90,16 @@ public class BinaryTreeTest {
 
 	@Test
 	public void testDeleteNode_withExtremRightChild() {
-		assertTrue(binaryTree.insertNode(5));
-		assertTrue(binaryTree.insertNode(2));
-		assertTrue(binaryTree.insertNode(8));
-		assertTrue(binaryTree.insertNode(6));
+		node = binaryTree.insertNode(5);
+		assertEquals(node.getData(), binaryTree.getRoot().getData());
+		node = binaryTree.insertNode(2);
+		assertEquals(node.getData(), Integer.valueOf(2));
+		node = binaryTree.insertNode(8);
+		assertEquals(node.getData(), Integer.valueOf(8));
+		node = binaryTree.insertNode(6);
+		assertEquals(node.getData(), Integer.valueOf(6));
+		
+		assertEquals(4, binaryTree.getNumberOfNodes());
 		
 		assertTrue(binaryTree.deleteNode(5));
 		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
@@ -94,9 +114,9 @@ public class BinaryTreeTest {
 	
 	@Test
 	public void testDeleteNode_withOutRightChild() {
-		assertTrue(binaryTree.insertNode(1));
-		assertTrue(binaryTree.insertNode(5));
-		assertTrue(binaryTree.insertNode(2));
+		binaryTree.insertNode(1);
+		binaryTree.insertNode(5);
+		binaryTree.insertNode(2);
 
 		
 		assertTrue(binaryTree.deleteNode(5));
@@ -107,10 +127,20 @@ public class BinaryTreeTest {
 	}
 	@Test
 	public void testNumberOfNodes() {
-		assertTrue(binaryTree.insertNode(5));
-		assertTrue(binaryTree.insertNode(1));
-		assertTrue(binaryTree.insertNode(6));
+		binaryTree.insertNode(5);
+		binaryTree.insertNode(1);
+		binaryTree.insertNode(6);
 		
 		assertEquals(3, binaryTree.getNumberOfNodes());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testInsertNodeWithNULLdata(){
+		binaryTree.insertNode(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testDeleteNodeWithNULLdata(){
+		binaryTree.deleteNode(null);
 	}
 }

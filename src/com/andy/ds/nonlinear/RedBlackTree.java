@@ -62,7 +62,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 	}
 	
 	/**
-	 * Flip the color of sub root and there childs
+	 * Flip the color of sub root and there children
 	 * @param subRoot is sub-root where colour will be flip 
 	 */
 	public void flipColors(TreeDataObject<T> subRoot){
@@ -70,4 +70,5 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 		subRoot.getLeftChildNode().setColour(!subRoot.getLeftChildNode().getColour());
 		subRoot.getRightChildNode().setColour(!subRoot.getRightChildNode().getColour());
 	}
+	
 }

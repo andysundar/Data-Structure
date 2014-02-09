@@ -21,55 +21,55 @@ public class BinaryTree<T extends Comparable<T>> {
 	private int numberOfNodes;
 	private TreeDataObject<T> root;
 	
-	public boolean insertNode(T data){
+	public TreeDataObject<T> insertNode(T data){
 		if(data == null){
 			throw new IllegalArgumentException("Null cannot be inserted. ");
 		}
-		boolean isOk = false;
+		TreeDataObject<T> node = null;
 		if(root == null){
-			isOk = insertRoot(data);
+			root = insertRoot(data);
+			node = root;
 		} else {
-			isOk = insertChild(data);
+			node = insertChild(data);
 		}
-		if(isOk){
+		if(node != null){
 			numberOfNodes++;
 		}
-		return isOk;
+		return node;
 	}
 	
-	private boolean insertChild(T data) {
-		boolean isOk = false;
+	private TreeDataObject<T> insertChild(T data) {
+		TreeDataObject<T> child = null;
 		TreeDataObject<T> parentNode = findParentNodeForNewNode(data);
 
 		if(data.compareTo(parentNode.getData()) <= 0){
-			insertLeftChild(parentNode,data);
-			isOk = true;
+			child = insertLeftChild(parentNode,data);
 		} else {
-			insertRightChild(parentNode,data);
-			isOk = true;	
+			child = insertRightChild(parentNode,data);
 		}
-		return isOk;
+		return child;
 	}
 
-	private void insertLeftChild(TreeDataObject<T> parentNode,T data){
+	private TreeDataObject<T> insertLeftChild(TreeDataObject<T> parentNode,T data){
 		TreeDataObject<T> childNode = new TreeDataObject<T>();
 		childNode.setData(data);
 		parentNode.setLeftChildNode(childNode);
 		childNode.setParentNode(parentNode);
+		return childNode;
 	}
 	
-	private void insertRightChild(TreeDataObject<T> parentNode,T data){
+	private TreeDataObject<T> insertRightChild(TreeDataObject<T> parentNode,T data){
 		TreeDataObject<T> childNode = new TreeDataObject<T>();
 		childNode.setData(data);
 		parentNode.setRightChildNode(childNode);
 		childNode.setParentNode(parentNode);
+		return childNode;
 	}
 
-	private boolean insertRoot(T data) {
+	private TreeDataObject<T> insertRoot(T data) {
 		TreeDataObject<T> rootNodeObject = new TreeDataObject<T>();
 		rootNodeObject.setData(data);
-		root = rootNodeObject;
-		return true;
+		return rootNodeObject;
 	}
 
 	public boolean deleteNode(T data) {
