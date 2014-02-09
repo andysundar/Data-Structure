@@ -58,5 +58,10 @@ public class TreeDataObject<T extends Comparable<T>> {
 	public void setColour(boolean colour) {
 		this.colour = colour;
 	}
-	
+	public boolean isRed() {
+		return (colour == RED);
+	}
+	public boolean isBlack() {
+		return (colour == BLACK);
+	}
 }
