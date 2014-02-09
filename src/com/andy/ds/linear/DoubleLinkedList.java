@@ -19,7 +19,6 @@ package com.andy.ds.linear;
 import java.util.Iterator;
 
 import com.andy.adt.DoubleLinkListDataObject;
-import com.andy.adt.SingleLinkListDataObject;
 
 public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>> {
 	private int length;
