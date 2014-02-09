@@ -19,10 +19,13 @@ package com.andy.ds.linear;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Iterator;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.andy.adt.SingleLinkListDataObject;
 import com.andy.ds.linear.LinkedList;
 
 public class LinkedListTest {
@@ -190,4 +193,33 @@ public class LinkedListTest {
 		linkedList.get(linkedList.size());
 	}
 
+	private void addDataToList(){
+		for(int index = 0; index < 10; index++){
+			linkedList.add(index);
+		}
+	}
+	
+	@Test
+	public void testIterator_hasNext() {
+		addDataToList();		
+		Iterator<SingleLinkListDataObject<Integer>> slDO =linkedList.iterator();
+		assertTrue(slDO.hasNext());
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void testIterator_Remove() {
+		addDataToList();		
+		Iterator<SingleLinkListDataObject<Integer>> slDO =linkedList.iterator();
+		slDO.remove();
+	}
+	
+	@Test
+	public void testIterator() {
+		addDataToList();	
+		int index = 1;
+		for (SingleLinkListDataObject<Integer> element : linkedList) {
+			assertEquals(Integer.valueOf(index), element.getData());
+			index++;
+		}
+	}
 }

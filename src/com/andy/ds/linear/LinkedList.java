@@ -16,9 +16,11 @@
 
 package com.andy.ds.linear;
 
+import java.util.Iterator;
+
 import com.andy.adt.SingleLinkListDataObject;
 
-public class LinkedList<T> {
+public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
 	private int length; 
 	private static final int INDEX_START = 0;
 	private SingleLinkListDataObject<T> startNode;
@@ -294,7 +296,41 @@ public class LinkedList<T> {
 	 return length;
  }
  
+ /**
+  * 
+  * @return true if list is empty else false
+  */
  public boolean isEmpty(){
 	 return (getStartNode() == null);
  }
+ 
+ /**
+  * Added iterator feature so that user can iterate thorough the list easily.
+  */
+
+public Iterator<SingleLinkListDataObject<T>> iterator() {
+	return new LinkedListIterator();
+}
+
+/**
+ * Added 
+ * @author Anindya Bandopadhyay
+ *
+ */
+	private class LinkedListIterator implements Iterator<SingleLinkListDataObject<T>> {
+	
+		private SingleLinkListDataObject<T> currentNode = getStartNode();
+		public boolean hasNext() {
+			return (currentNode.getNextReference() != null);
+		}
+	
+		public SingleLinkListDataObject<T> next() {
+			currentNode = currentNode.getNextReference();
+			return currentNode;
+		}
+	
+		public void remove() {
+			throw new UnsupportedOperationException("LinkedList doesn't support this remove feature. Please use the other remove APIs available.");
+		}
+	}
 }

@@ -71,4 +71,9 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 		subRoot.getRightChildNode().setColour(!subRoot.getRightChildNode().getColour());
 	}
 	
+	public TreeDataObject<T> insertNode(T data){
+		TreeDataObject<T> node = super.insertNode(data);
+		
+		return node;
+	}
 }
