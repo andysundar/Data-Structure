@@ -21,11 +21,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Iterator;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.andy.ds.linear.DoubleLinkedList;
+import com.andy.adt.DoubleLinkListDataObject;
 
 public class DoubleLinkedListTest {
 	private DoubleLinkedList<Integer> doubleLinkedList = null;
@@ -181,6 +183,36 @@ public class DoubleLinkedListTest {
 	@Test
 	public void testIsEmpty() {
 		assertTrue(doubleLinkedList.isEmpty());
+	}
+	
+	private void addDataToList(){
+		for(int index = 0; index < 10; index++){
+			doubleLinkedList.add(index);
+		}
+	}
+	
+	@Test
+	public void testIterator_hasNext() {
+		addDataToList();		
+		Iterator<DoubleLinkListDataObject<Integer>> slDO =doubleLinkedList.iterator();
+		assertTrue(slDO.hasNext());
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void testIterator_Remove() {
+		addDataToList();		
+		Iterator<DoubleLinkListDataObject<Integer>> slDO =doubleLinkedList.iterator();
+		slDO.remove();
+	}
+	
+	@Test
+	public void testIterator() {
+		addDataToList();	
+		int index = 1;
+		for (DoubleLinkListDataObject<Integer> element : doubleLinkedList) {
+			assertEquals(Integer.valueOf(index), element.getData());
+			index++;
+		}
 	}
 }
  

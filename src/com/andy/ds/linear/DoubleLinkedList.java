@@ -16,9 +16,12 @@
 
 package com.andy.ds.linear;
 
-import com.andy.adt.DoubleLinkListDataObject;
+import java.util.Iterator;
 
-public class DoubleLinkedList<T> {
+import com.andy.adt.DoubleLinkListDataObject;
+import com.andy.adt.SingleLinkListDataObject;
+
+public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>> {
 	private int length;
 	public static final int INDEX_START = 0;
 	private DoubleLinkListDataObject<T> startNode;
@@ -305,4 +308,30 @@ public class DoubleLinkedList<T> {
 	public boolean isEmpty() {
 		return (getStartNode() == null);
 	}
+
+	public Iterator<DoubleLinkListDataObject<T>> iterator() {
+		return new LinkedListIterator();
+	}
+	
+	/**
+	 * Added Iterator feature
+	 * @author Anindya Bandopadhyay
+	 *
+	 */
+		private class LinkedListIterator implements Iterator<DoubleLinkListDataObject<T>> {
+		
+			private DoubleLinkListDataObject<T> currentNode = getStartNode();
+			public boolean hasNext() {
+				return (currentNode.getNextReference() != null);
+			}
+		
+			public DoubleLinkListDataObject<T> next() {
+				currentNode = currentNode.getNextReference();
+				return currentNode;
+			}
+		
+			public void remove() {
+				throw new UnsupportedOperationException("LinkedList doesn't support this remove feature. Please use the other remove APIs available.");
+			}
+		}
 }
