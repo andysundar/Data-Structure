@@ -143,4 +143,22 @@ public class BinaryTreeTest {
 	public void testDeleteNodeWithNULLdata(){
 		binaryTree.deleteNode(null);
 	}
+	
+	private void insertNodeIntoTree(){
+		binaryTree.insertNode(1);
+		binaryTree.insertNode(5);
+		binaryTree.insertNode(2);
+	}
+	
+	@Test
+	public void testGetMaxValueNode(){
+		insertNodeIntoTree();
+		assertEquals(Integer.valueOf(5) , binaryTree.getMaxValueNode().getData());
+	}
+	
+	@Test
+	public void testGetMinValueNode(){
+		insertNodeIntoTree();
+		assertEquals(Integer.valueOf(1) , binaryTree.getMinValueNode().getData());
+	}
 }

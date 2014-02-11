@@ -187,4 +187,29 @@ public class BinaryTree<T extends Comparable<T>> {
 	public TreeDataObject<T> getRightChild(TreeDataObject<T> node){
 		return node.getRightChildNode();
 	}
+	
+	public TreeDataObject<T> getMaxValueNode() {
+		TreeDataObject<T> node = getRoot();
+		while(node != null){
+			if(getRightChild(node) == null) {
+				break;
+			} else {
+				node = getRightChild(node);
+			}
+		}
+		return node;
+	}
+	
+	public TreeDataObject<T> getMinValueNode() {
+		TreeDataObject<T> node = getRoot();
+		while(node != null){
+			if(getLeftChild(node) == null){
+				break;
+			} else {
+				node = getLeftChild(node);
+			}
+			
+		}
+		return node;
+	}
 }
