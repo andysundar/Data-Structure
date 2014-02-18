@@ -180,6 +180,10 @@ public class BinaryTree<T extends Comparable<T>> {
 		return root;
 	}
 	
+	public void setRoot(TreeDataObject<T> root) {
+		this.root = root;
+	}
+	
 	public TreeDataObject<T> getLeftChild(TreeDataObject<T> node){
 		return node.getLeftChildNode();
 	}
