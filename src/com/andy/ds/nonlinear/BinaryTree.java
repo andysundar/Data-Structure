@@ -72,7 +72,7 @@ public class BinaryTree<T extends Comparable<T>> {
 		return rootNodeObject;
 	}
 
-	public boolean deleteNode(T data) {
+	public TreeDataObject<T> deleteNode(T data) {
 		if(data == null){
 			throw new IllegalArgumentException("Null cannot be deleted.");
 		}
@@ -103,7 +103,7 @@ public class BinaryTree<T extends Comparable<T>> {
 			}
 			numberOfNodes--;
 		}
-		return isOk;
+		return successorNode;
 	}
 	
 	private TreeDataObject<T> findDeleteNodeSuccessor(TreeDataObject<T> deleteNode) {

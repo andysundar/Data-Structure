@@ -16,8 +16,7 @@
 
 package com.andy.ds.nonlinear;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -81,9 +80,9 @@ public class BinaryTreeTest {
 		
 		assertEquals(3, binaryTree.getNumberOfNodes()); 
 		
-		assertTrue(binaryTree.deleteNode(5));
-		assertTrue(binaryTree.deleteNode(2));
-		assertTrue(binaryTree.deleteNode(8));
+		binaryTree.deleteNode(5);
+		binaryTree.deleteNode(2);
+		binaryTree.deleteNode(8);
 		
 		assertEquals(0, binaryTree.getNumberOfNodes());
 	}
@@ -101,13 +100,13 @@ public class BinaryTreeTest {
 		
 		assertEquals(4, binaryTree.getNumberOfNodes());
 		
-		assertTrue(binaryTree.deleteNode(5));
+		binaryTree.deleteNode(5);
 		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
-		assertTrue(binaryTree.deleteNode(2));
+		binaryTree.deleteNode(2);
 		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
-		assertTrue(binaryTree.deleteNode(8));
+		binaryTree.deleteNode(8);
 		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
-		assertTrue(binaryTree.deleteNode(6));
+		binaryTree.deleteNode(6);
 		
 		assertEquals(0, binaryTree.getNumberOfNodes());
 	}
@@ -119,9 +118,9 @@ public class BinaryTreeTest {
 		binaryTree.insertNode(2);
 
 		
-		assertTrue(binaryTree.deleteNode(5));
-		assertTrue(binaryTree.deleteNode(2));
-		assertTrue(binaryTree.deleteNode(1));
+		binaryTree.deleteNode(5);
+		binaryTree.deleteNode(2);
+		binaryTree.deleteNode(1);
 		
 		assertEquals(0, binaryTree.getNumberOfNodes());
 	}
@@ -142,6 +141,15 @@ public class BinaryTreeTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void testDeleteNodeWithNULLdata(){
 		binaryTree.deleteNode(null);
+	}
+	
+	@Test
+	public void testDeleteNode_withDataWhichIsNotInTree(){
+		binaryTree.insertNode(1);
+		binaryTree.insertNode(5);
+		binaryTree.insertNode(2);
+		
+		assertNull(binaryTree.deleteNode(3));
 	}
 	
 	private void insertNodeIntoTree(){
