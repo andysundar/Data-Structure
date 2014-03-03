@@ -30,7 +30,8 @@ public class BinaryTree<T extends Comparable<T>> {
 			root = insertRoot(data);
 			node = root;
 		} else {
-			node = insertChild(data);
+			TreeDataObject<T> parentNode = findParentNodeForNewNode(getRoot(),data);
+			node = insertChild(parentNode,data);
 		}
 		if(node != null){
 			numberOfNodes++;
@@ -38,10 +39,8 @@ public class BinaryTree<T extends Comparable<T>> {
 		return node;
 	}
 	
-	private TreeDataObject<T> insertChild(T data) {
+	private TreeDataObject<T> insertChild(TreeDataObject<T> parentNode,T data) {
 		TreeDataObject<T> child = null;
-		TreeDataObject<T> parentNode = findParentNodeForNewNode(data);
-
 		if(data.compareTo(parentNode.getData()) <= 0){
 			child = insertLeftChild(parentNode,data);
 		} else {
@@ -54,7 +53,6 @@ public class BinaryTree<T extends Comparable<T>> {
 		TreeDataObject<T> childNode = new TreeDataObject<T>();
 		childNode.setData(data);
 		parentNode.setLeftChildNode(childNode);
-		childNode.setParentNode(parentNode);
 		return childNode;
 	}
 	
@@ -62,7 +60,6 @@ public class BinaryTree<T extends Comparable<T>> {
 		TreeDataObject<T> childNode = new TreeDataObject<T>();
 		childNode.setData(data);
 		parentNode.setRightChildNode(childNode);
-		childNode.setParentNode(parentNode);
 		return childNode;
 	}
 
@@ -83,7 +80,8 @@ public class BinaryTree<T extends Comparable<T>> {
 			if((node.getLeftChildNode() == null) && (node.getRightChildNode() == null)) {
 				unlinkNode(node,null);
 			} else if((node.getLeftChildNode() != null) && (node.getRightChildNode() != null)) {
-				successorNode = findDeleteNodeSuccessor(node);
+				successorNode = getMinValueNode(node.getRightChildNode());
+				//updateParentChildWithNodeChild(successorNode);
 				successorNode.setParentNode(node.getParentNode());
 				if(!successorNode.equals(node.getRightChildNode())){
 					successorNode.setRightChildNode(node.getRightChildNode());
@@ -92,39 +90,29 @@ public class BinaryTree<T extends Comparable<T>> {
 				unlinkNode(node, successorNode);
 			} else {
 				if(node.getLeftChildNode() != null) {
-					successorNode = node.getLeftChildNode();
-					node.setLeftChildNode(null);
-				} else {
-					successorNode = node.getRightChildNode();
-					node.setRightChildNode(null);
+					successorNode = getMaxValueNode(node.getLeftChildNode());
+					if(successorNode.getParentNode() != null){
+						successorNode.getParentNode().setRightChildNode(successorNode.getLeftChildNode());
+					}
+				} else if(node.getRightChildNode() != null) {
+					successorNode = getMinValueNode(node.getRightChildNode());
+					if(successorNode.getParentNode() != null){
+						successorNode.getParentNode().setLeftChildNode(successorNode.getRightChildNode());
+					}
 				}
 				successorNode.setParentNode(node.getParentNode());
+				if(!successorNode.equals(node.getRightChildNode())){
+					successorNode.setRightChildNode(node.getRightChildNode());
+				}
+				if(!successorNode.equals(node.getLeftChildNode())){
+					successorNode.setLeftChildNode(node.getLeftChildNode());
+				}
 				unlinkNode(node, successorNode);
 			}
 			numberOfNodes--;
 		}
 		return successorNode;
 	}
-	
-	private TreeDataObject<T> findDeleteNodeSuccessor(TreeDataObject<T> deleteNode) {
-		TreeDataObject<T> rightChild = deleteNode.getRightChildNode();
-		TreeDataObject<T> findExtreamLeftChild = null;
-		if(rightChild != null ) {
-			findExtreamLeftChild = deleteNode.getRightChildNode().getLeftChildNode();
-			if(findExtreamLeftChild == null){
-				findExtreamLeftChild = rightChild;
-			}
-		}
-		
-		while(findExtreamLeftChild != null) {
-			if(findExtreamLeftChild.getLeftChildNode() == null){
-				break;
-			}
-			findExtreamLeftChild = findExtreamLeftChild.getLeftChildNode();
-		}
-		return findExtreamLeftChild;
-	}
-	
 	
 	private void unlinkNode(TreeDataObject<T> deleteNode,TreeDataObject<T> deleteNodeChildLink){
 		deleteNode.setData(null);
@@ -136,15 +124,14 @@ public class BinaryTree<T extends Comparable<T>> {
 				parentNode.setRightChildNode(deleteNodeChildLink);
 			}
 		} else {
-			root = deleteNodeChildLink;
+			setRoot(deleteNodeChildLink);
 		}
 		deleteNode.setParentNode(null);
 		deleteNode.setLeftChildNode(null);
 		deleteNode.setRightChildNode(null);
 	}
 	
-	private TreeDataObject<T> findParentNodeForNewNode(T data){
-		TreeDataObject<T> element = root;
+	private TreeDataObject<T> findParentNodeForNewNode(TreeDataObject<T> element,T data){
 		TreeDataObject<T> parentNode = null;
 		while(element != null) {
 			if(data.compareTo(element.getData()) <= 0) {
@@ -160,7 +147,7 @@ public class BinaryTree<T extends Comparable<T>> {
 
 	public TreeDataObject<T> findNode(T data){
 		TreeDataObject<T> element = root;
-		while(element != null) {
+		while(element != null && data != null) {
 				int compairValue = data.compareTo(element.getData());
 				if(compairValue < 0) {
 					element = getLeftChild(element);
@@ -172,6 +159,7 @@ public class BinaryTree<T extends Comparable<T>> {
 		}
 		return null;
 	}
+	
 	public int getNumberOfNodes() {
 		return numberOfNodes;
 	}
@@ -192,8 +180,7 @@ public class BinaryTree<T extends Comparable<T>> {
 		return node.getRightChildNode();
 	}
 	
-	public TreeDataObject<T> getMaxValueNode() {
-		TreeDataObject<T> node = getRoot();
+	public TreeDataObject<T> getMaxValueNode(TreeDataObject<T> node) {
 		while(node != null){
 			if(getRightChild(node) == null) {
 				break;
@@ -204,8 +191,7 @@ public class BinaryTree<T extends Comparable<T>> {
 		return node;
 	}
 	
-	public TreeDataObject<T> getMinValueNode() {
-		TreeDataObject<T> node = getRoot();
+	public TreeDataObject<T> getMinValueNode(TreeDataObject<T> node) {
 		while(node != null){
 			if(getLeftChild(node) == null){
 				break;
