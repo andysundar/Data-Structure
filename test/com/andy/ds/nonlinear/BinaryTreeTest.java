@@ -88,25 +88,61 @@ public class BinaryTreeTest {
 	}
 
 	@Test
-	public void testDeleteNode_withExtremRightChild() {
-		node = binaryTree.insertNode(5);
+	public void testDeleteNode_withRightChildOnly() {
+		node = binaryTree.insertNode(4);
 		assertEquals(node.getData(), binaryTree.getRoot().getData());
+		node = binaryTree.insertNode(1);
+		assertEquals(node.getData(), Integer.valueOf(1));
+		node = binaryTree.insertNode(3);
+		assertEquals(node.getData(), Integer.valueOf(3));
 		node = binaryTree.insertNode(2);
 		assertEquals(node.getData(), Integer.valueOf(2));
 		node = binaryTree.insertNode(8);
 		assertEquals(node.getData(), Integer.valueOf(8));
 		node = binaryTree.insertNode(6);
 		assertEquals(node.getData(), Integer.valueOf(6));
+		node = binaryTree.insertNode(5);
+		assertEquals(node.getData(), Integer.valueOf(5));
 		
-		assertEquals(4, binaryTree.getNumberOfNodes());
+		assertEquals(7, binaryTree.getNumberOfNodes());
 		
 		binaryTree.deleteNode(5);
+		assertEquals(Integer.valueOf(4), binaryTree.getRoot().getData());
+		binaryTree.deleteNode(4);
+		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
+		binaryTree.deleteNode(1);
+		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
+		binaryTree.deleteNode(3);
 		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
 		binaryTree.deleteNode(2);
 		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
 		binaryTree.deleteNode(8);
 		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
 		binaryTree.deleteNode(6);
+		
+		assertEquals(0, binaryTree.getNumberOfNodes());
+	}
+	
+	@Test
+	public void testDeleteNode_withLeftChildOnly() {
+		node = binaryTree.insertNode(5);
+		assertEquals(node.getData(), binaryTree.getRoot().getData());
+		node = binaryTree.insertNode(1);
+		assertEquals(node.getData(), Integer.valueOf(1));
+		node = binaryTree.insertNode(3);
+		assertEquals(node.getData(), Integer.valueOf(3));
+		node = binaryTree.insertNode(2);
+		assertEquals(node.getData(), Integer.valueOf(2));
+		
+		assertEquals(4, binaryTree.getNumberOfNodes());
+		
+		binaryTree.deleteNode(5);
+		assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
+		binaryTree.deleteNode(2);
+		assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
+		binaryTree.deleteNode(3);
+		assertEquals(Integer.valueOf(1), binaryTree.getRoot().getData());
+		binaryTree.deleteNode(1);
 		
 		assertEquals(0, binaryTree.getNumberOfNodes());
 	}
@@ -161,12 +197,12 @@ public class BinaryTreeTest {
 	@Test
 	public void testGetMaxValueNode(){
 		insertNodeIntoTree();
-		assertEquals(Integer.valueOf(5) , binaryTree.getMaxValueNode().getData());
+		assertEquals(Integer.valueOf(5) , binaryTree.getMaxValueNode(binaryTree.getRoot()).getData());
 	}
 	
 	@Test
 	public void testGetMinValueNode(){
 		insertNodeIntoTree();
-		assertEquals(Integer.valueOf(1) , binaryTree.getMinValueNode().getData());
+		assertEquals(Integer.valueOf(1) , binaryTree.getMinValueNode(binaryTree.getRoot()).getData());
 	}
 }
