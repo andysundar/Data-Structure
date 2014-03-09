@@ -58,4 +58,8 @@ public class RedBlackTreeTest {
 		assertEquals(Integer.valueOf(7), redBlackTree.getRoot().getData());
 	}
 
+	@Test
+	public void testDeleteNode(){
+		
+	}
 }
