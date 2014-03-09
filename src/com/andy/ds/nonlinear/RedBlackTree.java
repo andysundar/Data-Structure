@@ -56,31 +56,15 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 	 */
 	public TreeDataObject<T> rotateLeft(TreeDataObject<T> subRoot) {
 		TreeDataObject<T> temp = subRoot.getRightChildNode();
-		
-		subRoot.setRightChildNode(temp.getLeftChildNode());
-		if(subRoot.getRightChildNode() != null) {
-			subRoot.getRightChildNode().setParentNode(subRoot);
-		}
-		
-		
-		temp.setLeftChildNode(subRoot);
+		subRoot.setRightChildNode(temp.getLeftChildNode());	
 		temp.setParentNode(subRoot.getParentNode());
-		
-		subRoot.setParentNode(temp);
-		
-		
+		temp.setLeftChildNode(subRoot);		
 		temp.setColour(subRoot.getColour());
 		subRoot.setColour(TreeDataObject.RED);
 		TreeDataObject<T> parentNode = temp.getParentNode();
 		if(parentNode == null){
 			setRoot(temp);
-		} else {
-			if(subRoot.equals(parentNode.getLeftChildNode())){
-				parentNode.setLeftChildNode(temp);
-			} else {
-				parentNode.setRightChildNode(temp);
-			}
-		}
+		} 
 		return temp;
 	}
 
@@ -102,14 +86,9 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 		TreeDataObject<T> temp = subRoot.getLeftChildNode();
 		
 		subRoot.setLeftChildNode(temp.getRightChildNode());
-		if(subRoot.getLeftChildNode() != null){
-			subRoot.getLeftChildNode().setParentNode(subRoot);
-		}
 		
 		temp.setRightChildNode(subRoot);
 		temp.setParentNode(subRoot.getParentNode());
-		
-		subRoot.setParentNode(temp);
 		
 		temp.setColour(subRoot.getColour());
 		subRoot.setColour(TreeDataObject.RED);
@@ -145,13 +124,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 
 	public void insertRedBlackNode(T data){
 		TreeDataObject<T> node = super.insertNode(data);
-		//0. for root node
-		
-		
-		// 1. The root & leaves are black.
-		// 2. Every Red node has black parent.
-		// 3. All simple paths from a node X to a descendant 
-		//    leave of X have same number of black node(s).
+
 		TreeDataObject<T> parentNode = node.getParentNode();
 		if(parentNode != null){
 			TreeDataObject<T> grandParentNode = parentNode.getParentNode();
@@ -196,5 +169,10 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 			uncleNode = grandParentNode.getLeftChildNode();
 		}
 		return uncleNode;
+	}
+	
+	public void deleteRedBlackNode(T data){
+		
+		
 	}
 }
