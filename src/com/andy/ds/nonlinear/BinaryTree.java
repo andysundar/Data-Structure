@@ -20,46 +20,51 @@ import com.andy.adt.TreeDataObject;
 public class BinaryTree<T extends Comparable<T>> {
 	private int numberOfNodes;
 	private TreeDataObject<T> root;
-	
-	public TreeDataObject<T> insertNode(T data){
-		if(data == null){
+
+	public TreeDataObject<T> insertNode(T data) {
+		if (data == null) {
 			throw new IllegalArgumentException("Null cannot be inserted. ");
 		}
 		TreeDataObject<T> node = null;
-		if(root == null){
-			root = insertRoot(data);
-			node = root;
+		if (getRoot() == null) {
+			setRoot(insertRoot(data));
+			node = getRoot();
 		} else {
-			TreeDataObject<T> parentNode = findParentNodeForNewNode(getRoot(),data);
-			node = insertChild(parentNode,data);
+			TreeDataObject<T> parentNode = findParentNodeForNewNode(getRoot(),
+					data);
+			node = insertChild(parentNode, data);
 		}
-		if(node != null){
+		if (node != null) {
 			numberOfNodes++;
 		}
 		return node;
 	}
-	
-	private TreeDataObject<T> insertChild(TreeDataObject<T> parentNode,T data) {
+
+	private TreeDataObject<T> insertChild(TreeDataObject<T> parentNode, T data) {
 		TreeDataObject<T> child = null;
-		if(data.compareTo(parentNode.getData()) <= 0){
-			child = insertLeftChild(parentNode,data);
+		if (data.compareTo(parentNode.getData()) <= 0) {
+			child = insertLeftChild(parentNode, data);
 		} else {
-			child = insertRightChild(parentNode,data);
+			child = insertRightChild(parentNode, data);
 		}
 		return child;
 	}
 
-	private TreeDataObject<T> insertLeftChild(TreeDataObject<T> parentNode,T data){
+	private TreeDataObject<T> insertLeftChild(TreeDataObject<T> parentNode,
+			T data) {
 		TreeDataObject<T> childNode = new TreeDataObject<T>();
 		childNode.setData(data);
 		parentNode.setLeftChildNode(childNode);
+		childNode.setParentNode(parentNode);
 		return childNode;
 	}
-	
-	private TreeDataObject<T> insertRightChild(TreeDataObject<T> parentNode,T data){
+
+	private TreeDataObject<T> insertRightChild(TreeDataObject<T> parentNode,
+			T data) {
 		TreeDataObject<T> childNode = new TreeDataObject<T>();
 		childNode.setData(data);
 		parentNode.setRightChildNode(childNode);
+		childNode.setParentNode(parentNode);
 		return childNode;
 	}
 
@@ -70,71 +75,114 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 
 	public TreeDataObject<T> deleteNode(T data) {
-		if(data == null){
+		if (data == null) {
 			throw new IllegalArgumentException("Null cannot be deleted.");
 		}
 		TreeDataObject<T> node = findNode(data);
 		boolean isOk = ((node != null) && (data.equals(node.getData())));
 		TreeDataObject<T> successorNode = null;
-		if(isOk){
-			if((node.getLeftChildNode() == null) && (node.getRightChildNode() == null)) {
-				unlinkNode(node,null);
-			} else if((node.getLeftChildNode() != null) && (node.getRightChildNode() != null)) {
+		if (isOk) {
+			if ((node.getLeftChildNode() == null)
+					&& (node.getRightChildNode() == null)) {
+				unlinkDeleteNodeLinkSuccessorNode(node, null);
+			} else if ((node.getLeftChildNode() != null)
+					&& (node.getRightChildNode() != null)) {
 				successorNode = getMinValueNode(node.getRightChildNode());
-				//updateParentChildWithNodeChild(successorNode);
-				successorNode.setParentNode(node.getParentNode());
-				if(!successorNode.equals(node.getRightChildNode())){
-					successorNode.setRightChildNode(node.getRightChildNode());
+
+				TreeDataObject<T> successorParentNode = successorNode
+						.getParentNode();
+				if (successorParentNode != null
+						&& (!successorParentNode.equals(node))) {
+					successorParentNode.setLeftChildNode(successorNode
+							.getRightChildNode());
+					if (successorNode.getRightChildNode() != null) {
+						successorNode.getRightChildNode().setParentNode(
+								successorParentNode);
+					}
 				}
-				successorNode.setLeftChildNode(node.getLeftChildNode());
-				unlinkNode(node, successorNode);
+				updateSuccessorNodeChildrensWithDeletedNodeChildrens(node,
+						successorNode);
+				unlinkDeleteNodeLinkSuccessorNode(node, successorNode);
 			} else {
-				if(node.getLeftChildNode() != null) {
+				if (node.getLeftChildNode() != null) {
 					successorNode = getMaxValueNode(node.getLeftChildNode());
-					if(successorNode.getParentNode() != null){
-						successorNode.getParentNode().setRightChildNode(successorNode.getLeftChildNode());
+					TreeDataObject<T> successorParentNode = successorNode
+							.getParentNode();
+					if (successorParentNode != null
+							&& (!successorParentNode.equals(node))) {
+						successorParentNode.setRightChildNode(successorNode
+								.getLeftChildNode());
+						if (successorNode.getLeftChildNode() != null) {
+							successorNode.getLeftChildNode().setParentNode(
+									successorParentNode);
+						}
 					}
-				} else if(node.getRightChildNode() != null) {
+				} else if (node.getRightChildNode() != null) {
 					successorNode = getMinValueNode(node.getRightChildNode());
-					if(successorNode.getParentNode() != null){
-						successorNode.getParentNode().setLeftChildNode(successorNode.getRightChildNode());
+					TreeDataObject<T> successorParentNode = successorNode
+							.getParentNode();
+					if (successorParentNode != null
+							&& (!successorParentNode.equals(node))) {
+						successorParentNode.setLeftChildNode(successorNode
+								.getRightChildNode());
+						if (successorNode.getRightChildNode() != null) {
+							successorNode.getRightChildNode().setParentNode(
+									successorParentNode);
+						}
 					}
 				}
-				successorNode.setParentNode(node.getParentNode());
-				if(!successorNode.equals(node.getRightChildNode())){
-					successorNode.setRightChildNode(node.getRightChildNode());
-				}
-				if(!successorNode.equals(node.getLeftChildNode())){
-					successorNode.setLeftChildNode(node.getLeftChildNode());
-				}
-				unlinkNode(node, successorNode);
+				updateSuccessorNodeChildrensWithDeletedNodeChildrens(node,
+						successorNode);
+				unlinkDeleteNodeLinkSuccessorNode(node, successorNode);
 			}
 			numberOfNodes--;
 		}
 		return successorNode;
 	}
-	
-	private void unlinkNode(TreeDataObject<T> deleteNode,TreeDataObject<T> deleteNodeChildLink){
+
+	private void updateSuccessorNodeChildrensWithDeletedNodeChildrens(
+			TreeDataObject<T> node, TreeDataObject<T> successorNode) {
+		successorNode.setParentNode(node.getParentNode());
+
+		successorNode.setLeftChildNode(node.getLeftChildNode());
+		if (node.getLeftChildNode() != null) {
+			node.getLeftChildNode().setParentNode(successorNode);
+		}
+		successorNode.setRightChildNode(node.getRightChildNode());
+		if (node.getRightChildNode() != null) {
+			node.getRightChildNode().setParentNode(successorNode);
+		}
+	}
+
+	private void unlinkDeleteNodeLinkSuccessorNode(
+			TreeDataObject<T> deleteNode, TreeDataObject<T> successorNode) {
 		deleteNode.setData(null);
-		TreeDataObject<T> parentNode = deleteNode.getParentNode();
-		if(parentNode != null){
-			if(deleteNode.equals(parentNode.getLeftChildNode())){
-				parentNode.setLeftChildNode(deleteNodeChildLink);
+		TreeDataObject<T> parentOfDeleteNode = deleteNode.getParentNode();
+		if (parentOfDeleteNode != null) {
+			if (deleteNode.equals(parentOfDeleteNode.getLeftChildNode())) {
+				parentOfDeleteNode.setLeftChildNode(successorNode);
+				if (successorNode != null) {
+					successorNode.setParentNode(parentOfDeleteNode);
+				}
 			} else {
-				parentNode.setRightChildNode(deleteNodeChildLink);
+				parentOfDeleteNode.setRightChildNode(successorNode);
+				if (successorNode != null) {
+					successorNode.setParentNode(parentOfDeleteNode);
+				}
 			}
 		} else {
-			setRoot(deleteNodeChildLink);
+			setRoot(successorNode);
 		}
 		deleteNode.setParentNode(null);
 		deleteNode.setLeftChildNode(null);
 		deleteNode.setRightChildNode(null);
 	}
-	
-	private TreeDataObject<T> findParentNodeForNewNode(TreeDataObject<T> element,T data){
+
+	private TreeDataObject<T> findParentNodeForNewNode(
+			TreeDataObject<T> element, T data) {
 		TreeDataObject<T> parentNode = null;
-		while(element != null) {
-			if(data.compareTo(element.getData()) <= 0) {
+		while (element != null) {
+			if (data.compareTo(element.getData()) <= 0) {
 				parentNode = element;
 				element = getLeftChild(element);
 			} else {
@@ -145,21 +193,21 @@ public class BinaryTree<T extends Comparable<T>> {
 		return parentNode;
 	}
 
-	public TreeDataObject<T> findNode(T data){
+	public TreeDataObject<T> findNode(T data) {
 		TreeDataObject<T> element = root;
-		while(element != null && data != null) {
-				int compairValue = data.compareTo(element.getData());
-				if(compairValue < 0) {
-					element = getLeftChild(element);
-				} else if(compairValue > 0) {
-					element = getRightChild(element);
-				} else {
-					return element;
-				}
+		while (element != null && data != null) {
+			int compairValue = data.compareTo(element.getData());
+			if (compairValue < 0) {
+				element = getLeftChild(element);
+			} else if (compairValue > 0) {
+				element = getRightChild(element);
+			} else {
+				return element;
+			}
 		}
 		return null;
 	}
-	
+
 	public int getNumberOfNodes() {
 		return numberOfNodes;
 	}
@@ -167,22 +215,22 @@ public class BinaryTree<T extends Comparable<T>> {
 	public TreeDataObject<T> getRoot() {
 		return root;
 	}
-	
+
 	public void setRoot(TreeDataObject<T> root) {
 		this.root = root;
 	}
-	
-	public TreeDataObject<T> getLeftChild(TreeDataObject<T> node){
+
+	public TreeDataObject<T> getLeftChild(TreeDataObject<T> node) {
 		return node.getLeftChildNode();
 	}
-	
-	public TreeDataObject<T> getRightChild(TreeDataObject<T> node){
+
+	public TreeDataObject<T> getRightChild(TreeDataObject<T> node) {
 		return node.getRightChildNode();
 	}
-	
+
 	public TreeDataObject<T> getMaxValueNode(TreeDataObject<T> node) {
-		while(node != null){
-			if(getRightChild(node) == null) {
+		while (node != null) {
+			if (getRightChild(node) == null) {
 				break;
 			} else {
 				node = getRightChild(node);
@@ -190,15 +238,15 @@ public class BinaryTree<T extends Comparable<T>> {
 		}
 		return node;
 	}
-	
+
 	public TreeDataObject<T> getMinValueNode(TreeDataObject<T> node) {
-		while(node != null){
-			if(getLeftChild(node) == null){
+		while (node != null) {
+			if (getLeftChild(node) == null) {
 				break;
 			} else {
 				node = getLeftChild(node);
 			}
-			
+
 		}
 		return node;
 	}
