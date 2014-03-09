@@ -40,15 +40,9 @@ public class TreeDataObject<T extends Comparable<T>> {
 		this.data = data;
 	}
 	public void setLeftChildNode(TreeDataObject<T> leftNode) {
-		if(leftNode != null) {
-			leftNode.setParentNode(this);
-		}
 		this.leftChildNode = leftNode;
 	}
 	public void setRightChildNode(TreeDataObject<T> rightNode) {
-		if(rightNode != null) {
-			rightNode.setParentNode(this);
-		}
 		this.rightChildNode = rightNode;
 	}
 	
