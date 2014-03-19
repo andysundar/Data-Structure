@@ -140,7 +140,7 @@ public class BinaryTree<T extends Comparable<T>> {
 		return successorNode;
 	}
 
-	private void updateSuccessorNodeChildrensWithDeletedNodeChildrens(
+	protected void updateSuccessorNodeChildrensWithDeletedNodeChildrens(
 			TreeDataObject<T> node, TreeDataObject<T> successorNode) {
 		successorNode.setParentNode(node.getParentNode());
 

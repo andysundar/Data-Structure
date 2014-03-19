@@ -180,6 +180,12 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 	
 	public void deleteRedBlackNode(T data){
 		TreeDataObject<T> node = super.deleteNode(data);
-		node.setColour(TreeDataObject.BLACK);
+	}
+	
+	@Override
+	protected void updateSuccessorNodeChildrensWithDeletedNodeChildrens(
+			TreeDataObject<T> node, TreeDataObject<T> successorNode) {
+		super.updateSuccessorNodeChildrensWithDeletedNodeChildrens(node, successorNode);
+		successorNode.setColour(node.getColour());
 	}
 }
