@@ -56,15 +56,10 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 	 */
 	public TreeDataObject<T> rotateLeft(TreeDataObject<T> subRoot) {
 		TreeDataObject<T> temp = subRoot.getRightChildNode();
+		
 		subRoot.setRightChildNode(temp.getLeftChildNode());	
-		temp.setParentNode(subRoot.getParentNode());
 		temp.setLeftChildNode(subRoot);		
-		temp.setColour(subRoot.getColour());
-		subRoot.setColour(TreeDataObject.RED);
-		TreeDataObject<T> parentNode = temp.getParentNode();
-		if(parentNode == null){
-			setRoot(temp);
-		} 
+		fixParentAndColourAfterRotation(subRoot, temp);
 		return temp;
 	}
 
@@ -86,10 +81,21 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 		TreeDataObject<T> temp = subRoot.getLeftChildNode();
 		
 		subRoot.setLeftChildNode(temp.getRightChildNode());
-		
 		temp.setRightChildNode(subRoot);
-		temp.setParentNode(subRoot.getParentNode());
 		
+		fixParentAndColourAfterRotation(subRoot, temp);
+		
+		return temp;
+	}
+
+	/**
+	 * fix the parent object reference after rotation
+	 * @param subRoot
+	 * @param temp
+	 */
+	private void fixParentAndColourAfterRotation(TreeDataObject<T> subRoot,
+			TreeDataObject<T> temp) {
+		temp.setParentNode(subRoot.getParentNode());
 		temp.setColour(subRoot.getColour());
 		subRoot.setColour(TreeDataObject.RED);
 		
@@ -104,9 +110,10 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 			}
 		}
 		
-		return temp;
 	}
 
+
+	
 	/**
 	 * Flip the color of sub root and there children
 	 * 
@@ -172,7 +179,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 	}
 	
 	public void deleteRedBlackNode(T data){
-		
-		
+		TreeDataObject<T> node = super.deleteNode(data);
+		node.setColour(TreeDataObject.BLACK);
 	}
 }

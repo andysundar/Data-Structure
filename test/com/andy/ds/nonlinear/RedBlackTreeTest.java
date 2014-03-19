@@ -26,7 +26,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class RedBlackTreeTest {
 
@@ -44,12 +44,12 @@ public class RedBlackTreeTest {
 	
 	@Test
 	public void testInsertNode_LeftRotation() {
-		for(int index = 1 ; index < 10;index++ ) {
+		for(int index = 1 ; index < 9;index++ ) {
 			redBlackTree.insertRedBlackNode(index);
 		}
 		assertEquals(Integer.valueOf(4), redBlackTree.getRoot().getData());
 	}
-	
+
 	@Test
 	public void testInsertNode_RightRotation() {
 		for(int index = 10 ; index > 0;index-- ) {
@@ -60,6 +60,12 @@ public class RedBlackTreeTest {
 
 	@Test
 	public void testDeleteNode(){
+		for(int index = 1 ; index < 4; index++){
+			redBlackTree.insertRedBlackNode(index);
+		}
+		assertEquals(Integer.valueOf(2), redBlackTree.getRoot().getData());
 		
+		redBlackTree.deleteRedBlackNode(2);
+		assertTrue(redBlackTree.getRoot().getColour());
 	}
 }
