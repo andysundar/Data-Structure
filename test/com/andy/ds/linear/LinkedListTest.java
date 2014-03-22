@@ -249,4 +249,17 @@ public class LinkedListTest {
 		assertNotNull(linkedList.getLastNode());
 	}
 
+	@Test
+	public void testRemoveAll_withSameDataAsParam() {
+		assertTrue(linkedList.add(1));
+		assertTrue(linkedList.add(1));
+		assertTrue(linkedList.removeAll(1));
+	}
+	
+	@Test
+	public void testRemoveAll_withDataNotPresentInList() {
+		assertTrue(linkedList.add(1));
+		assertTrue(linkedList.add(2));
+		assertFalse(linkedList.removeAll(0));
+	}
 }
