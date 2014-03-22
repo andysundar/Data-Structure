@@ -17,6 +17,8 @@
 package com.andy.ds.linear;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
@@ -26,7 +28,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.andy.adt.SingleLinkListDataObject;
-import com.andy.ds.linear.LinkedList;
 
 public class LinkedListTest {
 	private LinkedList<Integer> linkedList = null;
@@ -110,6 +111,13 @@ public class LinkedListTest {
 		assertEquals(Integer.valueOf(6), Integer.valueOf(linkedList.size()));
 		
 		
+	}
+	
+	@Test
+	public void testRemoveAT_RemovingTheLastElement() {
+		assertTrue(linkedList.add(Integer.valueOf(1)));
+		assertTrue(linkedList.add(Integer.valueOf(2)));
+		assertTrue(linkedList.removeAt(1));
 	}
 
 	@Test(expected=IndexOutOfBoundsException.class)
@@ -222,4 +230,23 @@ public class LinkedListTest {
 			index++;
 		}
 	}
+	
+	@Test
+	public void testIsEmpty_whenNoElement() {
+		assertTrue(linkedList.isEmpty());
+	}
+	
+	@Test
+	public void testIsEmpty_whenElementsAreThere() {
+		linkedList.add(1);
+		assertFalse(linkedList.isEmpty());
+	}
+	
+	@Test
+	public void testGetLastNode() {
+		assertTrue(linkedList.add(Integer.valueOf(1)));
+		assertTrue(linkedList.add(Integer.valueOf(2)));
+		assertNotNull(linkedList.getLastNode());
+	}
+
 }
