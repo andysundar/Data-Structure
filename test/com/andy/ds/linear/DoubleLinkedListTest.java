@@ -18,6 +18,7 @@ package com.andy.ds.linear;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -213,6 +214,23 @@ public class DoubleLinkedListTest {
 			assertEquals(Integer.valueOf(index), element.getData());
 			index++;
 		}
+	}
+	
+	@Test
+	public void testIsEmpty_whenNoElement() {
+		assertTrue(doubleLinkedList.isEmpty());
+	}
+	
+	@Test
+	public void testIsEmpty_whenElementThere() {
+		addDataToList();
+		assertFalse(doubleLinkedList.isEmpty());
+	}
+	@Test
+	public void testGetLastNode() {
+		assertTrue(doubleLinkedList.add(Integer.valueOf(1)));
+		assertTrue(doubleLinkedList.add(Integer.valueOf(2)));
+		assertNotNull(doubleLinkedList.getLastNode());
 	}
 }
  
