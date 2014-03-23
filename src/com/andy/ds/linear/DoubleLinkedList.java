@@ -137,7 +137,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 			throw new IllegalArgumentException("Data to be removed cannot be null.");
 		}
 
-		DoubleLinkListDataObject<T> findToBeDeleteNode = startNode;
+		DoubleLinkListDataObject<T> findToBeDeleteNode = getStartNode();
 		while((findToBeDeleteNode != null) && (!data.equals(findToBeDeleteNode.getData()))){
 			findToBeDeleteNode = findToBeDeleteNode.getNextReference();
 		}
@@ -150,7 +150,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 	 * @param node
 	 * @return return true if object found and removed successfully.
 	 */
-	private boolean unLinkNode(DoubleLinkListDataObject<T> node) {
+	protected boolean unLinkNode(DoubleLinkListDataObject<T> node) {
 		boolean isOk = false;
 		if(node != null) {
 			DoubleLinkListDataObject<T> beforeDeleteNode = node.getPreviousReference();
