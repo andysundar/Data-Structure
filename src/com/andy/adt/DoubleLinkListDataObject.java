@@ -16,7 +16,11 @@
 
 package com.andy.adt;
 
-public class DoubleLinkListDataObject<T> {
+import java.io.Serializable;
+
+public class DoubleLinkListDataObject<T> implements Cloneable,Serializable{
+	
+	private static final long serialVersionUID = -1250475451233884271L;
 	private T data;
 	private DoubleLinkListDataObject<T> nextReference;
 	private DoubleLinkListDataObject<T> previousReference;

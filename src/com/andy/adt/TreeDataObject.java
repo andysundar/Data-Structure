@@ -15,7 +15,12 @@
  */
 package com.andy.adt;
 
-public class TreeDataObject<T extends Comparable<T>> {
+import java.io.Serializable;
+
+public class TreeDataObject<T extends Comparable<T>> implements Cloneable,Serializable{
+	
+	private static final long serialVersionUID = 5890058206412743892L;
+
 	private boolean colour;
 	
 	private T data;

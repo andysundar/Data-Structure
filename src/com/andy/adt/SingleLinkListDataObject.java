@@ -16,7 +16,10 @@
 
 package com.andy.adt;
 
-public class SingleLinkListDataObject<T> {
+import java.io.Serializable;
+
+public class SingleLinkListDataObject<T> implements Cloneable,Serializable{
+	private static final long serialVersionUID = -7623057295893767687L;
 	private T data;
 	private SingleLinkListDataObject<T> nextReference;
 	
