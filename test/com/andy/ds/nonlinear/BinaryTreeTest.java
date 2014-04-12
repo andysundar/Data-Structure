@@ -16,14 +16,14 @@
 
 package com.andy.ds.nonlinear;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.andy.adt.TreeDataObject;
-import com.andy.ds.nonlinear.BinaryTree;
 
 public class BinaryTreeTest {
 	private BinaryTree<Integer> binaryTree;
@@ -126,20 +126,12 @@ public class BinaryTreeTest {
 	
 	@Test
 	public void testDeleteNode_withRootHaveRightChildOnly(){
-		node = binaryTree.insertNode(4);
-		node = binaryTree.insertNode(8);
-		node = binaryTree.insertNode(6);
-		node = binaryTree.insertNode(5);
-		
-		binaryTree.deleteNode(5);
-		assertEquals(Integer.valueOf(4), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(4);
-		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(8);
-		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(6);
-		
-		assertEquals(0, binaryTree.getNumberOfNodes());
+		binaryTree.insertNode(2);
+		binaryTree.insertNode(5);
+		binaryTree.insertNode(3);
+		binaryTree.insertNode(4);
+		binaryTree.deleteNode(2);
+		assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
 	}
 	@Test
 	public void testDeleteNode_withRootHaveLeftChildOnly() {
@@ -166,7 +158,7 @@ public class BinaryTreeTest {
 	}
 	
 	@Test
-	public void testDeleteNode_withOutRightChild() {
+	public void testDeleteNode_withoutRightChild() {
 		binaryTree.insertNode(1);
 		binaryTree.insertNode(5);
 		binaryTree.insertNode(2);
@@ -178,6 +170,16 @@ public class BinaryTreeTest {
 		
 		assertEquals(0, binaryTree.getNumberOfNodes());
 	}
+	
+	@Test
+	public void testDeleteNode_whenDataNotPresentInTree() {
+		binaryTree.insertNode(1);
+		binaryTree.insertNode(5);
+		binaryTree.insertNode(2);
+		
+		assertNull(binaryTree.deleteNode(8));
+	}
+	
 	@Test
 	public void testNumberOfNodes() {
 		binaryTree.insertNode(5);
@@ -207,9 +209,10 @@ public class BinaryTreeTest {
 	}
 	
 	private void insertNodeIntoTree(){
+		binaryTree.insertNode(2);
 		binaryTree.insertNode(1);
 		binaryTree.insertNode(5);
-		binaryTree.insertNode(2);
+		
 	}
 	
 	@Test
@@ -223,4 +226,14 @@ public class BinaryTreeTest {
 		insertNodeIntoTree();
 		assertEquals(Integer.valueOf(1) , binaryTree.getMinValueNode(binaryTree.getRoot()).getData());
 	}
+	
+	@Test
+	public void testDeleteNode_whenSuccessorNodeHaveRightChild() {
+		insertNodeIntoTree();
+		binaryTree.insertNode(3);
+		binaryTree.insertNode(4);
+		binaryTree.deleteNode(2);
+		assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
+	}
+	
 }

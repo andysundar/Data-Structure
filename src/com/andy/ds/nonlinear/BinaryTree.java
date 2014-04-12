@@ -194,7 +194,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 
 	public TreeDataObject<T> findNode(T data) {
-		TreeDataObject<T> element = root;
+		TreeDataObject<T> element = getRoot();
 		while (element != null && data != null) {
 			int compairValue = data.compareTo(element.getData());
 			if (compairValue < 0) {
