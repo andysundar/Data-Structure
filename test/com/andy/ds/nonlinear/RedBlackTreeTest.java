@@ -26,6 +26,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.andy.adt.TreeDataObject;
+
 import static org.junit.Assert.*;
 
 public class RedBlackTreeTest {
@@ -43,29 +45,50 @@ public class RedBlackTreeTest {
 	}
 	
 	@Test
-	public void testInsertNode_LeftRotation() {
+	public void testInsertNode_leftRotation() {
 		for(int index = 1 ; index < 9;index++ ) {
-			redBlackTree.insertRedBlackNode(index);
+			redBlackTree.insertNode(index);
 		}
 		assertEquals(Integer.valueOf(4), redBlackTree.getRoot().getData());
 	}
 
 	@Test
-	public void testInsertNode_RightRotation() {
+	public void testInsertNode_rightRotation() {
 		for(int index = 10 ; index > 0;index-- ) {
-			redBlackTree.insertRedBlackNode(index);
+			redBlackTree.insertNode(index);
 		}
 		assertEquals(Integer.valueOf(7), redBlackTree.getRoot().getData());
 	}
 
 	@Test
-	public void testDeleteNode(){
+	public void testDeleteNode_successorHaveSameColour(){
 		for(int index = 1 ; index < 4; index++){
-			redBlackTree.insertRedBlackNode(index);
+			redBlackTree.insertNode(index);
 		}
 		assertEquals(Integer.valueOf(2), redBlackTree.getRoot().getData());
 		
-		redBlackTree.deleteRedBlackNode(2);
+		redBlackTree.deleteNode(2);
 		assertTrue(redBlackTree.getRoot().getColour());
+	}
+	
+	@Test
+	public void testDeleteNode_deletedNodeIsRed() {
+		
+	}
+	
+	@Test
+	public void testDeleteNode_deletedNodeIsBlack() {
+		
+	}
+	
+	@Test
+	public void testDeleteNode_successorChildColourBeforeUnlinkingIt(){
+		redBlackTree.insertNode(1);
+		redBlackTree.insertNode(2);
+		redBlackTree.insertNode(3);
+		redBlackTree.insertNode(4);
+		TreeDataObject<Integer> successorNode = redBlackTree.deleteNode(2);
+		assertEquals(TreeDataObject.BLACK, successorNode.getRightChildNode().getColour());
+		
 	}
 }

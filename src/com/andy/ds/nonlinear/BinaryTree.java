@@ -144,11 +144,17 @@ public class BinaryTree<T extends Comparable<T>> {
 			TreeDataObject<T> node, TreeDataObject<T> successorNode) {
 		successorNode.setParentNode(node.getParentNode());
 
-		successorNode.setLeftChildNode(node.getLeftChildNode());
+		if(!successorNode.equals(node.getLeftChildNode())) {
+			successorNode.setLeftChildNode(node.getLeftChildNode());
+		}
+		
 		if (node.getLeftChildNode() != null) {
 			node.getLeftChildNode().setParentNode(successorNode);
 		}
-		successorNode.setRightChildNode(node.getRightChildNode());
+		
+		if(!successorNode.equals(node.getRightChildNode())){
+			successorNode.setRightChildNode(node.getRightChildNode());
+		}
 		if (node.getRightChildNode() != null) {
 			node.getRightChildNode().setParentNode(successorNode);
 		}
