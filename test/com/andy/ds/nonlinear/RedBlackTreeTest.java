@@ -88,7 +88,7 @@ public class RedBlackTreeTest {
 		redBlackTree.insertNode(3);
 		redBlackTree.insertNode(4);
 		TreeDataObject<Integer> successorNode = redBlackTree.deleteNode(2);
-		assertEquals(TreeDataObject.BLACK, successorNode.getRightChildNode().getColour());
-		
+		assertTrue(redBlackTree.isBlack(successorNode.getRightChildNode()));
 	}
+	
 }

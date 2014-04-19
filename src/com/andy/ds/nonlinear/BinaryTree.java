@@ -141,22 +141,25 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 
 	protected void updateSuccessorNodeChildrensWithDeletedNodeChildrens(
-			TreeDataObject<T> node, TreeDataObject<T> successorNode) {
-		successorNode.setParentNode(node.getParentNode());
+			TreeDataObject<T> deleteNode, TreeDataObject<T> successorNode) {
+		successorNode.setParentNode(deleteNode.getParentNode());
 
-		if(!successorNode.equals(node.getLeftChildNode())) {
-			successorNode.setLeftChildNode(node.getLeftChildNode());
+		TreeDataObject<T> leftChildOfDeleteNode = deleteNode.getLeftChildNode();
+		TreeDataObject<T> rightChildOfDeleteNode = deleteNode.getRightChildNode();
+		
+		if(!successorNode.equals(leftChildOfDeleteNode)) {
+			successorNode.setLeftChildNode(leftChildOfDeleteNode);
 		}
 		
-		if (node.getLeftChildNode() != null) {
-			node.getLeftChildNode().setParentNode(successorNode);
+		if (leftChildOfDeleteNode != null) {
+			leftChildOfDeleteNode.setParentNode(successorNode);
 		}
 		
-		if(!successorNode.equals(node.getRightChildNode())){
-			successorNode.setRightChildNode(node.getRightChildNode());
+		if(!successorNode.equals(rightChildOfDeleteNode)){
+			successorNode.setRightChildNode(rightChildOfDeleteNode);
 		}
-		if (node.getRightChildNode() != null) {
-			node.getRightChildNode().setParentNode(successorNode);
+		if (rightChildOfDeleteNode != null) {
+			rightChildOfDeleteNode.setParentNode(successorNode);
 		}
 	}
 

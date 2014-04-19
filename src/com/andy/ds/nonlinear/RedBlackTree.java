@@ -120,7 +120,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 	 * @param subRoot
 	 *            is sub-root where colour will be flip
 	 */
-	public void flipColors(TreeDataObject<T> subRoot) {
+	private void flipColors(TreeDataObject<T> subRoot) {
 		subRoot.setColour(!subRoot.getColour());
 		subRoot.getLeftChildNode().setColour(
 				!subRoot.getLeftChildNode().getColour());
@@ -129,15 +129,16 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 	}
 
 
-	public void insertRedBlackNode(T data){
+	@Override
+	public TreeDataObject<T> insertNode(T data){
 		TreeDataObject<T> node = super.insertNode(data);
-
+		TreeDataObject<T> returnNode = node;
 		TreeDataObject<T> parentNode = node.getParentNode();
 		if(parentNode != null){
 			TreeDataObject<T> grandParentNode = parentNode.getParentNode();
 			if(grandParentNode != null){
 				while(isRed(parentNode) && (!getRoot().equals(parentNode))){
-					TreeDataObject<T> uncleNode = getUncleNode(parentNode,grandParentNode);
+					TreeDataObject<T> uncleNode = siblingNode(parentNode,grandParentNode);
 					
 					if(isRed(uncleNode) && isRed(parentNode)) {
 						flipColors(grandParentNode);
@@ -166,25 +167,37 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 		}
 		
 		getRoot().setColour(TreeDataObject.BLACK);
+		return returnNode;
 	}
 	
-	private TreeDataObject<T> getUncleNode(TreeDataObject<T> parentNode,TreeDataObject<T> grandParentNode) {
+	private TreeDataObject<T> siblingNode(TreeDataObject<T> node,TreeDataObject<T> parentNode) {
 		TreeDataObject<T> uncleNode = null;
-		if(parentNode.equals(grandParentNode.getLeftChildNode())){
-			uncleNode = grandParentNode.getRightChildNode();
+		if(node.equals(parentNode.getLeftChildNode())){
+			uncleNode = parentNode.getRightChildNode();
 		} else {
-			uncleNode = grandParentNode.getLeftChildNode();
+			uncleNode = parentNode.getLeftChildNode();
 		}
 		return uncleNode;
 	}
 	
-	public void deleteRedBlackNode(T data){
-		TreeDataObject<T> node = super.deleteNode(data);
+	@Override
+	public TreeDataObject<T> deleteNode(T data){
+		TreeDataObject<T> successorNode = super.deleteNode(data);
+//		while(successorNode != getRoot() && isBlack(successorNode)){
+//			
+//		}
+		return successorNode;
 	}
 	
 	@Override
 	protected void updateSuccessorNodeChildrensWithDeletedNodeChildrens(
 			TreeDataObject<T> node, TreeDataObject<T> successorNode) {
+			TreeDataObject<T> rightChildOfSuccessor = successorNode.getRightChildNode();
+			
+			if(rightChildOfSuccessor != null) {
+				rightChildOfSuccessor.setColour(successorNode.getColour());
+			}
+		
 		super.updateSuccessorNodeChildrensWithDeletedNodeChildrens(node, successorNode);
 		successorNode.setColour(node.getColour());
 	}
