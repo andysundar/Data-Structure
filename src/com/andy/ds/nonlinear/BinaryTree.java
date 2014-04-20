@@ -78,66 +78,57 @@ public class BinaryTree<T extends Comparable<T>> {
 		if (data == null) {
 			throw new IllegalArgumentException("Null cannot be deleted.");
 		}
-		TreeDataObject<T> node = findNode(data);
-		boolean isOk = ((node != null) && (data.equals(node.getData())));
+		TreeDataObject<T> toBeDeletednode = findNode(data);
+		boolean isOk = ((toBeDeletednode != null) && (data.equals(toBeDeletednode.getData())));
 		TreeDataObject<T> successorNode = null;
 		if (isOk) {
-			if ((node.getLeftChildNode() == null)
-					&& (node.getRightChildNode() == null)) {
-				unlinkDeleteNodeLinkSuccessorNode(node, null);
-			} else if ((node.getLeftChildNode() != null)
-					&& (node.getRightChildNode() != null)) {
-				successorNode = getMinValueNode(node.getRightChildNode());
+			if ((toBeDeletednode.getLeftChildNode() == null)
+					&& (toBeDeletednode.getRightChildNode() == null)) {
+				unlinkDeleteNodeLinkSuccessorNode(toBeDeletednode, null);
+			} else if ((toBeDeletednode.getLeftChildNode() != null)
+					&& (toBeDeletednode.getRightChildNode() != null)) {
+				successorNode = getMinValueNode(toBeDeletednode.getRightChildNode());
 
-				TreeDataObject<T> successorParentNode = successorNode
-						.getParentNode();
-				if (successorParentNode != null
-						&& (!successorParentNode.equals(node))) {
-					successorParentNode.setLeftChildNode(successorNode
-							.getRightChildNode());
-					if (successorNode.getRightChildNode() != null) {
-						successorNode.getRightChildNode().setParentNode(
-								successorParentNode);
-					}
-				}
-				updateSuccessorNodeChildrensWithDeletedNodeChildrens(node,
+				updateSuccessorNodeChildrenParentRefBeforeShift(toBeDeletednode,
 						successorNode);
-				unlinkDeleteNodeLinkSuccessorNode(node, successorNode);
+				updateSuccessorNodeChildrensWithDeletedNodeChildrens(toBeDeletednode,
+						successorNode);
+				unlinkDeleteNodeLinkSuccessorNode(toBeDeletednode, successorNode);
 			} else {
-				if (node.getLeftChildNode() != null) {
-					successorNode = getMaxValueNode(node.getLeftChildNode());
-					TreeDataObject<T> successorParentNode = successorNode
-							.getParentNode();
-					if (successorParentNode != null
-							&& (!successorParentNode.equals(node))) {
-						successorParentNode.setRightChildNode(successorNode
-								.getLeftChildNode());
-						if (successorNode.getLeftChildNode() != null) {
-							successorNode.getLeftChildNode().setParentNode(
-									successorParentNode);
-						}
-					}
-				} else if (node.getRightChildNode() != null) {
-					successorNode = getMinValueNode(node.getRightChildNode());
-					TreeDataObject<T> successorParentNode = successorNode
-							.getParentNode();
-					if (successorParentNode != null
-							&& (!successorParentNode.equals(node))) {
-						successorParentNode.setLeftChildNode(successorNode
-								.getRightChildNode());
-						if (successorNode.getRightChildNode() != null) {
-							successorNode.getRightChildNode().setParentNode(
-									successorParentNode);
-						}
-					}
+				if (toBeDeletednode.getLeftChildNode() != null) {
+					successorNode = getMaxValueNode(toBeDeletednode.getLeftChildNode());
+					updateSuccessorNodeChildrenParentRefBeforeShift(toBeDeletednode,successorNode);
+				} else if (toBeDeletednode.getRightChildNode() != null) {
+					successorNode = getMinValueNode(toBeDeletednode.getRightChildNode());
+					updateSuccessorNodeChildrenParentRefBeforeShift(toBeDeletednode,
+							successorNode);
 				}
-				updateSuccessorNodeChildrensWithDeletedNodeChildrens(node,
+				updateSuccessorNodeChildrensWithDeletedNodeChildrens(toBeDeletednode,
 						successorNode);
-				unlinkDeleteNodeLinkSuccessorNode(node, successorNode);
+				unlinkDeleteNodeLinkSuccessorNode(toBeDeletednode, successorNode);
 			}
 			numberOfNodes--;
 		}
 		return successorNode;
+	}
+
+	protected void updateSuccessorNodeChildrenParentRefBeforeShift(
+			TreeDataObject<T> toBeDeletednode, TreeDataObject<T> successorNode) {
+		TreeDataObject<T> successorParentNode = successorNode.getParentNode();
+		TreeDataObject<T> leftChildOfSuccessorNode = successorNode.getLeftChildNode();
+		TreeDataObject<T> rightChildOfSuccessorNode = successorNode.getRightChildNode();
+		if (successorParentNode != null
+				&& (!successorParentNode.equals(toBeDeletednode))) {
+			successorParentNode.setLeftChildNode(rightChildOfSuccessorNode);
+			if (rightChildOfSuccessorNode != null) {
+				rightChildOfSuccessorNode.setParentNode(successorParentNode);
+			}
+		
+			successorParentNode.setRightChildNode(leftChildOfSuccessorNode);
+			if (leftChildOfSuccessorNode != null) {
+				leftChildOfSuccessorNode.setParentNode(successorParentNode);
+			}
+		}
 	}
 
 	protected void updateSuccessorNodeChildrensWithDeletedNodeChildrens(
