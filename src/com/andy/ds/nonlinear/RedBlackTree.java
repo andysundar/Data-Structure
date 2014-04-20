@@ -192,13 +192,17 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 	@Override
 	protected void updateSuccessorNodeChildrensWithDeletedNodeChildrens(
 			TreeDataObject<T> node, TreeDataObject<T> successorNode) {
-			TreeDataObject<T> rightChildOfSuccessor = successorNode.getRightChildNode();
-			
-			if(rightChildOfSuccessor != null) {
-				rightChildOfSuccessor.setColour(successorNode.getColour());
-			}
-		
 		super.updateSuccessorNodeChildrensWithDeletedNodeChildrens(node, successorNode);
 		successorNode.setColour(node.getColour());
+	}
+	
+	@Override
+	protected void updateSuccessorNodeChildrenParentRefBeforeShift(
+			TreeDataObject<T> toBeDeletednode, TreeDataObject<T> successorNode) {
+		TreeDataObject<T> rightChildOfSuccessor = successorNode.getRightChildNode();
+		if(rightChildOfSuccessor != null) {
+			rightChildOfSuccessor.setColour(successorNode.getColour());
+		}
+		super.updateSuccessorNodeChildrenParentRefBeforeShift(toBeDeletednode, successorNode);
 	}
 }
