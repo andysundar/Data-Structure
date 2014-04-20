@@ -68,27 +68,25 @@ public class RedBlackTreeTest {
 		assertEquals(Integer.valueOf(2), redBlackTree.getRoot().getData());
 		
 		redBlackTree.deleteNode(2);
-		assertTrue(redBlackTree.getRoot().getColour());
+		assertTrue(redBlackTree.isBlack(redBlackTree.getRoot()));
 	}
 	
 	@Test
-	public void testDeleteNode_deletedNodeIsRed() {
-		
+	public void testDeleteNode_deletedNodeIsRedSuccessorNodeIsRed() {
+		for(int index = 1 ; index < 7;index++ ) {
+			redBlackTree.insertNode(index);
+		}
+		TreeDataObject<Integer> successorNode = redBlackTree.deleteNode(4);
+		assertTrue(redBlackTree.isRed(successorNode));
 	}
 	
 	@Test
-	public void testDeleteNode_deletedNodeIsBlack() {
-		
-	}
-	
-	@Test
-	public void testDeleteNode_successorChildColourBeforeUnlinkingIt(){
-		redBlackTree.insertNode(1);
-		redBlackTree.insertNode(2);
-		redBlackTree.insertNode(3);
-		redBlackTree.insertNode(4);
-		TreeDataObject<Integer> successorNode = redBlackTree.deleteNode(2);
-		assertTrue(redBlackTree.isBlack(successorNode.getRightChildNode()));
+	public void testDeleteNode_deletedNodeIsBlackSuccessorNodeIsBlack() {
+		for(int index = 1 ; index < 6;index++ ) {
+			redBlackTree.insertNode(index);
+		}
+		TreeDataObject<Integer> successorNode = redBlackTree.deleteNode(4);
+		assertTrue(redBlackTree.isBlack(successorNode));
 	}
 	
 }
