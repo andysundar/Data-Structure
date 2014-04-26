@@ -129,8 +129,9 @@ public class RedBlackTreeTest {
 		}
 		TreeDataObject<Integer> siblingNode = redBlackTree.siblingNode(insertedNode);
 		TreeDataObject<Integer> successorNode = redBlackTree.deleteNode(4);
-		
 		assertTrue(redBlackTree.isBlack(successorNode));
+		assertTrue(redBlackTree.isRed(successorNode.getParentNode()));
+		assertTrue(redBlackTree.isBlack(siblingNode));
 	}
 	
 }
