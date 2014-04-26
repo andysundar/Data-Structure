@@ -61,6 +61,38 @@ public class RedBlackTreeTest {
 	}
 
 	@Test
+	public void testSiblingNode() {
+		TreeDataObject<Integer> siblingNode = null; 
+		TreeDataObject<Integer> insertedNode = null; 
+		for(int index = 1 ; index < 4;index++ ) {
+			insertedNode = redBlackTree.insertNode(index);
+		}	
+		
+		siblingNode = redBlackTree.siblingNode(insertedNode);
+		assertEquals(Integer.valueOf(1), siblingNode.getData());
+	}
+	
+	@Test
+	public void testSiblingNode_whenNodeIsNULL() {
+		TreeDataObject<Integer> siblingNode = null; 
+		TreeDataObject<Integer> insertedNode = null;
+		
+		siblingNode = redBlackTree.siblingNode(insertedNode);
+		assertNull(siblingNode);
+	}
+	
+	@Test
+	public void testSiblingNode_whenParentNodeIsNULL() {
+		TreeDataObject<Integer> siblingNode = null; 
+		TreeDataObject<Integer> insertedNode = null; 
+		for(int index = 1 ; index < 3;index++ ) {
+			insertedNode = redBlackTree.insertNode(index);
+		}	
+		siblingNode = redBlackTree.siblingNode(insertedNode.getParentNode());
+		assertNull(siblingNode);
+	}
+	
+	@Test
 	public void testDeleteNode_successorHaveSameColour(){
 		for(int index = 1 ; index < 4; index++){
 			redBlackTree.insertNode(index);
@@ -86,6 +118,18 @@ public class RedBlackTreeTest {
 			redBlackTree.insertNode(index);
 		}
 		TreeDataObject<Integer> successorNode = redBlackTree.deleteNode(4);
+		assertTrue(redBlackTree.isBlack(successorNode));
+	}
+	
+	@Test
+	public void testDeleteNode_whenSiblingIsRed(){
+		TreeDataObject<Integer> insertedNode = null;
+		for(int index = 1 ; index < 6;index++ ) {
+			insertedNode = redBlackTree.insertNode(index);
+		}
+		TreeDataObject<Integer> siblingNode = redBlackTree.siblingNode(insertedNode);
+		TreeDataObject<Integer> successorNode = redBlackTree.deleteNode(4);
+		
 		assertTrue(redBlackTree.isBlack(successorNode));
 	}
 	

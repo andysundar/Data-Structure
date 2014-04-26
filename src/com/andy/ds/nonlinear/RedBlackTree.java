@@ -138,7 +138,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 			TreeDataObject<T> grandParentNode = parentNode.getParentNode();
 			if(grandParentNode != null){
 				while(isRed(parentNode) && (!getRoot().equals(parentNode))){
-					TreeDataObject<T> uncleNode = siblingNode(parentNode,grandParentNode);
+					TreeDataObject<T> uncleNode = siblingNode(parentNode);
 					
 					if(isRed(uncleNode) && isRed(parentNode)) {
 						flipColors(grandParentNode);
@@ -170,14 +170,20 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 		return returnNode;
 	}
 	
-	private TreeDataObject<T> siblingNode(TreeDataObject<T> node,TreeDataObject<T> parentNode) {
-		TreeDataObject<T> uncleNode = null;
-		if(node.equals(parentNode.getLeftChildNode())){
-			uncleNode = parentNode.getRightChildNode();
-		} else {
-			uncleNode = parentNode.getLeftChildNode();
+	protected TreeDataObject<T> siblingNode(TreeDataObject<T> node) {
+		TreeDataObject<T> siblingNode = null;
+		TreeDataObject<T> parentNode = null;
+		if(node != null){
+			parentNode = node.getParentNode();
+			if(parentNode!= null){
+				if(node.equals(parentNode.getLeftChildNode())){
+					siblingNode = parentNode.getRightChildNode();
+				} else {
+					siblingNode = parentNode.getLeftChildNode();
+				}
+			}
 		}
-		return uncleNode;
+		return siblingNode;
 	}
 	
 	@Override
