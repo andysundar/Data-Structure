@@ -175,6 +175,9 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
   */
  private boolean remove(T dataToBeRemoved,boolean removeAll) {
 	 boolean isOk = false;
+	 if(startNode == null){
+	   return isOk;
+	 }
 	 boolean enableBreaker = !removeAll;
 	 if(isEqualData(dataToBeRemoved,startNode.getData())) {
 		 removeFirst();
@@ -328,7 +331,7 @@ public Iterator<SingleLinkedRefDataObject<T>> iterator() {
 		}
 	
 		public void remove() {
-			throw new UnsupportedOperationException("DoubleLinkedList doesn't support this remove feature. Please use the other remove APIs available.");
+			throw new UnsupportedOperationException("LinkedList doesn't support this remove feature. Please use the other remove APIs available.");
 		}
 	}
 }

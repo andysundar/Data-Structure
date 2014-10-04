@@ -150,8 +150,8 @@ public class LinkedListTest {
 
 	@Test
 	public void testRemove_WhenDataIsNull() {
-	  assertTrue(linkedList.add(null));
-		assertTrue(linkedList.remove(null));
+	  assertTrue(linkedList.add(1));
+		assertFalse(linkedList.remove(null));
 	}
 	
 

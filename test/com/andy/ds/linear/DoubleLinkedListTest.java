@@ -101,8 +101,8 @@ public class DoubleLinkedListTest {
 
 	@Test
 	public void testRemove_whenDataIsNull(){
-	  assertTrue(doubleLinkedList.add(null));
-	  assertTrue(doubleLinkedList.remove(null));
+	  assertTrue(doubleLinkedList.add(1));
+	  assertFalse(doubleLinkedList.remove(null));
 	}
 	
 	@Test
