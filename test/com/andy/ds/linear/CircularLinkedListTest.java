@@ -35,7 +35,7 @@ public class CircularLinkedListTest {
 
 	@Test
 	public void testAddAt() {
-		assertTrue(circularLinkedList.addAt(1,0));
+		assertTrue(circularLinkedList.addAt(0,1));
 	}
 	
 	@Test

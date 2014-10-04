@@ -56,8 +56,8 @@ public class CircularLinkedList<T> extends DoubleLinkedList<T> {
 	}
 	
 	@Override
-	public boolean addAt(T data,int index) {
-		boolean flag = super.addAt(data,index);
+	public boolean addAt(int index,T data) {
+		boolean flag = super.addAt(index,data);
 		makeCircularLink();
 		return flag;
 	}

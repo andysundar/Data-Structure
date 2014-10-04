@@ -74,11 +74,11 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkedRefDataObject<T
 	
 	/**
 	 * Add element to list at particular index.
-	 * @param data
 	 * @param index at which element will be added.
+	 * @param data
 	 * @return return true if added successfully else false.
 	 */
-	public boolean addAt(T data,int index) {
+	public boolean addAt(int index,T data) {
 		if(data == null) {
 			throw new IllegalArgumentException("Data to be added cannot be null.");
 		}

@@ -64,7 +64,7 @@ public class DoubleLinkedListTest {
 		}
 		assertTrue(doubleLinkedList.addAt(0,0));
 		
-		assertTrue(doubleLinkedList.addAt(11,doubleLinkedList.size()));
+		assertTrue(doubleLinkedList.addAt(doubleLinkedList.size(),11));
 		
 		assertTrue(doubleLinkedList.addAt(5,5));
 		
@@ -78,7 +78,7 @@ public class DoubleLinkedListTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testAddAt_whenDataIsNull() {
-		doubleLinkedList.addAt(null, 1);
+		doubleLinkedList.addAt(1, null);
 	}
 	
 	@Test

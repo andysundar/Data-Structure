@@ -60,28 +60,28 @@ public class LinkedListTest {
 
 	@Test
 	public void testAddAt() {
-		assertTrue(linkedList.addAt(1,0));
+		assertTrue(linkedList.addAt(0,1));
 		assertEquals(Integer.valueOf(1),linkedList.get(0));
-		assertTrue(linkedList.addAt(2,1));
+		assertTrue(linkedList.addAt(1,2));
 		assertEquals(Integer.valueOf(2),linkedList.get(1));
-		assertTrue(linkedList.addAt(3,2));
+		assertTrue(linkedList.addAt(2,3));
 		assertEquals(Integer.valueOf(3),linkedList.get(2));
-		assertTrue(linkedList.addAt(4,1));
+		assertTrue(linkedList.addAt(1,4));
 		assertEquals(Integer.valueOf(4),linkedList.get(1));
-		assertTrue(linkedList.addAt(5,0));
+		assertTrue(linkedList.addAt(0,5));
 		assertEquals(Integer.valueOf(5),linkedList.get(0));
-		assertTrue(linkedList.addAt(6,5));
+		assertTrue(linkedList.addAt(5,6));
 		assertEquals(Integer.valueOf(6),linkedList.get(5));
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testAddAt_WhenDataIsNull() {
-		linkedList.addAt(null,0);
+		linkedList.addAt(0,null);
 	}
 	
 	@Test(expected=IndexOutOfBoundsException.class)
 	public void testAddAt_WhenIndexIs2ForEmptyList() {
-		linkedList.addAt(1,2);
+		linkedList.addAt(2,1);
 	}
 	
 	@Test

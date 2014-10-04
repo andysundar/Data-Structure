@@ -92,11 +92,11 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
  
  /**
   * Add element to list at  particular index
-  * @param data node to be added to list
-  * @param index node to inserted at
+ * @param index node to inserted at
+ * @param data node to be added to list
   * @return if node successfully add then true else false
   */
- public boolean addAt(T data,int index) {
+ public boolean addAt(int index,T data) {
 	 boolean isOk = false;
 	 if(data == null) {
 		 throw new IllegalArgumentException("Data parameter cannot be null.");
