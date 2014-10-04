@@ -18,20 +18,20 @@ package com.andy.ds.linear;
 
 import java.util.Iterator;
 
-import com.andy.adt.SingleLinkListDataObject;
+import com.andy.adt.SingleLinkedRefDataObject;
 
-public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
+public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
 	private int length; 
 	private static final int INDEX_START = 0;
-	private SingleLinkListDataObject<T> startNode;
-	private SingleLinkListDataObject<T> lastNode;
+	private SingleLinkedRefDataObject<T> startNode;
+	private SingleLinkedRefDataObject<T> lastNode;
 	
 	/**
 	 * addFirst add object at the beginning of the list
 	 * @param data
 	 */
 	private void addFirst(T data) {
-		SingleLinkListDataObject<T> node  = new SingleLinkListDataObject<T>();
+		SingleLinkedRefDataObject<T> node  = new SingleLinkedRefDataObject<T>();
 		node.setData(data);
 		node.setNextReference(startNode);
 		startNode = node;
@@ -43,7 +43,7 @@ public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
 	 * @param data
 	 */
 	private void addLast(T data) {
-		SingleLinkListDataObject<T> node  = new SingleLinkListDataObject<T>();
+		SingleLinkedRefDataObject<T> node  = new SingleLinkedRefDataObject<T>();
 		lastNode.setNextReference(node);
 		node.setData(data);
 		lastNode = node;
@@ -54,7 +54,7 @@ public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
 	 * This method return start node of the list
 	 * @return DataObject<T> object
 	 */
-	public SingleLinkListDataObject<T> getStartNode() {
+	public SingleLinkedRefDataObject<T> getStartNode() {
 		return startNode;
 	}
 	
@@ -62,7 +62,7 @@ public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
 	 *  This method return last node of the list
 	 * @return DataObject<T> object
 	 */
-	public SingleLinkListDataObject<T> getLastNode() {
+	public SingleLinkedRefDataObject<T> getLastNode() {
 		return lastNode;
 	}
 	
@@ -115,8 +115,8 @@ public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
 		 addLast(data);
 		 isOk = true;
 	 } else {
-		 SingleLinkListDataObject<T> ithNode = getIthNode((index - 1));
-		 SingleLinkListDataObject<T> node = new SingleLinkListDataObject<T>();
+		 SingleLinkedRefDataObject<T> ithNode = getIthNode((index - 1));
+		 SingleLinkedRefDataObject<T> node = new SingleLinkedRefDataObject<T>();
 		 node.setData(data);
 		 node.setNextReference(ithNode.getNextReference());
 		 ithNode.setNextReference(node);
@@ -128,7 +128,7 @@ public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
  }
  
   private void removeFirst() {
-	 SingleLinkListDataObject<T> nextStartNode = startNode.getNextReference();
+	 SingleLinkedRefDataObject<T> nextStartNode = startNode.getNextReference();
 	 startNode.setData(null);
 	 startNode.setNextReference(null);
 	 startNode = nextStartNode; 
@@ -148,8 +148,8 @@ public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
 		 removeFirst();
 		 isOk = true;
 	 } else {
-		 SingleLinkListDataObject<T> beforeDeleteNode = getIthNode((index - 1));
-		 SingleLinkListDataObject<T> deleteNode = beforeDeleteNode.getNextReference();
+		 SingleLinkedRefDataObject<T> beforeDeleteNode = getIthNode((index - 1));
+		 SingleLinkedRefDataObject<T> deleteNode = beforeDeleteNode.getNextReference();
 		 if(deleteNode.getNextReference() == null){
 			 lastNode = beforeDeleteNode;
 		 }
@@ -195,9 +195,9 @@ public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
 	 }
 	 
 	 if(removeAll){
-		 SingleLinkListDataObject<T> canBeDeletedNode = startNode.getNextReference();
-		 SingleLinkListDataObject<T> nextLinkingNode = (canBeDeletedNode== null)?null:canBeDeletedNode.getNextReference();
-		 SingleLinkListDataObject<T> beforeDeleteNode = startNode;
+		 SingleLinkedRefDataObject<T> canBeDeletedNode = startNode.getNextReference();
+		 SingleLinkedRefDataObject<T> nextLinkingNode = (canBeDeletedNode== null)?null:canBeDeletedNode.getNextReference();
+		 SingleLinkedRefDataObject<T> beforeDeleteNode = startNode;
 		 
 		 for(int index = (INDEX_START + 1); index < length ; index++ ) {
 			 if(dataToBeRemoved.equals(canBeDeletedNode.getData())) {
@@ -260,7 +260,7 @@ public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
   * @return <T> type object from list
   */
  public T get(int index) {
-	 SingleLinkListDataObject<T> node = getIthNode(index);
+	 SingleLinkedRefDataObject<T> node = getIthNode(index);
 	 return node.getData();
  }
  
@@ -270,11 +270,11 @@ public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
   * @return the i th node from the list
   */
  
- private SingleLinkListDataObject<T> getIthNode(int index) {
+ private SingleLinkedRefDataObject<T> getIthNode(int index) {
 	 if(index < INDEX_START || index >= length) {
 		 throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
 	 }
-	 SingleLinkListDataObject<T> node = startNode;
+	 SingleLinkedRefDataObject<T> node = startNode;
 	 
 	 if(index != INDEX_START && index < (length - 1)) {
 		 int tempIndex = INDEX_START;
@@ -308,7 +308,7 @@ public class LinkedList<T> implements Iterable<SingleLinkListDataObject<T>>{
   * Added iterator feature so that user can iterate thorough the list easily.
   */
 
-public Iterator<SingleLinkListDataObject<T>> iterator() {
+public Iterator<SingleLinkedRefDataObject<T>> iterator() {
 	return new LinkedListIterator();
 }
 
@@ -317,14 +317,14 @@ public Iterator<SingleLinkListDataObject<T>> iterator() {
  * @author Anindya Bandopadhyay
  *
  */
-	private class LinkedListIterator implements Iterator<SingleLinkListDataObject<T>> {
+	private class LinkedListIterator implements Iterator<SingleLinkedRefDataObject<T>> {
 	
-		private SingleLinkListDataObject<T> currentNode = getStartNode();
+		private SingleLinkedRefDataObject<T> currentNode = getStartNode();
 		public boolean hasNext() {
 			return (currentNode.getNextReference() != null);
 		}
 	
-		public SingleLinkListDataObject<T> next() {
+		public SingleLinkedRefDataObject<T> next() {
 			currentNode = currentNode.getNextReference();
 			return currentNode;
 		}

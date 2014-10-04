@@ -18,20 +18,20 @@ package com.andy.ds.linear;
 
 import java.util.Iterator;
 
-import com.andy.adt.DoubleLinkListDataObject;
+import com.andy.adt.DoubleLinkedRefDataObject;
 
-public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>> {
+public class DoubleLinkedList<T> implements Iterable<DoubleLinkedRefDataObject<T>> {
 	private int length;
 	public static final int INDEX_START = 0;
-	private DoubleLinkListDataObject<T> startNode;
-	private DoubleLinkListDataObject<T> lastNode;
+	private DoubleLinkedRefDataObject<T> startNode;
+	private DoubleLinkedRefDataObject<T> lastNode;
 	
 	/**
 	 * Add element at front of list.
 	 * @param data
 	 */
 	private void addFirst(T data) {
-		DoubleLinkListDataObject<T> dataObject = new DoubleLinkListDataObject<T>();
+		DoubleLinkedRefDataObject<T> dataObject = new DoubleLinkedRefDataObject<T>();
 		dataObject.setData(data);
 		dataObject.setNextReference(startNode);
 		startNode = dataObject;
@@ -43,7 +43,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 	 * @param data
 	 */
 	private void addLast(T data){
-		DoubleLinkListDataObject<T> dataObject = new DoubleLinkListDataObject<T>();
+		DoubleLinkedRefDataObject<T> dataObject = new DoubleLinkedRefDataObject<T>();
 		dataObject.setData(data);
 		dataObject.setPreviousReference(lastNode);
 		lastNode.setNextReference(dataObject);
@@ -93,8 +93,8 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 			addLast(data);
 			isOk = true;
 		} else {
-			DoubleLinkListDataObject<T> dataObject = new DoubleLinkListDataObject<T>();
-			DoubleLinkListDataObject<T> iThDataObject = getIthNode(index);
+			DoubleLinkedRefDataObject<T> dataObject = new DoubleLinkedRefDataObject<T>();
+			DoubleLinkedRefDataObject<T> iThDataObject = getIthNode(index);
 			dataObject.setData(data);
 			dataObject.setNextReference(iThDataObject);
 			dataObject.setPreviousReference(iThDataObject.getPreviousReference());
@@ -109,7 +109,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 	 * Remove first element from list.
 	 */
 	private void removeFirst(){
-		DoubleLinkListDataObject<T> deleteNode = startNode;
+		DoubleLinkedRefDataObject<T> deleteNode = startNode;
 		startNode = deleteNode.getNextReference();
 		deleteNode.setData(null);
 		deleteNode.setNextReference(null);
@@ -120,7 +120,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 	 * Remove last element from list.
 	 */
 	private void removeLast(){
-		DoubleLinkListDataObject<T> deleteNode = lastNode;
+		DoubleLinkedRefDataObject<T> deleteNode = lastNode;
 		lastNode = deleteNode.getPreviousReference();
 		deleteNode.setData(null);
 		deleteNode.setPreviousReference(null);
@@ -137,7 +137,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 			throw new IllegalArgumentException("Data to be removed cannot be null.");
 		}
 
-		DoubleLinkListDataObject<T> findToBeDeleteNode = getStartNode();
+		DoubleLinkedRefDataObject<T> findToBeDeleteNode = getStartNode();
 		while((findToBeDeleteNode != null) && (!data.equals(findToBeDeleteNode.getData()))){
 			findToBeDeleteNode = findToBeDeleteNode.getNextReference();
 		}
@@ -150,11 +150,11 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 	 * @param node
 	 * @return return true if object found and removed successfully.
 	 */
-	protected boolean unLinkNode(DoubleLinkListDataObject<T> node) {
+	protected boolean unLinkNode(DoubleLinkedRefDataObject<T> node) {
 		boolean isOk = false;
 		if(node != null) {
-			DoubleLinkListDataObject<T> beforeDeleteNode = node.getPreviousReference();
-			DoubleLinkListDataObject<T> afterDeleteNode = node.getNextReference();
+			DoubleLinkedRefDataObject<T> beforeDeleteNode = node.getPreviousReference();
+			DoubleLinkedRefDataObject<T> afterDeleteNode = node.getNextReference();
 			if(beforeDeleteNode != null) {
 				beforeDeleteNode.setNextReference(afterDeleteNode);
 			} else {
@@ -185,8 +185,8 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 		}
 		boolean isOk = false;
 		int halfLength = (int)Math.ceil(length/2);
-		DoubleLinkListDataObject<T> fromBeginingNode = startNode;
-		DoubleLinkListDataObject<T> fromEndNode = lastNode;
+		DoubleLinkedRefDataObject<T> fromBeginingNode = startNode;
+		DoubleLinkedRefDataObject<T> fromEndNode = lastNode;
 				
 		while(halfLength > -1) {
 			if((fromBeginingNode != null) && (data.equals(fromBeginingNode.getData()))) {
@@ -236,8 +236,8 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 	 */
 	public boolean removeAll() {
 		boolean isOk = false;
-		DoubleLinkListDataObject<T> deleteObject = startNode;
-		DoubleLinkListDataObject<T> tempObject = null;
+		DoubleLinkedRefDataObject<T> deleteObject = startNode;
+		DoubleLinkedRefDataObject<T> tempObject = null;
 		
 		while(deleteObject != null){
 			deleteObject.setData(null);
@@ -257,7 +257,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 	 * @return data content object from the list.
 	 */
 	public T get(int index) {
-		DoubleLinkListDataObject<T> dataObject = getIthNode(index);
+		DoubleLinkedRefDataObject<T> dataObject = getIthNode(index);
 		return (dataObject == null)?null:dataObject.getData();
 	}
 	
@@ -274,8 +274,8 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 	 * @param index
 	 * @return data object from the list.
 	 */
-	private DoubleLinkListDataObject<T> getIthNode(int index) {
-		DoubleLinkListDataObject<T> dataObjectToBeReturned = startNode;
+	private DoubleLinkedRefDataObject<T> getIthNode(int index) {
+		DoubleLinkedRefDataObject<T> dataObjectToBeReturned = startNode;
 		if(index == (length - 1)) {
 			dataObjectToBeReturned = lastNode;
 		} else if(index != INDEX_START) {
@@ -296,11 +296,11 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 		return dataObjectToBeReturned;
 	}
 
-	protected DoubleLinkListDataObject<T> getLastNode() {
+	protected DoubleLinkedRefDataObject<T> getLastNode() {
 		return lastNode;
 	}
 
-	protected DoubleLinkListDataObject<T> getStartNode() {
+	protected DoubleLinkedRefDataObject<T> getStartNode() {
 		return startNode;
 	}
 	
@@ -308,7 +308,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 		return (getStartNode() == null);
 	}
 
-	public Iterator<DoubleLinkListDataObject<T>> iterator() {
+	public Iterator<DoubleLinkedRefDataObject<T>> iterator() {
 		return new LinkedListIterator();
 	}
 	
@@ -317,14 +317,14 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkListDataObject<T>
 	 * @author Anindya Bandopadhyay
 	 *
 	 */
-		private class LinkedListIterator implements Iterator<DoubleLinkListDataObject<T>> {
+		private class LinkedListIterator implements Iterator<DoubleLinkedRefDataObject<T>> {
 		
-			private DoubleLinkListDataObject<T> currentNode = getStartNode();
+			private DoubleLinkedRefDataObject<T> currentNode = getStartNode();
 			public boolean hasNext() {
 				return (currentNode.getNextReference() != null);
 			}
 		
-			public DoubleLinkListDataObject<T> next() {
+			public DoubleLinkedRefDataObject<T> next() {
 				currentNode = currentNode.getNextReference();
 				return currentNode;
 			}

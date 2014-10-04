@@ -33,7 +33,7 @@
 
 package com.andy.ds.linear;
 
-import com.andy.adt.DoubleLinkListDataObject;
+import com.andy.adt.DoubleLinkedRefDataObject;
 
 
 public class CircularLinkedList<T> extends DoubleLinkedList<T> {
@@ -42,7 +42,7 @@ public class CircularLinkedList<T> extends DoubleLinkedList<T> {
 	 * next reference.
 	 */
 	private void makeCircularLink() {
-		DoubleLinkListDataObject<T> lastNode = getLastNode();
+		DoubleLinkedRefDataObject<T> lastNode = getLastNode();
 		if(lastNode != null) {
 			lastNode.setNextReference(getStartNode());
 		}
@@ -68,7 +68,7 @@ public class CircularLinkedList<T> extends DoubleLinkedList<T> {
 			throw new IllegalArgumentException("Data to be removed cannot be null.");
 		}
 
-		DoubleLinkListDataObject<T> findToBeDeleteNode = getStartNode();
+		DoubleLinkedRefDataObject<T> findToBeDeleteNode = getStartNode();
 		while((findToBeDeleteNode != null) && (!data.equals(findToBeDeleteNode.getData()))){
 			findToBeDeleteNode = findToBeDeleteNode.getNextReference();
 			if(getStartNode().equals(findToBeDeleteNode)){

@@ -123,12 +123,11 @@ public class RedBlackTreeTest {
 	
 	@Test
 	public void testDeleteNode_whenSiblingIsRed(){
-		TreeDataObject<Integer> insertedNode = null;
-		for(int index = 1 ; index < 6;index++ ) {
-			insertedNode = redBlackTree.insertNode(index);
+		for(int index = 1 ; index < 9;index++ ) {
+			redBlackTree.insertNode(index*10);
 		}
-		TreeDataObject<Integer> siblingNode = redBlackTree.siblingNode(insertedNode);
 		TreeDataObject<Integer> successorNode = redBlackTree.deleteNode(4);
+		TreeDataObject<Integer> siblingNode = redBlackTree.siblingNode(successorNode);
 		assertTrue(redBlackTree.isBlack(successorNode));
 		assertTrue(redBlackTree.isRed(successorNode.getParentNode()));
 		assertTrue(redBlackTree.isBlack(siblingNode));

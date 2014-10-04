@@ -27,7 +27,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.andy.adt.SingleLinkListDataObject;
+import com.andy.adt.SingleLinkedRefDataObject;
 
 public class LinkedListTest {
 	private LinkedList<Integer> linkedList = null;
@@ -210,14 +210,14 @@ public class LinkedListTest {
 	@Test
 	public void testIterator_hasNext() {
 		addDataToList();		
-		Iterator<SingleLinkListDataObject<Integer>> slDO =linkedList.iterator();
+		Iterator<SingleLinkedRefDataObject<Integer>> slDO =linkedList.iterator();
 		assertTrue(slDO.hasNext());
 	}
 	
 	@Test(expected=UnsupportedOperationException.class)
 	public void testIterator_Remove() {
 		addDataToList();		
-		Iterator<SingleLinkListDataObject<Integer>> slDO =linkedList.iterator();
+		Iterator<SingleLinkedRefDataObject<Integer>> slDO =linkedList.iterator();
 		slDO.remove();
 	}
 	
@@ -225,7 +225,7 @@ public class LinkedListTest {
 	public void testIterator() {
 		addDataToList();	
 		int index = 1;
-		for (SingleLinkListDataObject<Integer> element : linkedList) {
+		for (SingleLinkedRefDataObject<Integer> element : linkedList) {
 			assertEquals(Integer.valueOf(index), element.getData());
 			index++;
 		}
