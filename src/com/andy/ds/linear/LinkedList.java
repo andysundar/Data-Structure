@@ -73,9 +73,6 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
  */
 
  public boolean add(T data) {
-	 if(data == null) {
-		 throw new IllegalArgumentException("Parameter cannot be null.");
-	 }
 	 boolean isOk = false;
 	 
 	 if(startNode == null) {
@@ -98,9 +95,6 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
   */
  public boolean addAt(int index,T data) {
 	 boolean isOk = false;
-	 if(data == null) {
-		 throw new IllegalArgumentException("Data parameter cannot be null.");
-	 }
 	 if(index < INDEX_START || index > length) {
 		 throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
 	 }
@@ -170,11 +164,6 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
   */
  
  public boolean remove(T dataToBeRemoved) {
-	
-	 if(dataToBeRemoved == null) {
-		 throw new IllegalArgumentException("Parameter cannot be null.");
-	 }
-	 
 	return remove(dataToBeRemoved, false);
  }
  
@@ -187,7 +176,7 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
  private boolean remove(T dataToBeRemoved,boolean removeAll) {
 	 boolean isOk = false;
 	 boolean enableBreaker = !removeAll;
-	 if(dataToBeRemoved.equals(startNode.getData())) {
+	 if(isEqualData(dataToBeRemoved,startNode.getData())) {
 		 removeFirst();
 		 isOk = true;
 	 } else {
@@ -200,7 +189,7 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
 		 SingleLinkedRefDataObject<T> beforeDeleteNode = startNode;
 		 
 		 for(int index = (INDEX_START + 1); index < length ; index++ ) {
-			 if(dataToBeRemoved.equals(canBeDeletedNode.getData())) {
+			 if(isEqualData(dataToBeRemoved,canBeDeletedNode.getData())) {
 				 beforeDeleteNode.setNextReference(nextLinkingNode);
 				 if(canBeDeletedNode.getNextReference() == null) {
 					 lastNode = beforeDeleteNode;
@@ -229,6 +218,19 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
 	 
 	 return isOk;
  }
+
+ /**
+  * 
+  * @param dataOne
+  * @param dataTwo
+  * @return
+  */
+private boolean isEqualData(T dataOne, T dataTwo) {
+  if(dataOne == null){
+    return (dataOne == dataTwo);
+  }
+  return (dataOne.equals(dataTwo));
+}
  
  /**
   * 
@@ -236,10 +238,6 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
   * @return
   */
  public boolean removeAll(T dataToBeRemoved){
-	 if(dataToBeRemoved == null) {
-		 throw new IllegalArgumentException("Parameter cannot be null.");
-	 }
-	 
 	return remove(dataToBeRemoved, true);
  }
  /**
@@ -330,7 +328,7 @@ public Iterator<SingleLinkedRefDataObject<T>> iterator() {
 		}
 	
 		public void remove() {
-			throw new UnsupportedOperationException("LinkedList doesn't support this remove feature. Please use the other remove APIs available.");
+			throw new UnsupportedOperationException("DoubleLinkedList doesn't support this remove feature. Please use the other remove APIs available.");
 		}
 	}
 }

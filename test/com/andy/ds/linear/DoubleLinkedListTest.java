@@ -52,9 +52,9 @@ public class DoubleLinkedListTest {
 		assertEquals(10,doubleLinkedList.size());
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testAdd_WhenDataIsNull() {
-		doubleLinkedList.add(null);
+		assertTrue(doubleLinkedList.add(null));
 	}
 	
 	@Test
@@ -76,7 +76,7 @@ public class DoubleLinkedListTest {
 		doubleLinkedList.addAt(1, 1);
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=IndexOutOfBoundsException.class)
 	public void testAddAt_whenDataIsNull() {
 		doubleLinkedList.addAt(1, null);
 	}
@@ -99,9 +99,10 @@ public class DoubleLinkedListTest {
 		assertEquals(7, doubleLinkedList.size());
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testRemove_whenDataIsNull(){
-		doubleLinkedList.remove(null);
+	  assertTrue(doubleLinkedList.add(null));
+	  assertTrue(doubleLinkedList.remove(null));
 	}
 	
 	@Test
@@ -139,9 +140,11 @@ public class DoubleLinkedListTest {
 		assertEquals(18, doubleLinkedList.size());	
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testRemoveAll_whenDataIsNull() {
-		doubleLinkedList.removeAll(null);
+	  assertTrue(doubleLinkedList.add(null));
+	  assertTrue(doubleLinkedList.add(null));
+		assertTrue(doubleLinkedList.removeAll(null));
 		
 	}
 	

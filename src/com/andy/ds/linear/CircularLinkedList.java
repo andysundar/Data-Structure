@@ -64,12 +64,8 @@ public class CircularLinkedList<T> extends DoubleLinkedList<T> {
 	
 	@Override
 	public boolean remove(T data) {
-		if(data == null) {
-			throw new IllegalArgumentException("Data to be removed cannot be null.");
-		}
-
 		DoubleLinkedRefDataObject<T> findToBeDeleteNode = getStartNode();
-		while((findToBeDeleteNode != null) && (!data.equals(findToBeDeleteNode.getData()))){
+		while((findToBeDeleteNode != null) && (!isEqualData(data, findToBeDeleteNode.getData()))){
 			findToBeDeleteNode = findToBeDeleteNode.getNextReference();
 			if(getStartNode().equals(findToBeDeleteNode)){
 				break;
@@ -77,7 +73,7 @@ public class CircularLinkedList<T> extends DoubleLinkedList<T> {
 		}
 			
 		boolean flag = false;
-		if((findToBeDeleteNode != null) && (data.equals(findToBeDeleteNode.getData()))){
+		if((findToBeDeleteNode != null) && (isEqualData(data, findToBeDeleteNode.getData()))){
 			flag = unLinkNode(findToBeDeleteNode);
 		}
 		makeCircularLink();

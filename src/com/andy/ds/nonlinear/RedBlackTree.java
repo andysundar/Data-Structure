@@ -189,9 +189,23 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTree<T> {
 	@Override
 	public TreeDataObject<T> deleteNode(T data){
 		TreeDataObject<T> successorNode = super.deleteNode(data);
-//		while(successorNode != getRoot() && isBlack(successorNode)){
-//			
-//		}
+		TreeDataObject<T> siblingNode = siblingNode(successorNode);
+		
+		if(successorNode == null){
+			return null;
+		}
+		
+		TreeDataObject<T> successorParentNode = successorNode.getParentNode();
+		
+		while(successorNode != getRoot() && isBlack(successorNode)){
+			if(siblingNode != null && isRed(siblingNode) && isBlack(successorNode)){
+				if(isBlack(successorParentNode.getLeftChildNode()) && isRed(successorParentNode.getRightChildNode())) {
+					rotateLeft(successorParentNode);
+				} else if(isRed(successorParentNode.getLeftChildNode()) && isBlack(successorParentNode.getRightChildNode())) {
+					rotateRight(successorParentNode);	
+				}
+			}
+		}
 		return successorNode;
 	}
 	

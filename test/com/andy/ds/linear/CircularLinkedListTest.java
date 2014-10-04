@@ -75,9 +75,10 @@ public class CircularLinkedListTest {
 	}
 	
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testRemove_whenDataIsNull(){
-		circularLinkedList.remove(null);
+	  assertTrue(circularLinkedList.add(null));
+	  assertTrue(circularLinkedList.remove(null));
 	}
 	
 	@Test

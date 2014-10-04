@@ -53,7 +53,7 @@ public class LinkedListTest {
 		assertTrue(linkedList.add(2));
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testAdd_whenParamIsNull() {
 		assertTrue(linkedList.add(null));
 	}
@@ -74,9 +74,9 @@ public class LinkedListTest {
 		assertEquals(Integer.valueOf(6),linkedList.get(5));
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testAddAt_WhenDataIsNull() {
-		linkedList.addAt(0,null);
+		assertTrue(linkedList.addAt(0,null));
 	}
 	
 	@Test(expected=IndexOutOfBoundsException.class)
@@ -148,9 +148,10 @@ public class LinkedListTest {
 		assertEquals(Integer.valueOf(9), linkedList.get((linkedList.size() - 1)));
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testRemove_WhenDataIsNull() {
-		linkedList.remove(null);
+	  assertTrue(linkedList.add(null));
+		assertTrue(linkedList.remove(null));
 	}
 	
 
@@ -169,8 +170,12 @@ public class LinkedListTest {
 		assertEquals(Integer.valueOf(16), Integer.valueOf(linkedList.size()));
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testRemoveAll_withDataAsParam_WhenDataIsNull() {
+	  assertTrue(linkedList.add(null));
+	  assertTrue(linkedList.add(null));
+	  assertTrue(linkedList.add(null));
+	  assertTrue(linkedList.add(null));
 		assertTrue(linkedList.removeAll(null));
 	}
 	
