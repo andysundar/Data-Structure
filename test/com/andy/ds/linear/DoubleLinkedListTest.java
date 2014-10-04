@@ -76,9 +76,9 @@ public class DoubleLinkedListTest {
 		doubleLinkedList.addAt(1, 1);
 	}
 	
-	@Test(expected=IndexOutOfBoundsException.class)
+	@Test
 	public void testAddAt_whenDataIsNull() {
-		doubleLinkedList.addAt(1, null);
+	  assertTrue(doubleLinkedList.addAt(0, null));
 	}
 	
 	@Test
