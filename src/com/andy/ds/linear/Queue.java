@@ -30,6 +30,9 @@ public class Queue<E>{
   
   public E poll() {
     E data = peek();
+    if(data == null){
+      return null;
+    }
     queue.remove(data);
     return data;
   }

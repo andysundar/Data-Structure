@@ -267,4 +267,9 @@ public class LinkedListTest {
 		assertTrue(linkedList.add(2));
 		assertFalse(linkedList.removeAll(0));
 	}
+	
+	@Test
+	public void testRemove_whenNoElementInList(){
+	  assertFalse(linkedList.remove(null));
+	}
 }
