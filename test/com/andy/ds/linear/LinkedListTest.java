@@ -60,7 +60,7 @@ public class LinkedListTest {
 
 	@Test
 	public void testAddAt() {
-		assertTrue(linkedList.addAt(0,1));
+		assertTrue(linkedList.add(1));
 		assertEquals(Integer.valueOf(1),linkedList.get(0));
 		assertTrue(linkedList.addAt(1,2));
 		assertEquals(Integer.valueOf(2),linkedList.get(1));
@@ -76,6 +76,7 @@ public class LinkedListTest {
 
 	@Test
 	public void testAddAt_WhenDataIsNull() {
+	  assertTrue(linkedList.add(1));
 		assertTrue(linkedList.addAt(0,null));
 	}
 	
@@ -272,4 +273,30 @@ public class LinkedListTest {
 	public void testRemove_whenNoElementInList(){
 	  assertFalse(linkedList.remove(null));
 	}
+	
+	@Test
+  public void testIndexOf_whenNoElementInList(){
+    assertEquals(-1,linkedList.indexOf(null));
+  }
+	
+	@Test
+	public void testIndexOf(){
+	  assertTrue(linkedList.add(1));
+    assertTrue(linkedList.add(2));
+    assertTrue(linkedList.add(3));
+    assertEquals(1,linkedList.indexOf(2));
+	}
+	
+	@Test
+  public void testContains_whenNoElementInList(){
+	  assertFalse(linkedList.contains(2));
+  } 
+	
+	@Test
+  public void testContains(){
+    assertTrue(linkedList.add(1));
+    assertTrue(linkedList.add(2));
+    assertTrue(linkedList.add(3));
+    assertTrue(linkedList.contains(2));
+  }
 }

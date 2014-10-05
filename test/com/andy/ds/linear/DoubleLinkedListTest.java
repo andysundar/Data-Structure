@@ -235,5 +235,32 @@ public class DoubleLinkedListTest {
 		assertTrue(doubleLinkedList.add(Integer.valueOf(2)));
 		assertNotNull(doubleLinkedList.getLastNode());
 	}
+	
+	@Test
+  public void testIndexOf_whenNoElementInList(){
+    assertEquals(-1,doubleLinkedList.indexOf(null));
+  }
+  
+  @Test
+  public void testIndexOf(){
+    assertTrue(doubleLinkedList.add(1));
+    assertTrue(doubleLinkedList.add(2));
+    assertTrue(doubleLinkedList.add(3));
+    assertEquals(1,doubleLinkedList.indexOf(2));
+  }
+  
+  @Test
+  public void testContains_whenNoElementInList(){
+    assertFalse(doubleLinkedList.contains(2));
+  } 
+  
+  @Test
+  public void testContains(){
+    assertTrue(doubleLinkedList.add(1));
+    assertTrue(doubleLinkedList.add(2));
+    assertTrue(doubleLinkedList.add(3));
+    assertTrue(doubleLinkedList.contains(2));
+  }
+  
 }
  

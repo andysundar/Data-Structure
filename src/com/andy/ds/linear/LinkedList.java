@@ -95,15 +95,13 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
   */
  public boolean addAt(int index,T data) {
 	 boolean isOk = false;
-	 if(index < INDEX_START || index > length) {
-		 throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
+	 if(isIndexOutOfBound(index)) {
+		 throw new IndexOutOfBoundsException(getOutOfBoundMessage());
 	 }
 	 
 	 if(index == INDEX_START){
 		 addFirst(data);
-		 if(index == (length - 1)){
-			 lastNode = startNode;
-		 }
+     lastNode = startNode;
 		 isOk = true;
 	 } else if(index == length) {
 		 addLast(data);
@@ -120,6 +118,13 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
 	 
 	 return isOk;
  }
+
+  private boolean isIndexOutOfBound(int index) {
+    if (startNode == null) {
+      index = -1;
+    }
+    return (index < INDEX_START || index > length);
+  }
  
   private void removeFirst() {
 	 SingleLinkedRefDataObject<T> nextStartNode = startNode.getNextReference();
@@ -135,8 +140,8 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>>{
   */
  public boolean removeAt(int index) {
 	 boolean isOk = false;
-	 if(index < INDEX_START || index >= length) {
-		 throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
+	 if(isIndexOutOfBound(index)) {
+		 throw new IndexOutOfBoundsException(getOutOfBoundMessage());
 	 }
 	 if(index == INDEX_START){
 		 removeFirst();
@@ -272,8 +277,8 @@ private boolean isEqualData(T dataOne, T dataTwo) {
   */
  
  private SingleLinkedRefDataObject<T> getIthNode(int index) {
-	 if(index < INDEX_START || index >= length) {
-		 throw new IndexOutOfBoundsException("Index cannot be less than 0 and greater than or equal to "+length);
+	 if(isIndexOutOfBound(index)) {
+		 throw new IndexOutOfBoundsException(getOutOfBoundMessage());
 	 }
 	 SingleLinkedRefDataObject<T> node = startNode;
 	 
@@ -288,6 +293,10 @@ private boolean isEqualData(T dataOne, T dataTwo) {
 	 }
 	 return node;
  }
+
+  private String getOutOfBoundMessage() {
+    return "Index cannot be less than 0 and greater than or equal to " + length;
+  }
  
  /**
   * size method return length of the list
@@ -305,6 +314,35 @@ private boolean isEqualData(T dataOne, T dataTwo) {
 	 return (getStartNode() == null);
  }
  
+ /**
+  * Return the index of first match object
+  * @param data
+  * @return
+  */
+ public int indexOf(T data){
+   int index = -1;
+   SingleLinkedRefDataObject<T> node = startNode;
+
+    while(node != null) {
+      if(isEqualData(data, node.getData())){
+        index++;
+        break;
+      }
+      node = node.getNextReference();
+      index++;
+    }
+    
+   return index;
+ }
+ 
+ /**
+  * Return true if data is found otherwise false.
+  * @param data
+  * @return true if data is found otherwise false.
+  */
+ public boolean contains(T data){
+   return (indexOf(data) != -1);
+ }
  /**
   * Added iterator feature so that user can iterate thorough the list easily.
   */
