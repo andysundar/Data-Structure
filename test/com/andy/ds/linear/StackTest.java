@@ -18,7 +18,6 @@ package com.andy.ds.linear;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -28,7 +27,7 @@ import org.junit.Test;
 public class StackTest {
 
  private Stack<String> stack;
-  
+ private String data = "Test1"; 
   @Before
   public void setup(){
     stack = new Stack<String>();
@@ -36,21 +35,21 @@ public class StackTest {
   
   @Test
   public void testPush(){
-    assertNotNull(stack.push("Test1"));
+    assertEquals(data,stack.push(data));
     assertEquals(1, stack.size());
   }
   
   @Test
   public void testPop(){
-    assertNotNull(stack.push("Test1"));    
-    assertNotNull(stack.pop());
+    assertEquals(data,stack.push(data));
+    assertEquals(data,stack.pop());
     assertTrue(stack.isEmpty());
   }
   
   @Test
   public void testPeek(){
-    assertNotNull(stack.push("Test1"));    
-    assertNotNull(stack.peek());
+    assertEquals(data,stack.push(data));   
+    assertEquals(data,stack.peek());
     assertFalse(stack.isEmpty());
   }
   
