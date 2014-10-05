@@ -260,4 +260,15 @@ public class DoubleLinkedListTest {
     assertTrue(doubleLinkedList.contains(2));
   }
 
+  @Test
+  public void testIterator() {
+    assertTrue(doubleLinkedList.add(1));
+    assertTrue(doubleLinkedList.add(2));
+    assertTrue(doubleLinkedList.add(3));
+    int index = 1;
+    for (Integer element : doubleLinkedList) {
+      assertEquals(Integer.valueOf(index), element);
+      index++;
+    }
+  }
 }

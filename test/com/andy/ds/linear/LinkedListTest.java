@@ -228,7 +228,7 @@ public class LinkedListTest {
   @Test
   public void testIterator() {
     addDataToList();
-    int index = 1;
+    int index = 0;
     for (Integer element : linkedList) {
       assertEquals(Integer.valueOf(index), element);
       index++;
@@ -296,5 +296,72 @@ public class LinkedListTest {
     assertTrue(linkedList.add(2));
     assertTrue(linkedList.add(3));
     assertTrue(linkedList.contains(2));
+  }
+  
+  @Test
+  public void testHashCode(){
+    Integer data = null;
+    int hashCode = 1;
+    for(int index =1 ; index < 11; index++) {
+      data = new Integer(index);
+      assertTrue(linkedList.add(data));
+      hashCode = 31*hashCode + (data==null ? 0 : data.hashCode());
+      assertEquals(hashCode,linkedList.hashCode());
+    }
+    assertTrue(linkedList.add(null));
+    hashCode = 31*hashCode;
+    assertEquals(hashCode,linkedList.hashCode());
+  }
+  
+  @Test
+  public void testToArray(){
+    for(int index =1 ; index < 11; index++) {
+      assertTrue(linkedList.add(index));
+    }
+    int listSize = linkedList.size();
+    Integer[] intArray = linkedList.toArray(new Integer(1));
+    assertEquals(listSize,intArray.length);
+    
+    for(int index =0 ; index < 10; index++) {
+      assertEquals(linkedList.get(index),intArray[index]);
+    }
+  }
+  
+  @Test
+  public void testEquals_whenMatchSameObject(){
+    linkedList.add(1);
+    assertTrue(linkedList.equals(linkedList));
+  }
+  
+  @Test
+  public void testEquals_whenMatchDifferentObject(){
+    linkedList.add(1);
+    SimpleList<Integer> anotherList = new LinkedList<Integer>();
+    anotherList.add(1);
+    assertTrue(linkedList.equals(anotherList));
+  }
+  
+  @Test
+  public void testEquals_whenMatchDifferentObjectDifferentSize(){
+    linkedList.add(1);
+    SimpleList<Integer> anotherList = new LinkedList<Integer>();
+    anotherList.add(1);
+    anotherList.add(2);
+    assertFalse(linkedList.equals(anotherList));
+  }
+  
+  @Test
+  public void testEquals_whenMatchDifferentObjectDifferentElements(){
+    linkedList.add(1);
+    SimpleList<String> anotherList = new LinkedList<String>();
+    anotherList.add("1");
+    assertFalse(linkedList.equals(anotherList));
+  }
+  
+  @Test
+  public void testEquals_whenMatchDifferentTypeOfObject(){
+    linkedList.add(1);
+    String anotherObjectType = "Test";
+    assertFalse(linkedList.equals(anotherObjectType));
   }
 }

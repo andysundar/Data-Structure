@@ -15,6 +15,7 @@
 
 package com.andy.ds.linear;
 
+
 import java.util.Iterator;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
@@ -106,10 +107,50 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     return (size() == 0);
   }
 
+  public T[] toArray(T classType) {
+    @SuppressWarnings("unchecked")
+    T[] typeObject = (T[]) java.lang.reflect.Array.newInstance(classType.getClass(), size);
+
+    int index = 0;
+    for (T simpleList : this) {
+      typeObject[index] = simpleList;
+      index++;
+    }
+    return typeObject;
+  }
+
+  public boolean equals(Object o) {
+    if (o == this) {
+      return true;
+    }
+    if (o instanceof SimpleList) {
+      @SuppressWarnings("unchecked")
+      SimpleList<T> simpleList = ((SimpleList<T>) o);
+      Iterator<T> iteratorO = simpleList.iterator();
+      Iterator<T> iterator = this.iterator();
+      while (iterator.hasNext() && iteratorO.hasNext()) {
+        T dataO = iteratorO.next();
+        T data = iterator.next();
+        if (!isEqualData(data, dataO)) {
+          return false;
+        }
+      }
+      return !(iterator.hasNext() || iteratorO.hasNext());
+    }
+    return false;
+  }
+
+  public int hashCode() {
+    int hashCode = 1;
+    for (T type : this) {
+      hashCode = 31 * hashCode + (type == null ? 0 : type.hashCode());
+    }
+    return hashCode;
+  }
+
   public Iterator<T> iterator() {
     return new SimpleListIterator();
   }
-  
 
   /**
    * Iterator for lists
@@ -117,19 +158,21 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
    * @author Anindya Bandopadhyay
    * 
    */
- 
-  
-  class SimpleListIterator implements Iterator<T> {
+
+  private class SimpleListIterator implements Iterator<T> {
 
     private DoubleLinkedRefDataObject<T> currentNode = getStartNode();
+    int index = 0;
 
     public boolean hasNext() {
-      return (currentNode.getNextReference() != null);
+      return (index != size);
     }
 
     public T next() {
+      T data = currentNode.getData();
       currentNode = currentNode.getNextReference();
-      return currentNode.getData();
+      index++;
+      return data;
     }
 
     public void remove() {

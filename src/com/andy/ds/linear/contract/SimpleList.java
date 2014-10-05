@@ -35,4 +35,7 @@ public interface SimpleList<T> extends Iterable<T>{
   boolean contains(T data);
   Iterator<T> iterator();
   boolean isEmpty();
+  T[] toArray(T classType);
+  boolean equals(Object o);
+  int hashCode();
 }

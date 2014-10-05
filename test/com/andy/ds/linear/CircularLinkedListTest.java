@@ -131,4 +131,16 @@ public class CircularLinkedListTest {
     assertTrue(circularLinkedList.removeAt(2));
     checkStartAndLast();
   }
+  
+  @Test
+  public void testIterator() {
+    assertTrue(circularLinkedList.add(1));
+    assertTrue(circularLinkedList.add(2));
+    assertTrue(circularLinkedList.add(3));
+    int index = 1;
+    for (Integer element : circularLinkedList) {
+      assertEquals(Integer.valueOf(index), element);
+      index++;
+    }
+  }
 }
