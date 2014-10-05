@@ -27,8 +27,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.andy.ds.linear.contract.SimpleList;
+
 public class LinkedListTest {
-  private LinkedList<Integer> linkedList = null;
+  private SimpleList<Integer> linkedList = null;
 
   @Before
   public void beforeEveryMethod() {
@@ -219,8 +221,8 @@ public class LinkedListTest {
   @Test(expected = UnsupportedOperationException.class)
   public void testIterator_Remove() {
     addDataToList();
-    Iterator<Integer> slDO = linkedList.iterator();
-    slDO.remove();
+    Iterator<Integer> slIterator = linkedList.iterator();
+    slIterator.remove();
   }
 
   @Test

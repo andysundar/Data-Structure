@@ -17,11 +17,12 @@
 package com.andy.ds.linear;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
+import com.andy.ds.linear.contract.SimpleList;
 import com.andy.ds.linear.contract.SimpleStack;
 
 public class StackImpl<E> implements SimpleStack<E> {
 
-  private LinkedList<E> stack = new LinkedList<E>();
+  private SimpleList<E> stack = new LinkedList<E>();
 
   public E push(E data) {
     stack.add(data);

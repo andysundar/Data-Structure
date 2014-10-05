@@ -17,11 +17,12 @@
 package com.andy.ds.linear;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
+import com.andy.ds.linear.contract.SimpleList;
 import com.andy.ds.linear.contract.SimpleQueue;
 
 public class LIFOQueue<E> implements SimpleQueue<E>{
 
-  private LinkedList<E> queue = new LinkedList<E>();
+  private SimpleList<E> queue = new LinkedList<E>();
 
   public boolean enter(E data) {
     return queue.add(data);

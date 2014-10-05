@@ -179,7 +179,6 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
         fromEndNode = fromEndNode.getPreviousReference();
       }
 
-      
       halfLength--;
     }
     return isOk;

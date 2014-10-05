@@ -20,7 +20,7 @@ import java.util.Iterator;
 import com.andy.adt.DoubleLinkedRefDataObject;
 import com.andy.ds.linear.contract.SimpleList;
 
-public abstract class AbstractSimpleList<T> implements SimpleList<T>, Iterator<T> {
+public abstract class AbstractSimpleList<T> implements SimpleList<T> {
 
   private int size;
   protected static final int INDEX_START = 0;
@@ -105,4 +105,37 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T>, Iterator<T
   public boolean isEmpty() {
     return (size() == 0);
   }
+
+  public Iterator<T> iterator() {
+    return new SimpleListIterator();
+  }
+  
+
+  /**
+   * Iterator for lists
+   * 
+   * @author Anindya Bandopadhyay
+   * 
+   */
+ 
+  
+  class SimpleListIterator implements Iterator<T> {
+
+    private DoubleLinkedRefDataObject<T> currentNode = getStartNode();
+
+    public boolean hasNext() {
+      return (currentNode.getNextReference() != null);
+    }
+
+    public T next() {
+      currentNode = currentNode.getNextReference();
+      return currentNode.getData();
+    }
+
+    public void remove() {
+      throw new UnsupportedOperationException(
+              "SimpleListIterator doesn't support this remove feature. Please use the other remove APIs available.");
+    }
+  }
+
 }

@@ -8,15 +8,19 @@
 
 package com.andy.ds.linear;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import com.andy.ds.linear.contract.SimpleList;
 
 public class CircularLinkedListTest {
 
-  private CircularLinkedList<Integer> circularLinkedList;
+  private SimpleList<Integer> circularLinkedList;
 
   @Before
   public void setUp() throws Exception {

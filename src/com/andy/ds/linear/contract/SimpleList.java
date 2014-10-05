@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
 
-public interface SimpleList<T> {
+public interface SimpleList<T> extends Iterable<T>{
   DoubleLinkedRefDataObject<T> getStartNode();
   DoubleLinkedRefDataObject<T> getLastNode();
   boolean add(T data);

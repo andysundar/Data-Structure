@@ -27,8 +27,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.andy.ds.linear.contract.SimpleList;
+
 public class DoubleLinkedListTest {
-  private DoubleLinkedList<Integer> doubleLinkedList = null;
+  private SimpleList<Integer> doubleLinkedList = null;
 
   @Before
   public void setUp() throws Exception {
@@ -212,16 +214,6 @@ public class DoubleLinkedListTest {
     addDataToList();
     Iterator<Integer> slDO = doubleLinkedList.iterator();
     slDO.remove();
-  }
-
-  @Test
-  public void testIterator() {
-    addDataToList();
-    int index = 1;
-    for (Integer element : doubleLinkedList) {
-      assertEquals(Integer.valueOf(index), element);
-      index++;
-    }
   }
 
   @Test
