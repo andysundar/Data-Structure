@@ -31,13 +31,16 @@ public class CircularLinkedListTest {
 	public void testAdd() {
 		assertTrue(circularLinkedList.add(1));
 		assertTrue(circularLinkedList.add(2));
+		assertEquals(circularLinkedList.getLastNode(), circularLinkedList.getStartNode().getPreviousReference());
+		assertEquals(circularLinkedList.getStartNode(), circularLinkedList.getLastNode().getNextReference());
 	}
 
 	@Test
 	public void testAddAt() {
+	  assertTrue(circularLinkedList.add(2));
 		assertTrue(circularLinkedList.addAt(0,1));
 	}
-	
+		
 	@Test
 	public void testIsEmpty_whenListHaveOneElement() {
 		assertTrue(circularLinkedList.add(1));
@@ -88,12 +91,10 @@ public class CircularLinkedListTest {
 		assertTrue(circularLinkedList.removeAll(1));
 	}
 	
-	@Test
-	public void testRemoveAt_whenDataPresentInList() {
-		assertTrue(circularLinkedList.add(1));
-		assertTrue(circularLinkedList.add(2));
-		assertTrue(circularLinkedList.removeAt(1));
-	}
+	@Test(expected=IndexOutOfBoundsException.class)
+  public void testRemoveAt_whenNoElementInList() {
+    circularLinkedList.removeAt(1);
+  }
 	
 	@Test
 	public void testRemoveAll() {
@@ -107,5 +108,13 @@ public class CircularLinkedListTest {
 		assertTrue(circularLinkedList.add(1));
 		assertTrue(circularLinkedList.add(1));
 		assertTrue(circularLinkedList.remove(1));
+	}
+	
+	@Test
+	public void testRemoveAt(){
+	  assertTrue(circularLinkedList.add(1));
+    assertTrue(circularLinkedList.add(2));
+    assertTrue(circularLinkedList.add(3));
+    assertTrue(circularLinkedList.removeAt(2));
 	}
 }

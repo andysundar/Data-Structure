@@ -19,7 +19,6 @@ package com.andy.ds.linear;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
@@ -78,6 +77,7 @@ public class DoubleLinkedListTest {
 	
 	@Test
 	public void testAddAt_whenDataIsNull() {
+	  assertTrue(doubleLinkedList.add(1));
 	  assertTrue(doubleLinkedList.addAt(0, null));
 	}
 	
@@ -171,8 +171,15 @@ public class DoubleLinkedListTest {
 	}
 	
 	@Test
+  public void testGet_whenDataIsNull() {
+	  assertTrue(doubleLinkedList.add(null));
+    assertEquals(null,doubleLinkedList.get((0)));
+    
+  }
+	
+	@Test(expected=IndexOutOfBoundsException.class)
 	public void testGet_whenIndexInvalid(){
-		assertNull(doubleLinkedList.get(0));
+		doubleLinkedList.get(0);
 	}
 
 	@Test

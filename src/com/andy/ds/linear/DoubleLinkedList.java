@@ -81,7 +81,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkedRefDataObject<T
    * @return return true if added successfully else false.
    */
   public boolean addAt(int index, T data) {
-    if (index < INDEX_START || index > length) {
+    if (isIndexOutOfBound(index)) {
       throw new IndexOutOfBoundsException(getOutOfBoundMessage());
     }
     boolean isOk = false;
@@ -209,7 +209,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkedRefDataObject<T
    * @return return true if object found and removed successfully.
    */
   public boolean removeAt(int index) {
-    if (index < INDEX_START || index >= length) {
+    if (isIndexOutOfBound(index)) {
       throw new IndexOutOfBoundsException(getOutOfBoundMessage());
     }
     boolean isOk = false;
@@ -252,8 +252,11 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkedRefDataObject<T
    * @return data content object from the list.
    */
   public T get(int index) {
+    if(isIndexOutOfBound(index)){
+      throw new IndexOutOfBoundsException(getOutOfBoundMessage());
+    }
     DoubleLinkedRefDataObject<T> dataObject = getIthNode(index);
-    return (dataObject == null) ? null : dataObject.getData();
+    return dataObject.getData();
   }
 
   /**
@@ -291,11 +294,11 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkedRefDataObject<T
     return dataObjectToBeReturned;
   }
 
-  protected DoubleLinkedRefDataObject<T> getLastNode() {
+  public DoubleLinkedRefDataObject<T> getLastNode() {
     return lastNode;
   }
 
-  protected DoubleLinkedRefDataObject<T> getStartNode() {
+  public DoubleLinkedRefDataObject<T> getStartNode() {
     return startNode;
   }
 
@@ -348,6 +351,13 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkedRefDataObject<T
    */
   public boolean contains(T data){
     return (indexOf(data) != -1);
+  }
+  
+  private boolean isIndexOutOfBound(int index) {
+    if (startNode == null) {
+      index = -1;
+    }
+    return (index < INDEX_START || index > length);
   }
   
   private String getOutOfBoundMessage() {

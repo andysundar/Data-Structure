@@ -43,8 +43,12 @@ public class CircularLinkedList<T> extends DoubleLinkedList<T> {
 	 */
 	private void makeCircularLink() {
 		DoubleLinkedRefDataObject<T> lastNode = getLastNode();
+		DoubleLinkedRefDataObject<T> startNode = getStartNode();
 		if(lastNode != null) {
 			lastNode.setNextReference(getStartNode());
+		}
+		if(startNode != null){
+		  startNode.setPreviousReference(getLastNode());
 		}
 	}
 	
@@ -101,6 +105,7 @@ public class CircularLinkedList<T> extends DoubleLinkedList<T> {
 		return flag;
 	}
 	
+	@Override
 	public boolean isEmpty() {
 		return (getStartNode() == null && getLastNode() == null);
 	}
