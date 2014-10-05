@@ -23,43 +23,43 @@ import org.junit.Test;
 public class QueueTest {
 
   private Queue<String> queue;
+  private String data = "Test1";
   
   @Before
-  public void setup(){
+  public void setup() {
     queue = new Queue<String>();
   }
-  
+
   @Test
-  public void testEnter(){
-    assertTrue(queue.enter("Test1"));
+  public void testEnter() {
+    assertTrue(queue.enter(data));
     assertEquals(1, queue.size());
   }
-  
+
   @Test
-  public void testPoll(){
-    assertTrue(queue.enter("Test1"));    
+  public void testPoll() {
+    assertTrue(queue.enter(data));
     assertNotNull(queue.poll());
     assertTrue(queue.isEmpty());
   }
-  
+
   @Test
-  public void testPeek(){
-    assertTrue(queue.enter("Test1"));    
+  public void testPeek() {
+    assertTrue(queue.enter(data));
     assertNotNull(queue.peek());
     assertFalse(queue.isEmpty());
   }
-  
+
   @Test
-  public void testPoll_WhenQueueIsEmpty(){
+  public void testPoll_WhenQueueIsEmpty() {
     assertNull(queue.poll());
     assertTrue(queue.isEmpty());
   }
-  
+
   @Test
-  public void testPeek_WhenQueueIsEmpty(){
+  public void testPeek_WhenQueueIsEmpty() {
     assertNull(queue.peek());
     assertTrue(queue.isEmpty());
   }
-  
-  
+
 }

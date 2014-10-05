@@ -22,25 +22,25 @@ public class Stack<E> {
 
   private LinkedList<E> stack = new LinkedList<E>();
 
-  public E push(E data){
+  public E push(E data) {
     stack.add(data);
     return data;
   }
-  
-  public E pop(){
+
+  public E pop() {
     E data = peek();
     stack.removeAt((stack.size() - 1));
     return data;
   }
-  
-  public E peek(){
+
+  public E peek() {
     SingleLinkedRefDataObject<E> node = stack.getLastNode();
-    if(node == null) {
+    if (node == null) {
       return null;
     }
     return node.getData();
   }
-  
+
   public int size() {
     return stack.size();
   }

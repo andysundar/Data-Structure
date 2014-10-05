@@ -18,19 +18,17 @@ package com.andy.ds.linear;
 
 import com.andy.adt.SingleLinkedRefDataObject;
 
+public class Queue<E> {
 
-public class Queue<E>{
-  
   private LinkedList<E> queue = new LinkedList<E>();
- 
-  
+
   public boolean enter(E data) {
-     return queue.add(data);
+    return queue.add(data);
   }
-  
+
   public E poll() {
     E data = peek();
-    if(data == null){
+    if (data == null) {
       return null;
     }
     queue.remove(data);
@@ -39,16 +37,17 @@ public class Queue<E>{
 
   public E peek() {
     SingleLinkedRefDataObject<E> node = queue.getStartNode();
-    if(node == null){
+    if (node == null) {
       return null;
     }
     return node.getData();
   }
-  public int size(){
+
+  public int size() {
     return queue.size();
   }
-  
-  public boolean isEmpty(){
+
+  public boolean isEmpty() {
     return queue.isEmpty();
   }
 }

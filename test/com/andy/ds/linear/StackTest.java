@@ -26,40 +26,41 @@ import org.junit.Test;
 
 public class StackTest {
 
- private Stack<String> stack;
- private String data = "Test1"; 
+  private Stack<String> stack;
+  private String data = "Test1";
+
   @Before
-  public void setup(){
+  public void setup() {
     stack = new Stack<String>();
   }
-  
+
   @Test
-  public void testPush(){
-    assertEquals(data,stack.push(data));
+  public void testPush() {
+    assertEquals(data, stack.push(data));
     assertEquals(1, stack.size());
   }
-  
+
   @Test
-  public void testPop(){
-    assertEquals(data,stack.push(data));
-    assertEquals(data,stack.pop());
+  public void testPop() {
+    assertEquals(data, stack.push(data));
+    assertEquals(data, stack.pop());
     assertTrue(stack.isEmpty());
   }
-  
+
   @Test
-  public void testPeek(){
-    assertEquals(data,stack.push(data));   
-    assertEquals(data,stack.peek());
+  public void testPeek() {
+    assertEquals(data, stack.push(data));
+    assertEquals(data, stack.peek());
     assertFalse(stack.isEmpty());
   }
-  
-  @Test(expected=IndexOutOfBoundsException.class)
-  public void testPop_WhenstackIsEmpty(){
+
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void testPop_WhenstackIsEmpty() {
     stack.pop();
   }
-  
+
   @Test
-  public void testPeek_WhenstackIsEmpty(){
+  public void testPeek_WhenstackIsEmpty() {
     assertNull(stack.peek());
     assertTrue(stack.isEmpty());
   }

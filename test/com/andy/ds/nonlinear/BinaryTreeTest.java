@@ -26,214 +26,214 @@ import org.junit.Test;
 import com.andy.adt.TreeDataObject;
 
 public class BinaryTreeTest {
-	private BinaryTree<Integer> binaryTree;
-	private TreeDataObject<Integer> node =null;
-	
-	@Before
-	public void setUp() throws Exception {
-		binaryTree = new BinaryTree<Integer>();
-	}
+  private BinaryTree<Integer> binaryTree;
+  private TreeDataObject<Integer> node = null;
 
-	@After
-	public void tearDown() throws Exception {
-		binaryTree = null;
-	}
+  @Before
+  public void setUp() throws Exception {
+    binaryTree = new BinaryTree<Integer>();
+  }
 
-	@Test
-	public void testInsertNode() {
-		node = binaryTree.insertNode(5);
-		assertEquals(node.getData(), binaryTree.getRoot().getData());
-		node = binaryTree.insertNode(2);
-		assertEquals(node.getData(), Integer.valueOf(2));
-		node = binaryTree.insertNode(8);
-		assertEquals(node.getData(), Integer.valueOf(8));
-		node = binaryTree.insertNode(3);
-		assertEquals(node.getData(), Integer.valueOf(3));
-		node = binaryTree.insertNode(6); 
-		assertEquals(node.getData(), Integer.valueOf(6));
-		node = binaryTree.insertNode(1);
-		assertEquals(node.getData(), Integer.valueOf(1));
-		node = binaryTree.insertNode(9);
-		assertEquals(node.getData(), Integer.valueOf(9));
-		
-		assertEquals(Integer.valueOf(2), binaryTree.getRoot().getLeftChildNode().getData());
-		assertEquals(Integer.valueOf(8), binaryTree.getRoot().getRightChildNode().getData());
-		
-		assertEquals(Integer.valueOf(1), binaryTree.getRoot().getLeftChildNode().getLeftChildNode().getData());
-		assertEquals(Integer.valueOf(9), binaryTree.getRoot().getRightChildNode().getRightChildNode().getData()); 
-		
-		assertEquals(Integer.valueOf(3), binaryTree.getRoot().getLeftChildNode().getRightChildNode().getData());
-		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getRightChildNode().getLeftChildNode().getData());
-		
-		assertEquals(7, binaryTree.getNumberOfNodes());
-		
-	}
+  @After
+  public void tearDown() throws Exception {
+    binaryTree = null;
+  }
 
-	@Test
-	public void testDeleteNode() {
-		node = binaryTree.insertNode(5);
-		assertEquals(node.getData(), binaryTree.getRoot().getData());
-		node = binaryTree.insertNode(2);
-		assertEquals(node.getData(), Integer.valueOf(2));
-		node = binaryTree.insertNode(8);
-		assertEquals(node.getData(), Integer.valueOf(8));
-		
-		assertEquals(3, binaryTree.getNumberOfNodes()); 
-		
-		node = binaryTree.deleteNode(5);
-		assertEquals(node.getLeftChildNode(), binaryTree.getRoot().getLeftChildNode());
-		node = binaryTree.deleteNode(2);
-		assertNull(node);
-		node = binaryTree.deleteNode(8);		
-		assertEquals(0, binaryTree.getNumberOfNodes());
-	}
+  @Test
+  public void testInsertNode() {
+    node = binaryTree.insertNode(5);
+    assertEquals(node.getData(), binaryTree.getRoot().getData());
+    node = binaryTree.insertNode(2);
+    assertEquals(node.getData(), Integer.valueOf(2));
+    node = binaryTree.insertNode(8);
+    assertEquals(node.getData(), Integer.valueOf(8));
+    node = binaryTree.insertNode(3);
+    assertEquals(node.getData(), Integer.valueOf(3));
+    node = binaryTree.insertNode(6);
+    assertEquals(node.getData(), Integer.valueOf(6));
+    node = binaryTree.insertNode(1);
+    assertEquals(node.getData(), Integer.valueOf(1));
+    node = binaryTree.insertNode(9);
+    assertEquals(node.getData(), Integer.valueOf(9));
 
-	@Test
-	public void testDeleteNode_withRootHaveBothChilds() {
-		node = binaryTree.insertNode(4);
-		assertEquals(node.getData(), binaryTree.getRoot().getData());
-		node = binaryTree.insertNode(1);
-		assertEquals(node.getData(), Integer.valueOf(1));
-		node = binaryTree.insertNode(3);
-		assertEquals(node.getData(), Integer.valueOf(3));
-		node = binaryTree.insertNode(2);
-		assertEquals(node.getData(), Integer.valueOf(2));
-		node = binaryTree.insertNode(8);
-		assertEquals(node.getData(), Integer.valueOf(8));
-		node = binaryTree.insertNode(6);
-		assertEquals(node.getData(), Integer.valueOf(6));
-		node = binaryTree.insertNode(5);
-		assertEquals(node.getData(), Integer.valueOf(5));
-		
-		assertEquals(7, binaryTree.getNumberOfNodes());
-		
-		binaryTree.deleteNode(5);
-		assertEquals(Integer.valueOf(4), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(4);
-		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(1);
-		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(3);
-		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(2);
-		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(8);
-		assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(6);
-		
-		assertEquals(0, binaryTree.getNumberOfNodes());
-	}
-	
-	@Test
-	public void testDeleteNode_withRootHaveRightChildOnly(){
-		binaryTree.insertNode(2);
-		binaryTree.insertNode(5);
-		binaryTree.insertNode(3);
-		binaryTree.insertNode(4);
-		binaryTree.deleteNode(2);
-		assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
-	}
-	@Test
-	public void testDeleteNode_withRootHaveLeftChildOnly() {
-		node = binaryTree.insertNode(5);
-		assertEquals(node.getData(), binaryTree.getRoot().getData());
-		node = binaryTree.insertNode(1);
-		assertEquals(node.getData(), Integer.valueOf(1));
-		node = binaryTree.insertNode(3);
-		assertEquals(node.getData(), Integer.valueOf(3));
-		node = binaryTree.insertNode(2);
-		assertEquals(node.getData(), Integer.valueOf(2));
-		
-		assertEquals(4, binaryTree.getNumberOfNodes());
-		
-		binaryTree.deleteNode(5);
-		assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(2);
-		assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(3);
-		assertEquals(Integer.valueOf(1), binaryTree.getRoot().getData());
-		binaryTree.deleteNode(1);
-		
-		assertEquals(0, binaryTree.getNumberOfNodes());
-	}
-	
-	@Test
-	public void testDeleteNode_withoutRightChild() {
-		binaryTree.insertNode(1);
-		binaryTree.insertNode(5);
-		binaryTree.insertNode(2);
+    assertEquals(Integer.valueOf(2), binaryTree.getRoot().getLeftChildNode().getData());
+    assertEquals(Integer.valueOf(8), binaryTree.getRoot().getRightChildNode().getData());
 
-		
-		binaryTree.deleteNode(5);
-		binaryTree.deleteNode(2);
-		binaryTree.deleteNode(1);
-		
-		assertEquals(0, binaryTree.getNumberOfNodes());
-	}
-	
-	@Test
-	public void testDeleteNode_whenDataNotPresentInTree() {
-		binaryTree.insertNode(1);
-		binaryTree.insertNode(5);
-		binaryTree.insertNode(2);
-		
-		assertNull(binaryTree.deleteNode(8));
-	}
-	
-	@Test
-	public void testNumberOfNodes() {
-		binaryTree.insertNode(5);
-		binaryTree.insertNode(1);
-		binaryTree.insertNode(6);
-		
-		assertEquals(3, binaryTree.getNumberOfNodes());
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testInsertNodeWithNULLdata(){
-		binaryTree.insertNode(null);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testDeleteNodeWithNULLdata(){
-		binaryTree.deleteNode(null);
-	}
-	
-	@Test
-	public void testDeleteNode_withDataWhichIsNotInTree(){
-		binaryTree.insertNode(1);
-		binaryTree.insertNode(5);
-		binaryTree.insertNode(2);
-		
-		assertNull(binaryTree.deleteNode(3));
-	}
-	
-	private void insertNodeIntoTree(){
-		binaryTree.insertNode(2);
-		binaryTree.insertNode(1);
-		binaryTree.insertNode(5);
-		
-	}
-	
-	@Test
-	public void testGetMaxValueNode(){
-		insertNodeIntoTree();
-		assertEquals(Integer.valueOf(5) , binaryTree.getMaxValueNode(binaryTree.getRoot()).getData());
-	}
-	
-	@Test
-	public void testGetMinValueNode(){
-		insertNodeIntoTree();
-		assertEquals(Integer.valueOf(1) , binaryTree.getMinValueNode(binaryTree.getRoot()).getData());
-	}
-	
-	@Test
-	public void testDeleteNode_whenSuccessorNodeHaveRightChild() {
-		insertNodeIntoTree();
-		binaryTree.insertNode(3);
-		binaryTree.insertNode(4);
-		binaryTree.deleteNode(2);
-		assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
-	}
-	
+    assertEquals(Integer.valueOf(1), binaryTree.getRoot().getLeftChildNode().getLeftChildNode().getData());
+    assertEquals(Integer.valueOf(9), binaryTree.getRoot().getRightChildNode().getRightChildNode().getData());
+
+    assertEquals(Integer.valueOf(3), binaryTree.getRoot().getLeftChildNode().getRightChildNode().getData());
+    assertEquals(Integer.valueOf(6), binaryTree.getRoot().getRightChildNode().getLeftChildNode().getData());
+
+    assertEquals(7, binaryTree.getNumberOfNodes());
+
+  }
+
+  @Test
+  public void testDeleteNode() {
+    node = binaryTree.insertNode(5);
+    assertEquals(node.getData(), binaryTree.getRoot().getData());
+    node = binaryTree.insertNode(2);
+    assertEquals(node.getData(), Integer.valueOf(2));
+    node = binaryTree.insertNode(8);
+    assertEquals(node.getData(), Integer.valueOf(8));
+
+    assertEquals(3, binaryTree.getNumberOfNodes());
+
+    node = binaryTree.deleteNode(5);
+    assertEquals(node.getLeftChildNode(), binaryTree.getRoot().getLeftChildNode());
+    node = binaryTree.deleteNode(2);
+    assertNull(node);
+    node = binaryTree.deleteNode(8);
+    assertEquals(0, binaryTree.getNumberOfNodes());
+  }
+
+  @Test
+  public void testDeleteNode_withRootHaveBothChilds() {
+    node = binaryTree.insertNode(4);
+    assertEquals(node.getData(), binaryTree.getRoot().getData());
+    node = binaryTree.insertNode(1);
+    assertEquals(node.getData(), Integer.valueOf(1));
+    node = binaryTree.insertNode(3);
+    assertEquals(node.getData(), Integer.valueOf(3));
+    node = binaryTree.insertNode(2);
+    assertEquals(node.getData(), Integer.valueOf(2));
+    node = binaryTree.insertNode(8);
+    assertEquals(node.getData(), Integer.valueOf(8));
+    node = binaryTree.insertNode(6);
+    assertEquals(node.getData(), Integer.valueOf(6));
+    node = binaryTree.insertNode(5);
+    assertEquals(node.getData(), Integer.valueOf(5));
+
+    assertEquals(7, binaryTree.getNumberOfNodes());
+
+    binaryTree.deleteNode(5);
+    assertEquals(Integer.valueOf(4), binaryTree.getRoot().getData());
+    binaryTree.deleteNode(4);
+    assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
+    binaryTree.deleteNode(1);
+    assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
+    binaryTree.deleteNode(3);
+    assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
+    binaryTree.deleteNode(2);
+    assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
+    binaryTree.deleteNode(8);
+    assertEquals(Integer.valueOf(6), binaryTree.getRoot().getData());
+    binaryTree.deleteNode(6);
+
+    assertEquals(0, binaryTree.getNumberOfNodes());
+  }
+
+  @Test
+  public void testDeleteNode_withRootHaveRightChildOnly() {
+    binaryTree.insertNode(2);
+    binaryTree.insertNode(5);
+    binaryTree.insertNode(3);
+    binaryTree.insertNode(4);
+    binaryTree.deleteNode(2);
+    assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
+  }
+
+  @Test
+  public void testDeleteNode_withRootHaveLeftChildOnly() {
+    node = binaryTree.insertNode(5);
+    assertEquals(node.getData(), binaryTree.getRoot().getData());
+    node = binaryTree.insertNode(1);
+    assertEquals(node.getData(), Integer.valueOf(1));
+    node = binaryTree.insertNode(3);
+    assertEquals(node.getData(), Integer.valueOf(3));
+    node = binaryTree.insertNode(2);
+    assertEquals(node.getData(), Integer.valueOf(2));
+
+    assertEquals(4, binaryTree.getNumberOfNodes());
+
+    binaryTree.deleteNode(5);
+    assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
+    binaryTree.deleteNode(2);
+    assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
+    binaryTree.deleteNode(3);
+    assertEquals(Integer.valueOf(1), binaryTree.getRoot().getData());
+    binaryTree.deleteNode(1);
+
+    assertEquals(0, binaryTree.getNumberOfNodes());
+  }
+
+  @Test
+  public void testDeleteNode_withoutRightChild() {
+    binaryTree.insertNode(1);
+    binaryTree.insertNode(5);
+    binaryTree.insertNode(2);
+
+    binaryTree.deleteNode(5);
+    binaryTree.deleteNode(2);
+    binaryTree.deleteNode(1);
+
+    assertEquals(0, binaryTree.getNumberOfNodes());
+  }
+
+  @Test
+  public void testDeleteNode_whenDataNotPresentInTree() {
+    binaryTree.insertNode(1);
+    binaryTree.insertNode(5);
+    binaryTree.insertNode(2);
+
+    assertNull(binaryTree.deleteNode(8));
+  }
+
+  @Test
+  public void testNumberOfNodes() {
+    binaryTree.insertNode(5);
+    binaryTree.insertNode(1);
+    binaryTree.insertNode(6);
+
+    assertEquals(3, binaryTree.getNumberOfNodes());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInsertNodeWithNULLdata() {
+    binaryTree.insertNode(null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDeleteNodeWithNULLdata() {
+    binaryTree.deleteNode(null);
+  }
+
+  @Test
+  public void testDeleteNode_withDataWhichIsNotInTree() {
+    binaryTree.insertNode(1);
+    binaryTree.insertNode(5);
+    binaryTree.insertNode(2);
+
+    assertNull(binaryTree.deleteNode(3));
+  }
+
+  private void insertNodeIntoTree() {
+    binaryTree.insertNode(2);
+    binaryTree.insertNode(1);
+    binaryTree.insertNode(5);
+
+  }
+
+  @Test
+  public void testGetMaxValueNode() {
+    insertNodeIntoTree();
+    assertEquals(Integer.valueOf(5), binaryTree.getMaxValueNode(binaryTree.getRoot()).getData());
+  }
+
+  @Test
+  public void testGetMinValueNode() {
+    insertNodeIntoTree();
+    assertEquals(Integer.valueOf(1), binaryTree.getMinValueNode(binaryTree.getRoot()).getData());
+  }
+
+  @Test
+  public void testDeleteNode_whenSuccessorNodeHaveRightChild() {
+    insertNodeIntoTree();
+    binaryTree.insertNode(3);
+    binaryTree.insertNode(4);
+    binaryTree.deleteNode(2);
+    assertEquals(Integer.valueOf(3), binaryTree.getRoot().getData());
+  }
+
 }

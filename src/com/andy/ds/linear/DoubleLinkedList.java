@@ -252,7 +252,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkedRefDataObject<T
    * @return data content object from the list.
    */
   public T get(int index) {
-    if(isIndexOutOfBound(index)){
+    if (isIndexOutOfBound(index)) {
       throw new IndexOutOfBoundsException(getOutOfBoundMessage());
     }
     DoubleLinkedRefDataObject<T> dataObject = getIthNode(index);
@@ -325,45 +325,47 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkedRefDataObject<T
 
   /**
    * Return the index of first match object
+   * 
    * @param data
    * @return
    */
-  public int indexOf(T data){
+  public int indexOf(T data) {
     int index = -1;
     DoubleLinkedRefDataObject<T> node = startNode;
 
-     while(node != null) {
-       if(isEqualData(data, node.getData())){
-         index++;
-         break;
-       }
-       node = node.getNextReference();
-       index++;
-     }
-     
+    while (node != null) {
+      if (isEqualData(data, node.getData())) {
+        index++;
+        break;
+      }
+      node = node.getNextReference();
+      index++;
+    }
+
     return index;
   }
-  
+
   /**
    * Return true if data is found otherwise false.
+   * 
    * @param data
    * @return true if data is found otherwise false.
    */
-  public boolean contains(T data){
+  public boolean contains(T data) {
     return (indexOf(data) != -1);
   }
-  
+
   private boolean isIndexOutOfBound(int index) {
     if (startNode == null) {
       index = -1;
     }
     return (index < INDEX_START || index > length);
   }
-  
+
   private String getOutOfBoundMessage() {
     return "Index cannot be less than 0 and greater than or equal to " + length;
   }
- 
+
   /**
    * Added Iterator feature
    * 
@@ -371,7 +373,7 @@ public class DoubleLinkedList<T> implements Iterable<DoubleLinkedRefDataObject<T
    * 
    */
   private class LinkedListIterator implements Iterator<DoubleLinkedRefDataObject<T>> {
-    
+
     private DoubleLinkedRefDataObject<T> currentNode = getStartNode();
 
     public boolean hasNext() {

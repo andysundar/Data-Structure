@@ -35,78 +35,77 @@ package com.andy.ds.linear;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
 
-
 public class CircularLinkedList<T> extends DoubleLinkedList<T> {
-	/**
-	 * Get the last node and put the reference of start node into last node 
-	 * next reference.
-	 */
-	private void makeCircularLink() {
-		DoubleLinkedRefDataObject<T> lastNode = getLastNode();
-		DoubleLinkedRefDataObject<T> startNode = getStartNode();
-		if(lastNode != null) {
-			lastNode.setNextReference(getStartNode());
-		}
-		if(startNode != null){
-		  startNode.setPreviousReference(getLastNode());
-		}
-	}
-	
-	@Override
-	public boolean add(T data){
-		boolean flag = super.add(data);
-		makeCircularLink();
-		return flag;
-	}
-	
-	@Override
-	public boolean addAt(int index,T data) {
-		boolean flag = super.addAt(index,data);
-		makeCircularLink();
-		return flag;
-	}
-	
-	@Override
-	public boolean remove(T data) {
-		DoubleLinkedRefDataObject<T> findToBeDeleteNode = getStartNode();
-		while((findToBeDeleteNode != null) && (!isEqualData(data, findToBeDeleteNode.getData()))){
-			findToBeDeleteNode = findToBeDeleteNode.getNextReference();
-			if(getStartNode().equals(findToBeDeleteNode)){
-				break;
-			}
-		}
-			
-		boolean flag = false;
-		if((findToBeDeleteNode != null) && (isEqualData(data, findToBeDeleteNode.getData()))){
-			flag = unLinkNode(findToBeDeleteNode);
-		}
-		makeCircularLink();
-		return flag;
-	}
-	
-	@Override
-	public boolean removeAll(T data){
-		boolean flag = super.removeAll(data);
-		makeCircularLink();
-		return flag;
-	}
-	
-	@Override 
-	public boolean removeAt(int index){
-		boolean flag = super.removeAt(index);
-		makeCircularLink();
-		return flag;
-	}
-	
-	@Override 
-	public boolean removeAll() {
-		boolean flag = super.removeAll();
-		makeCircularLink();
-		return flag;
-	}
-	
-	@Override
-	public boolean isEmpty() {
-		return (getStartNode() == null && getLastNode() == null);
-	}
+  /**
+   * Get the last node and put the reference of start node into last node
+   * next reference.
+   */
+  private void makeCircularLink() {
+    DoubleLinkedRefDataObject<T> lastNode = getLastNode();
+    DoubleLinkedRefDataObject<T> startNode = getStartNode();
+    if (lastNode != null) {
+      lastNode.setNextReference(getStartNode());
+    }
+    if (startNode != null) {
+      startNode.setPreviousReference(getLastNode());
+    }
+  }
+
+  @Override
+  public boolean add(T data) {
+    boolean flag = super.add(data);
+    makeCircularLink();
+    return flag;
+  }
+
+  @Override
+  public boolean addAt(int index, T data) {
+    boolean flag = super.addAt(index, data);
+    makeCircularLink();
+    return flag;
+  }
+
+  @Override
+  public boolean remove(T data) {
+    DoubleLinkedRefDataObject<T> findToBeDeleteNode = getStartNode();
+    while ((findToBeDeleteNode != null) && (!isEqualData(data, findToBeDeleteNode.getData()))) {
+      findToBeDeleteNode = findToBeDeleteNode.getNextReference();
+      if (getStartNode().equals(findToBeDeleteNode)) {
+        break;
+      }
+    }
+
+    boolean flag = false;
+    if ((findToBeDeleteNode != null) && (isEqualData(data, findToBeDeleteNode.getData()))) {
+      flag = unLinkNode(findToBeDeleteNode);
+    }
+    makeCircularLink();
+    return flag;
+  }
+
+  @Override
+  public boolean removeAll(T data) {
+    boolean flag = super.removeAll(data);
+    makeCircularLink();
+    return flag;
+  }
+
+  @Override
+  public boolean removeAt(int index) {
+    boolean flag = super.removeAt(index);
+    makeCircularLink();
+    return flag;
+  }
+
+  @Override
+  public boolean removeAll() {
+    boolean flag = super.removeAll();
+    makeCircularLink();
+    return flag;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return (getStartNode() == null && getLastNode() == null);
+  }
 }

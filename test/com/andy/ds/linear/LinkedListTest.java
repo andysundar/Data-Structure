@@ -30,270 +30,268 @@ import org.junit.Test;
 import com.andy.adt.SingleLinkedRefDataObject;
 
 public class LinkedListTest {
-	private LinkedList<Integer> linkedList = null;
-	
-	@Before
-	public void beforeEveryMethod() {
-		linkedList = new LinkedList<Integer>();
-	}
-	
-	@After
-	public void afterEveryMethod() {
-		linkedList = null;
-	}
-	
-	@Test
-	public void testIsEmpty() {
-		assertTrue(linkedList.isEmpty());
-	}
-	
-	@Test
-	public void testAdd() {
-		assertTrue(linkedList.add(1));
-		assertTrue(linkedList.add(2));
-	}
+  private LinkedList<Integer> linkedList = null;
 
-	@Test
-	public void testAdd_whenParamIsNull() {
-		assertTrue(linkedList.add(null));
-	}
-
-	@Test
-	public void testAddAt() {
-		assertTrue(linkedList.add(1));
-		assertEquals(Integer.valueOf(1),linkedList.get(0));
-		assertTrue(linkedList.addAt(1,2));
-		assertEquals(Integer.valueOf(2),linkedList.get(1));
-		assertTrue(linkedList.addAt(2,3));
-		assertEquals(Integer.valueOf(3),linkedList.get(2));
-		assertTrue(linkedList.addAt(1,4));
-		assertEquals(Integer.valueOf(4),linkedList.get(1));
-		assertTrue(linkedList.addAt(0,5));
-		assertEquals(Integer.valueOf(5),linkedList.get(0));
-		assertTrue(linkedList.addAt(5,6));
-		assertEquals(Integer.valueOf(6),linkedList.get(5));
-	}
-
-	@Test
-	public void testAddAt_WhenDataIsNull() {
-	  assertTrue(linkedList.add(1));
-		assertTrue(linkedList.addAt(0,null));
-	}
-	
-	@Test(expected=IndexOutOfBoundsException.class)
-	public void testAddAt_WhenIndexIs2ForEmptyList() {
-		linkedList.addAt(2,1);
-	}
-	
-	@Test
-	public void testRemoveAt() {
-		assertTrue(linkedList.add(Integer.valueOf(1)));
-		assertTrue(linkedList.add(Integer.valueOf(2)));
-		assertTrue(linkedList.removeAt(0));
-		assertTrue(linkedList.removeAt(0));
-		assertEquals(Integer.valueOf(0), Integer.valueOf(linkedList.size()));
-		
-		assertTrue(linkedList.add(Integer.valueOf(1)));
-		assertTrue(linkedList.add(Integer.valueOf(2)));
-		assertTrue(linkedList.add(Integer.valueOf(3)));
-		assertTrue(linkedList.removeAt(1));
-		assertEquals(Integer.valueOf(2), Integer.valueOf(linkedList.size()));
-		
-		assertTrue(linkedList.add(Integer.valueOf(1)));
-		assertTrue(linkedList.add(Integer.valueOf(2)));
-		assertTrue(linkedList.add(Integer.valueOf(3)));
-		assertTrue(linkedList.removeAt(0));
-		assertEquals(Integer.valueOf(4), Integer.valueOf(linkedList.size()));
-		
-		assertTrue(linkedList.add(Integer.valueOf(1)));
-		assertTrue(linkedList.add(Integer.valueOf(2)));
-		assertTrue(linkedList.add(Integer.valueOf(3)));
-		assertTrue(linkedList.removeAt(2));
-		assertEquals(Integer.valueOf(6), Integer.valueOf(linkedList.size()));
-		
-		
-	}
-	
-	@Test
-	public void testRemoveAT_RemovingTheLastElement() {
-		assertTrue(linkedList.add(Integer.valueOf(1)));
-		assertTrue(linkedList.add(Integer.valueOf(2)));
-		assertTrue(linkedList.removeAt(1));
-	}
-
-	@Test(expected=IndexOutOfBoundsException.class)
-	public void testRemoveAt_whenIndexIsLessThanZero() {
-		linkedList.removeAt(-1);
-	}
-	
-	@Test(expected=IndexOutOfBoundsException.class)
-	public void testRemoveAt_whenIndexIsGreaterThanOrEqualToLengthOfList() {
-		linkedList.removeAt(linkedList.size());
-	}
-	
-	@Test
-	public void testRemove() {
-		for(int index = 1; index <= 10 ; index++) {
-			assertTrue(linkedList.add(index));
-		}
-		assertTrue(linkedList.remove(5));
-		assertEquals(Integer.valueOf(9), Integer.valueOf(linkedList.size()));
-		
-		assertTrue(linkedList.remove(10));
-		assertEquals(Integer.valueOf(8), Integer.valueOf(linkedList.size()));
-		
-		assertTrue(linkedList.remove(1));
-		assertEquals(Integer.valueOf(7), Integer.valueOf(linkedList.size()));
-		
-		assertEquals(Integer.valueOf(2), linkedList.get(0));
-		assertEquals(Integer.valueOf(9), linkedList.get((linkedList.size() - 1)));
-	}
-
-	@Test
-	public void testRemove_WhenDataIsNull() {
-	  assertTrue(linkedList.add(1));
-		assertFalse(linkedList.remove(null));
-	}
-	
-
-	@Test
-	public void testRemoveAll_withDataAsParam() {
-		for(int index = 1; index <= 10 ; index++) {
-			assertTrue(linkedList.add(index));
-		}
-		for(int index = 1; index <= 10 ; index++) {
-			assertTrue(linkedList.add(index));
-		}
-		assertTrue(linkedList.removeAll(5));
-		assertEquals(Integer.valueOf(18), Integer.valueOf(linkedList.size()));
-		
-		assertTrue(linkedList.removeAll(1));
-		assertEquals(Integer.valueOf(16), Integer.valueOf(linkedList.size()));
-	}
-	
-	@Test
-	public void testRemoveAll_withDataAsParam_WhenDataIsNull() {
-	  assertTrue(linkedList.add(null));
-	  assertTrue(linkedList.add(null));
-	  assertTrue(linkedList.add(null));
-	  assertTrue(linkedList.add(null));
-		assertTrue(linkedList.removeAll(null));
-	}
-	
-	@Test
-	public void testRemoveAll_withoutParam() {
-		for(int index = 1; index <= 10 ; index++) {
-			assertTrue(linkedList.add(index));
-		}
-		assertTrue(linkedList.removeAll());
-		assertEquals(Integer.valueOf(0), Integer.valueOf(linkedList.size()));
-	}
-
-	@Test
-	public void testGet() {
-		for(int index = 0; index < 100 ; index++) {
-			linkedList.add((index + 1));
-			assertEquals(Integer.valueOf((index + 1)),linkedList.get(index));
-		}		
-	}
-	
-	@Test(expected=IndexOutOfBoundsException.class)
-	public void testGet_whenIndexIsLessThanZero() {
-		linkedList.get(-1);
-	}
-	
-	@Test(expected=IndexOutOfBoundsException.class)
-	public void testGet_whenIndexIsGreaterThanOrEqualToLengthOfList() {
-		linkedList.get(linkedList.size());
-	}
-
-	private void addDataToList(){
-		for(int index = 0; index < 10; index++){
-			linkedList.add(index);
-		}
-	}
-	
-	@Test
-	public void testIterator_hasNext() {
-		addDataToList();		
-		Iterator<SingleLinkedRefDataObject<Integer>> slDO =linkedList.iterator();
-		assertTrue(slDO.hasNext());
-	}
-	
-	@Test(expected=UnsupportedOperationException.class)
-	public void testIterator_Remove() {
-		addDataToList();		
-		Iterator<SingleLinkedRefDataObject<Integer>> slDO =linkedList.iterator();
-		slDO.remove();
-	}
-	
-	@Test
-	public void testIterator() {
-		addDataToList();	
-		int index = 1;
-		for (SingleLinkedRefDataObject<Integer> element : linkedList) {
-			assertEquals(Integer.valueOf(index), element.getData());
-			index++;
-		}
-	}
-	
-	@Test
-	public void testIsEmpty_whenNoElement() {
-		assertTrue(linkedList.isEmpty());
-	}
-	
-	@Test
-	public void testIsEmpty_whenElementsAreThere() {
-		linkedList.add(1);
-		assertFalse(linkedList.isEmpty());
-	}
-	
-	@Test
-	public void testGetLastNode() {
-		assertTrue(linkedList.add(Integer.valueOf(1)));
-		assertTrue(linkedList.add(Integer.valueOf(2)));
-		assertNotNull(linkedList.getLastNode());
-	}
-
-	@Test
-	public void testRemoveAll_withSameDataAsParam() {
-		assertTrue(linkedList.add(1));
-		assertTrue(linkedList.add(1));
-		assertTrue(linkedList.removeAll(1));
-	}
-	
-	@Test
-	public void testRemoveAll_withDataNotPresentInList() {
-		assertTrue(linkedList.add(1));
-		assertTrue(linkedList.add(2));
-		assertFalse(linkedList.removeAll(0));
-	}
-	
-	@Test
-	public void testRemove_whenNoElementInList(){
-	  assertFalse(linkedList.remove(null));
-	}
-	
-	@Test
-  public void testIndexOf_whenNoElementInList(){
-    assertEquals(-1,linkedList.indexOf(null));
+  @Before
+  public void beforeEveryMethod() {
+    linkedList = new LinkedList<Integer>();
   }
-	
-	@Test
-	public void testIndexOf(){
-	  assertTrue(linkedList.add(1));
+
+  @After
+  public void afterEveryMethod() {
+    linkedList = null;
+  }
+
+  @Test
+  public void testIsEmpty() {
+    assertTrue(linkedList.isEmpty());
+  }
+
+  @Test
+  public void testAdd() {
+    assertTrue(linkedList.add(1));
+    assertTrue(linkedList.add(2));
+  }
+
+  @Test
+  public void testAdd_whenParamIsNull() {
+    assertTrue(linkedList.add(null));
+  }
+
+  @Test
+  public void testAddAt() {
+    assertTrue(linkedList.add(1));
+    assertEquals(Integer.valueOf(1), linkedList.get(0));
+    assertTrue(linkedList.addAt(1, 2));
+    assertEquals(Integer.valueOf(2), linkedList.get(1));
+    assertTrue(linkedList.addAt(2, 3));
+    assertEquals(Integer.valueOf(3), linkedList.get(2));
+    assertTrue(linkedList.addAt(1, 4));
+    assertEquals(Integer.valueOf(4), linkedList.get(1));
+    assertTrue(linkedList.addAt(0, 5));
+    assertEquals(Integer.valueOf(5), linkedList.get(0));
+    assertTrue(linkedList.addAt(5, 6));
+    assertEquals(Integer.valueOf(6), linkedList.get(5));
+  }
+
+  @Test
+  public void testAddAt_WhenDataIsNull() {
+    assertTrue(linkedList.add(1));
+    assertTrue(linkedList.addAt(0, null));
+  }
+
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void testAddAt_WhenIndexIs2ForEmptyList() {
+    linkedList.addAt(2, 1);
+  }
+
+  @Test
+  public void testRemoveAt() {
+    assertTrue(linkedList.add(Integer.valueOf(1)));
+    assertTrue(linkedList.add(Integer.valueOf(2)));
+    assertTrue(linkedList.removeAt(0));
+    assertTrue(linkedList.removeAt(0));
+    assertEquals(Integer.valueOf(0), Integer.valueOf(linkedList.size()));
+
+    assertTrue(linkedList.add(Integer.valueOf(1)));
+    assertTrue(linkedList.add(Integer.valueOf(2)));
+    assertTrue(linkedList.add(Integer.valueOf(3)));
+    assertTrue(linkedList.removeAt(1));
+    assertEquals(Integer.valueOf(2), Integer.valueOf(linkedList.size()));
+
+    assertTrue(linkedList.add(Integer.valueOf(1)));
+    assertTrue(linkedList.add(Integer.valueOf(2)));
+    assertTrue(linkedList.add(Integer.valueOf(3)));
+    assertTrue(linkedList.removeAt(0));
+    assertEquals(Integer.valueOf(4), Integer.valueOf(linkedList.size()));
+
+    assertTrue(linkedList.add(Integer.valueOf(1)));
+    assertTrue(linkedList.add(Integer.valueOf(2)));
+    assertTrue(linkedList.add(Integer.valueOf(3)));
+    assertTrue(linkedList.removeAt(2));
+    assertEquals(Integer.valueOf(6), Integer.valueOf(linkedList.size()));
+
+  }
+
+  @Test
+  public void testRemoveAT_RemovingTheLastElement() {
+    assertTrue(linkedList.add(Integer.valueOf(1)));
+    assertTrue(linkedList.add(Integer.valueOf(2)));
+    assertTrue(linkedList.removeAt(1));
+  }
+
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void testRemoveAt_whenIndexIsLessThanZero() {
+    linkedList.removeAt(-1);
+  }
+
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void testRemoveAt_whenIndexIsGreaterThanOrEqualToLengthOfList() {
+    linkedList.removeAt(linkedList.size());
+  }
+
+  @Test
+  public void testRemove() {
+    for (int index = 1; index <= 10; index++) {
+      assertTrue(linkedList.add(index));
+    }
+    assertTrue(linkedList.remove(5));
+    assertEquals(Integer.valueOf(9), Integer.valueOf(linkedList.size()));
+
+    assertTrue(linkedList.remove(10));
+    assertEquals(Integer.valueOf(8), Integer.valueOf(linkedList.size()));
+
+    assertTrue(linkedList.remove(1));
+    assertEquals(Integer.valueOf(7), Integer.valueOf(linkedList.size()));
+
+    assertEquals(Integer.valueOf(2), linkedList.get(0));
+    assertEquals(Integer.valueOf(9), linkedList.get((linkedList.size() - 1)));
+  }
+
+  @Test
+  public void testRemove_WhenDataIsNull() {
+    assertTrue(linkedList.add(1));
+    assertFalse(linkedList.remove(null));
+  }
+
+  @Test
+  public void testRemoveAll_withDataAsParam() {
+    for (int index = 1; index <= 10; index++) {
+      assertTrue(linkedList.add(index));
+    }
+    for (int index = 1; index <= 10; index++) {
+      assertTrue(linkedList.add(index));
+    }
+    assertTrue(linkedList.removeAll(5));
+    assertEquals(Integer.valueOf(18), Integer.valueOf(linkedList.size()));
+
+    assertTrue(linkedList.removeAll(1));
+    assertEquals(Integer.valueOf(16), Integer.valueOf(linkedList.size()));
+  }
+
+  @Test
+  public void testRemoveAll_withDataAsParam_WhenDataIsNull() {
+    assertTrue(linkedList.add(null));
+    assertTrue(linkedList.add(null));
+    assertTrue(linkedList.add(null));
+    assertTrue(linkedList.add(null));
+    assertTrue(linkedList.removeAll(null));
+  }
+
+  @Test
+  public void testRemoveAll_withoutParam() {
+    for (int index = 1; index <= 10; index++) {
+      assertTrue(linkedList.add(index));
+    }
+    assertTrue(linkedList.removeAll());
+    assertEquals(Integer.valueOf(0), Integer.valueOf(linkedList.size()));
+  }
+
+  @Test
+  public void testGet() {
+    for (int index = 0; index < 100; index++) {
+      linkedList.add((index + 1));
+      assertEquals(Integer.valueOf((index + 1)), linkedList.get(index));
+    }
+  }
+
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void testGet_whenIndexIsLessThanZero() {
+    linkedList.get(-1);
+  }
+
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void testGet_whenIndexIsGreaterThanOrEqualToLengthOfList() {
+    linkedList.get(linkedList.size());
+  }
+
+  private void addDataToList() {
+    for (int index = 0; index < 10; index++) {
+      linkedList.add(index);
+    }
+  }
+
+  @Test
+  public void testIterator_hasNext() {
+    addDataToList();
+    Iterator<SingleLinkedRefDataObject<Integer>> slDO = linkedList.iterator();
+    assertTrue(slDO.hasNext());
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void testIterator_Remove() {
+    addDataToList();
+    Iterator<SingleLinkedRefDataObject<Integer>> slDO = linkedList.iterator();
+    slDO.remove();
+  }
+
+  @Test
+  public void testIterator() {
+    addDataToList();
+    int index = 1;
+    for (SingleLinkedRefDataObject<Integer> element : linkedList) {
+      assertEquals(Integer.valueOf(index), element.getData());
+      index++;
+    }
+  }
+
+  @Test
+  public void testIsEmpty_whenNoElement() {
+    assertTrue(linkedList.isEmpty());
+  }
+
+  @Test
+  public void testIsEmpty_whenElementsAreThere() {
+    linkedList.add(1);
+    assertFalse(linkedList.isEmpty());
+  }
+
+  @Test
+  public void testGetLastNode() {
+    assertTrue(linkedList.add(Integer.valueOf(1)));
+    assertTrue(linkedList.add(Integer.valueOf(2)));
+    assertNotNull(linkedList.getLastNode());
+  }
+
+  @Test
+  public void testRemoveAll_withSameDataAsParam() {
+    assertTrue(linkedList.add(1));
+    assertTrue(linkedList.add(1));
+    assertTrue(linkedList.removeAll(1));
+  }
+
+  @Test
+  public void testRemoveAll_withDataNotPresentInList() {
+    assertTrue(linkedList.add(1));
+    assertTrue(linkedList.add(2));
+    assertFalse(linkedList.removeAll(0));
+  }
+
+  @Test
+  public void testRemove_whenNoElementInList() {
+    assertFalse(linkedList.remove(null));
+  }
+
+  @Test
+  public void testIndexOf_whenNoElementInList() {
+    assertEquals(-1, linkedList.indexOf(null));
+  }
+
+  @Test
+  public void testIndexOf() {
+    assertTrue(linkedList.add(1));
     assertTrue(linkedList.add(2));
     assertTrue(linkedList.add(3));
-    assertEquals(1,linkedList.indexOf(2));
-	}
-	
-	@Test
-  public void testContains_whenNoElementInList(){
-	  assertFalse(linkedList.contains(2));
-  } 
-	
-	@Test
-  public void testContains(){
+    assertEquals(1, linkedList.indexOf(2));
+  }
+
+  @Test
+  public void testContains_whenNoElementInList() {
+    assertFalse(linkedList.contains(2));
+  }
+
+  @Test
+  public void testContains() {
     assertTrue(linkedList.add(1));
     assertTrue(linkedList.add(2));
     assertTrue(linkedList.add(3));
