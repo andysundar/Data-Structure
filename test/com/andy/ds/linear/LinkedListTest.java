@@ -321,9 +321,10 @@ public class LinkedListTest {
     int listSize = linkedList.size();
     Integer[] intArray = linkedList.toArray(new Integer(1));
     assertEquals(listSize,intArray.length);
-    
-    for(int index =0 ; index < 10; index++) {
-      assertEquals(linkedList.get(index),intArray[index]);
+    int index = 0;
+    for(Integer data:linkedList) {
+      assertEquals(data,intArray[index]);
+      index++;
     }
   }
   
