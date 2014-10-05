@@ -15,19 +15,25 @@
 
 package com.andy.ds.linear;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class QueueTest {
+import com.andy.ds.linear.contract.SimpleQueue;
 
-  private Queue<String> queue;
+public class LIFOQueueTest {
+
+  private SimpleQueue<String> queue;
   private String data = "Test1";
   
   @Before
   public void setup() {
-    queue = new Queue<String>();
+    queue = new LIFOQueue<String>();
   }
 
   @Test

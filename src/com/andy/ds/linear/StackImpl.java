@@ -16,9 +16,10 @@
 
 package com.andy.ds.linear;
 
-import com.andy.adt.SingleLinkedRefDataObject;
+import com.andy.adt.DoubleLinkedRefDataObject;
+import com.andy.ds.linear.contract.SimpleStack;
 
-public class Stack<E> {
+public class StackImpl<E> implements SimpleStack<E> {
 
   private LinkedList<E> stack = new LinkedList<E>();
 
@@ -34,7 +35,7 @@ public class Stack<E> {
   }
 
   public E peek() {
-    SingleLinkedRefDataObject<E> node = stack.getLastNode();
+    DoubleLinkedRefDataObject<E> node = stack.getLastNode();
     if (node == null) {
       return null;
     }

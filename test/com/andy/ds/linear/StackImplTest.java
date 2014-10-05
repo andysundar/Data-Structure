@@ -24,14 +24,14 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StackTest {
+public class StackImplTest {
 
-  private Stack<String> stack;
+  private StackImpl<String> stack;
   private String data = "Test1";
 
   @Before
   public void setup() {
-    stack = new Stack<String>();
+    stack = new StackImpl<String>();
   }
 
   @Test

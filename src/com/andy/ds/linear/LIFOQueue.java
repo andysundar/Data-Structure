@@ -16,9 +16,10 @@
 
 package com.andy.ds.linear;
 
-import com.andy.adt.SingleLinkedRefDataObject;
+import com.andy.adt.DoubleLinkedRefDataObject;
+import com.andy.ds.linear.contract.SimpleQueue;
 
-public class Queue<E> {
+public class LIFOQueue<E> implements SimpleQueue<E>{
 
   private LinkedList<E> queue = new LinkedList<E>();
 
@@ -36,7 +37,7 @@ public class Queue<E> {
   }
 
   public E peek() {
-    SingleLinkedRefDataObject<E> node = queue.getStartNode();
+    DoubleLinkedRefDataObject<E> node = queue.getStartNode();
     if (node == null) {
       return null;
     }

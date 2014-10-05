@@ -16,58 +16,16 @@
 
 package com.andy.ds.linear;
 
-import java.util.Iterator;
+import com.andy.adt.DoubleLinkedRefDataObject;
 
-import com.andy.adt.SingleLinkedRefDataObject;
+public class LinkedList<T> extends AbstractSimpleList<T> implements Iterable<T> {
 
-public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>> {
-  private int length;
-  private static final int INDEX_START = 0;
-  private SingleLinkedRefDataObject<T> startNode;
-  private SingleLinkedRefDataObject<T> lastNode;
-
-  /**
-   * addFirst add object at the beginning of the list
-   * 
-   * @param data
-   */
-  private void addFirst(T data) {
-    SingleLinkedRefDataObject<T> node = new SingleLinkedRefDataObject<T>();
-    node.setData(data);
-    node.setNextReference(startNode);
-    startNode = node;
-    length++;
-  }
-
-  /**
-   * addLast add object at the end of the list
-   * 
-   * @param data
-   */
   private void addLast(T data) {
-    SingleLinkedRefDataObject<T> node = new SingleLinkedRefDataObject<T>();
-    lastNode.setNextReference(node);
+    DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+    getLastNode().setNextReference(node);
     node.setData(data);
-    lastNode = node;
-    length++;
-  }
-
-  /**
-   * This method return start node of the list
-   * 
-   * @return DataObject<T> object
-   */
-  public SingleLinkedRefDataObject<T> getStartNode() {
-    return startNode;
-  }
-
-  /**
-   * This method return last node of the list
-   * 
-   * @return DataObject<T> object
-   */
-  public SingleLinkedRefDataObject<T> getLastNode() {
-    return lastNode;
+    setLastNode(node);
+    setSize((getSize() + 1));
   }
 
   /**
@@ -81,9 +39,9 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>> {
   public boolean add(T data) {
     boolean isOk = false;
 
-    if (startNode == null) {
+    if (getStartNode() == null) {
       addFirst(data);
-      lastNode = startNode;
+      setLastNode(getStartNode());
       isOk = true;
     } else {
       addLast(data);
@@ -110,37 +68,30 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>> {
 
     if (index == INDEX_START) {
       addFirst(data);
-      lastNode = startNode;
+      setLastNode(getStartNode());
       isOk = true;
-    } else if (index == length) {
+    } else if (index == getSize()) {
       addLast(data);
       isOk = true;
     } else {
-      SingleLinkedRefDataObject<T> ithNode = getIthNode((index - 1));
-      SingleLinkedRefDataObject<T> node = new SingleLinkedRefDataObject<T>();
+      DoubleLinkedRefDataObject<T> ithNode = getIthNode((index - 1));
+      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
       node.setData(data);
       node.setNextReference(ithNode.getNextReference());
       ithNode.setNextReference(node);
       isOk = true;
-      length++;
+      setSize((getSize() + 1));
     }
 
     return isOk;
   }
 
-  private boolean isIndexOutOfBound(int index) {
-    if (startNode == null) {
-      index = -1;
-    }
-    return (index < INDEX_START || index > length);
-  }
-
   private void removeFirst() {
-    SingleLinkedRefDataObject<T> nextStartNode = startNode.getNextReference();
-    startNode.setData(null);
-    startNode.setNextReference(null);
-    startNode = nextStartNode;
-    length--;
+    DoubleLinkedRefDataObject<T> nextStartNode = getStartNode().getNextReference();
+    getStartNode().setData(null);
+    getStartNode().setNextReference(null);
+    setStartNode(nextStartNode);
+    setSize((getSize() - 1));
   }
 
   /**
@@ -159,16 +110,16 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>> {
       removeFirst();
       isOk = true;
     } else {
-      SingleLinkedRefDataObject<T> beforeDeleteNode = getIthNode((index - 1));
-      SingleLinkedRefDataObject<T> deleteNode = beforeDeleteNode.getNextReference();
+      DoubleLinkedRefDataObject<T> beforeDeleteNode = getIthNode((index - 1));
+      DoubleLinkedRefDataObject<T> deleteNode = beforeDeleteNode.getNextReference();
       if (deleteNode.getNextReference() == null) {
-        lastNode = beforeDeleteNode;
+        setLastNode(beforeDeleteNode);
       }
       beforeDeleteNode.setNextReference(deleteNode.getNextReference());
       deleteNode.setData(null);
       deleteNode.setNextReference(null);
       isOk = true;
-      length--;
+      setSize((getSize() - 1));
     }
 
     return isOk;
@@ -194,11 +145,11 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>> {
    */
   private boolean remove(T dataToBeRemoved, boolean removeAll) {
     boolean isOk = false;
-    if (startNode == null) {
+    if (getStartNode() == null) {
       return isOk;
     }
     boolean enableBreaker = !removeAll;
-    if (isEqualData(dataToBeRemoved, startNode.getData())) {
+    if (isEqualData(dataToBeRemoved, getStartNode().getData())) {
       removeFirst();
       isOk = true;
     } else {
@@ -206,16 +157,16 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>> {
     }
 
     if (removeAll) {
-      SingleLinkedRefDataObject<T> canBeDeletedNode = startNode.getNextReference();
-      SingleLinkedRefDataObject<T> nextLinkingNode = (canBeDeletedNode == null) ? null : canBeDeletedNode
+      DoubleLinkedRefDataObject<T> canBeDeletedNode = getStartNode().getNextReference();
+      DoubleLinkedRefDataObject<T> nextLinkingNode = (canBeDeletedNode == null) ? null : canBeDeletedNode
               .getNextReference();
-      SingleLinkedRefDataObject<T> beforeDeleteNode = startNode;
+      DoubleLinkedRefDataObject<T> beforeDeleteNode = getStartNode();
 
-      for (int index = (INDEX_START + 1); index < length; index++) {
+      for (int index = (INDEX_START + 1); index < getSize(); index++) {
         if (isEqualData(dataToBeRemoved, canBeDeletedNode.getData())) {
           beforeDeleteNode.setNextReference(nextLinkingNode);
           if (canBeDeletedNode.getNextReference() == null) {
-            lastNode = beforeDeleteNode;
+            setLastNode(beforeDeleteNode);
           }
           canBeDeletedNode.setData(null);
           canBeDeletedNode.setNextReference(null);
@@ -224,7 +175,7 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>> {
           nextLinkingNode = (canBeDeletedNode == null) ? null : canBeDeletedNode.getNextReference();
 
           isOk = true;
-          length--;
+          setSize((getSize() - 1));
           if (enableBreaker) {
             break;
           }
@@ -244,19 +195,6 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>> {
 
   /**
    * 
-   * @param dataOne
-   * @param dataTwo
-   * @return
-   */
-  private boolean isEqualData(T dataOne, T dataTwo) {
-    if (dataOne == null) {
-      return (dataOne == dataTwo);
-    }
-    return (dataOne.equals(dataTwo));
-  }
-
-  /**
-   * 
    * @param dataToBeRemoved
    * @return
    */
@@ -271,7 +209,7 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>> {
    */
   public boolean removeAll() {
     boolean isOk = true;
-    for (int index = length; index > INDEX_START; index--) {
+    for (int index = getSize(); index > INDEX_START; index--) {
       isOk &= removeAt(INDEX_START);
     }
     return isOk;
@@ -284,7 +222,7 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>> {
    * @return <T> type object from list
    */
   public T get(int index) {
-    SingleLinkedRefDataObject<T> node = getIthNode(index);
+    DoubleLinkedRefDataObject<T> node = getIthNode(index);
     return node.getData();
   }
 
@@ -295,107 +233,22 @@ public class LinkedList<T> implements Iterable<SingleLinkedRefDataObject<T>> {
    * @return the i th node from the list
    */
 
-  private SingleLinkedRefDataObject<T> getIthNode(int index) {
+  private DoubleLinkedRefDataObject<T> getIthNode(int index) {
     if (isIndexOutOfBound(index)) {
       throw new IndexOutOfBoundsException(getOutOfBoundMessage());
     }
-    SingleLinkedRefDataObject<T> node = startNode;
+    DoubleLinkedRefDataObject<T> node = getStartNode();
 
-    if (index != INDEX_START && index < (length - 1)) {
+    if (index != INDEX_START && index < (getSize() - 1)) {
       int tempIndex = INDEX_START;
       while ((node != null) && (tempIndex < index)) {
         node = node.getNextReference();
         tempIndex++;
       }
-    } else if (index == (length - 1)) {
-      node = lastNode;
+    } else if (index == (getSize() - 1)) {
+      node = getLastNode();
     }
     return node;
   }
 
-  private String getOutOfBoundMessage() {
-    return "Index cannot be less than 0 and greater than or equal to " + length;
-  }
-
-  /**
-   * size method return length of the list
-   * 
-   * @return length of the list
-   */
-  public int size() {
-    return length;
-  }
-
-  /**
-   * 
-   * @return true if list is empty else false
-   */
-  public boolean isEmpty() {
-    return (getStartNode() == null);
-  }
-
-  /**
-   * Return the index of first match object
-   * 
-   * @param data
-   * @return
-   */
-  public int indexOf(T data) {
-    int index = -1;
-    SingleLinkedRefDataObject<T> node = startNode;
-
-    while (node != null) {
-      if (isEqualData(data, node.getData())) {
-        index++;
-        break;
-      }
-      node = node.getNextReference();
-      index++;
-    }
-
-    return index;
-  }
-
-  /**
-   * Return true if data is found otherwise false.
-   * 
-   * @param data
-   * @return true if data is found otherwise false.
-   */
-  public boolean contains(T data) {
-    return (indexOf(data) != -1);
-  }
-
-  /**
-   * Added iterator feature so that user can iterate thorough the list easily.
-   */
-
-  public Iterator<SingleLinkedRefDataObject<T>> iterator() {
-    return new LinkedListIterator();
-  }
-
-  /**
-   * Added Iterator feature
-   * 
-   * @author Anindya Bandopadhyay
-   * 
-   */
-  private class LinkedListIterator implements Iterator<SingleLinkedRefDataObject<T>> {
-
-    private SingleLinkedRefDataObject<T> currentNode = getStartNode();
-
-    public boolean hasNext() {
-      return (currentNode.getNextReference() != null);
-    }
-
-    public SingleLinkedRefDataObject<T> next() {
-      currentNode = currentNode.getNextReference();
-      return currentNode;
-    }
-
-    public void remove() {
-      throw new UnsupportedOperationException(
-              "LinkedList doesn't support this remove feature. Please use the other remove APIs available.");
-    }
-  }
 }

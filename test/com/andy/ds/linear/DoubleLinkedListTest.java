@@ -27,8 +27,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.andy.adt.DoubleLinkedRefDataObject;
-
 public class DoubleLinkedListTest {
   private DoubleLinkedList<Integer> doubleLinkedList = null;
 
@@ -205,14 +203,14 @@ public class DoubleLinkedListTest {
   @Test
   public void testIterator_hasNext() {
     addDataToList();
-    Iterator<DoubleLinkedRefDataObject<Integer>> slDO = doubleLinkedList.iterator();
+    Iterator<Integer> slDO = doubleLinkedList.iterator();
     assertTrue(slDO.hasNext());
   }
 
   @Test(expected = UnsupportedOperationException.class)
   public void testIterator_Remove() {
     addDataToList();
-    Iterator<DoubleLinkedRefDataObject<Integer>> slDO = doubleLinkedList.iterator();
+    Iterator<Integer> slDO = doubleLinkedList.iterator();
     slDO.remove();
   }
 
@@ -220,8 +218,8 @@ public class DoubleLinkedListTest {
   public void testIterator() {
     addDataToList();
     int index = 1;
-    for (DoubleLinkedRefDataObject<Integer> element : doubleLinkedList) {
-      assertEquals(Integer.valueOf(index), element.getData());
+    for (Integer element : doubleLinkedList) {
+      assertEquals(Integer.valueOf(index), element);
       index++;
     }
   }
