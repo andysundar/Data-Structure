@@ -22,7 +22,7 @@ import com.andy.ds.linear.contract.SimpleQueue;
 
 public class LIFOQueue<E> implements SimpleQueue<E>{
 
-  private SimpleList<E> queue = new LinkedList<E>();
+  private SimpleList<E> queue = new SingleLinkedList<E>();
 
   public boolean enter(E data) {
     return queue.add(data);

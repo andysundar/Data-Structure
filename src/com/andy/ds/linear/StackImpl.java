@@ -22,7 +22,7 @@ import com.andy.ds.linear.contract.SimpleStack;
 
 public class StackImpl<E> implements SimpleStack<E> {
 
-  private SimpleList<E> stack = new LinkedList<E>();
+  private SimpleList<E> stack = new SingleLinkedList<E>();
 
   public E push(E data) {
     stack.add(data);

@@ -33,6 +33,9 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     node.setData(data);
     node.setNextReference(getStartNode());
     setStartNode(node);
+    if(getLastNode() == null) {
+      setLastNode(node);
+    }
     setSize((getSize() + 1));
     return node;
   }
@@ -64,11 +67,12 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     return (indexOf(data) != -1);
   }
 
-  protected boolean isIndexOutOfBound(int index) {
-    if (startNode == null) {
-      index = -1;
-    }
+  protected boolean isIndexOutOfBoundForPosition(int index) {
     return (index < INDEX_START || index > size);
+  }
+  
+  protected boolean isIndexOutOfBoundForElement(int index) {
+    return (index < INDEX_START || index >= size);
   }
 
   protected String getOutOfBoundMessage() {
@@ -103,6 +107,18 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     return size;
   }
 
+  protected void checkIndexBoundForElement(int index) {
+    if (isIndexOutOfBoundForElement(index)) {
+      throw new IndexOutOfBoundsException(getOutOfBoundMessage());
+    }
+  }
+  
+  protected void checkIndexBoundForPosition(int index) {
+    if (isIndexOutOfBoundForPosition(index)) {
+      throw new IndexOutOfBoundsException(getOutOfBoundMessage());
+    }
+  }
+  
   public boolean isEmpty() {
     return (size() == 0);
   }

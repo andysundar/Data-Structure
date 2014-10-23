@@ -34,6 +34,7 @@
 package com.andy.ds.linear;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
+import com.andy.ds.linear.contract.SimpleList;
 
 public class CircularLinkedList<T> extends DoubleLinkedList<T> {
   /**
@@ -109,4 +110,9 @@ public class CircularLinkedList<T> extends DoubleLinkedList<T> {
     return (getStartNode() == null && getLastNode() == null);
   }
 
+  @Override
+  public boolean addAll(int index, SimpleList<? extends T> list) {
+    boolean flag = super.addAll(index,list);
+    return flag;
+  }
 }

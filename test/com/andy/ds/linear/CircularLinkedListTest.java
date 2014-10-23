@@ -10,12 +10,14 @@ package com.andy.ds.linear;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.andy.adt.DoubleLinkedRefDataObject;
 import com.andy.ds.linear.contract.SimpleList;
 
 public class CircularLinkedListTest {
@@ -142,5 +144,78 @@ public class CircularLinkedListTest {
       assertEquals(Integer.valueOf(index), element);
       index++;
     }
+  }
+  
+  @Test
+  public void testAddAll_whenListIsEmpty(){
+    SimpleList<Number> linkedList = new CircularLinkedList<Number>();
+    SimpleList<Integer> sublinkedList = new CircularLinkedList<Integer>();
+    sublinkedList.add(1);
+    linkedList.addAll(0, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(1,linkedList.get(0));
+  }
+  
+  @Test
+  public void testAddAll_whenSubListAddedtoEnd(){
+    SimpleList<Number> linkedList = new CircularLinkedList<Number>();
+    linkedList.add(4);
+    SimpleList<Integer> sublinkedList = new CircularLinkedList<Integer>();
+    sublinkedList.add(1);
+    linkedList.addAll(1, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(1,linkedList.get(1));
+  }
+  
+  @Test
+  public void testAddAll_whenSubListAddedInBetween(){
+    SimpleList<Number> linkedList = new CircularLinkedList<Number>();
+    linkedList.add(1);
+    linkedList.add(2);
+    linkedList.add(6);
+    SimpleList<Integer> sublinkedList = new CircularLinkedList<Integer>();
+    sublinkedList.add(3);
+    sublinkedList.add(4);
+    sublinkedList.add(5);
+    linkedList.addAll(2, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(6,linkedList.size());
+    
+    for(int count = 1; count <= linkedList.size(); count++) {
+      Number num = linkedList.get((count - 1));
+      assertEquals(count,num);
+    }
+  }
+  
+  @Test
+  public void testLinkOfCircularLinkedList(){
+    SimpleList<Number> linkedList = new CircularLinkedList<Number>();
+    linkedList.add(1);
+    linkedList.add(2);
+    linkedList.add(6);
+    SimpleList<Integer> sublinkedList = new CircularLinkedList<Integer>();
+    sublinkedList.add(3);
+    sublinkedList.add(4);
+    sublinkedList.add(5);
+    linkedList.addAll(2, sublinkedList);
+    
+    linkedList.remove(4);
+    linkedList.removeAt(3);
+
+    int length = linkedList.size();
+    for(Number num:linkedList){
+      assertNotNull(num);
+    }
+    DoubleLinkedRefDataObject<Number> previousNode = linkedList.getStartNode().getPreviousReference();
+    while (previousNode != null) {
+      
+      assertNotNull(previousNode.getData());
+      previousNode = previousNode.getPreviousReference();
+      length--;
+      if(length < 1) {
+        break;
+      }
+    }
+
   }
 }

@@ -38,4 +38,5 @@ public interface SimpleList<T> extends Iterable<T>{
   T[] toArray(T classType);
   boolean equals(Object o);
   int hashCode();
+  boolean addAll(int index,SimpleList<? extends T> list);
 }

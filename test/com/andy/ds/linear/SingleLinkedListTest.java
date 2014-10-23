@@ -29,12 +29,12 @@ import org.junit.Test;
 
 import com.andy.ds.linear.contract.SimpleList;
 
-public class LinkedListTest {
+public class SingleLinkedListTest {
   private SimpleList<Integer> linkedList = null;
 
   @Before
   public void beforeEveryMethod() {
-    linkedList = new LinkedList<Integer>();
+    linkedList = new SingleLinkedList<Integer>();
   }
 
   @After
@@ -337,7 +337,7 @@ public class LinkedListTest {
   @Test
   public void testEquals_whenMatchDifferentObject(){
     linkedList.add(1);
-    SimpleList<Integer> anotherList = new LinkedList<Integer>();
+    SimpleList<Integer> anotherList = new SingleLinkedList<Integer>();
     anotherList.add(1);
     assertTrue(linkedList.equals(anotherList));
   }
@@ -345,7 +345,7 @@ public class LinkedListTest {
   @Test
   public void testEquals_whenMatchDifferentObjectDifferentSize(){
     linkedList.add(1);
-    SimpleList<Integer> anotherList = new LinkedList<Integer>();
+    SimpleList<Integer> anotherList = new SingleLinkedList<Integer>();
     anotherList.add(1);
     anotherList.add(2);
     assertFalse(linkedList.equals(anotherList));
@@ -354,7 +354,7 @@ public class LinkedListTest {
   @Test
   public void testEquals_whenMatchDifferentObjectDifferentElements(){
     linkedList.add(1);
-    SimpleList<String> anotherList = new LinkedList<String>();
+    SimpleList<String> anotherList = new SingleLinkedList<String>();
     anotherList.add("1");
     assertFalse(linkedList.equals(anotherList));
   }
@@ -364,5 +364,46 @@ public class LinkedListTest {
     linkedList.add(1);
     String anotherObjectType = "Test";
     assertFalse(linkedList.equals(anotherObjectType));
+  }
+  
+  @Test
+  public void testAddAll_whenListIsEmpty(){
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
+    SimpleList<Integer> sublinkedList = new SingleLinkedList<Integer>();
+    sublinkedList.add(1);
+    linkedList.addAll(0, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(1,linkedList.get(0));
+  }
+  
+  @Test
+  public void testAddAll_whenSubListAddedtoEnd(){
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
+    linkedList.add(4);
+    SimpleList<Integer> sublinkedList = new SingleLinkedList<Integer>();
+    sublinkedList.add(1);
+    linkedList.addAll(1, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(1,linkedList.get(1));
+  }
+  
+  @Test
+  public void testAddAll_whenSubListAddedInBetween(){
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
+    linkedList.add(1);
+    linkedList.add(2);
+    linkedList.add(6);
+    SimpleList<Integer> sublinkedList = new SingleLinkedList<Integer>();
+    sublinkedList.add(3);
+    sublinkedList.add(4);
+    sublinkedList.add(5);
+    linkedList.addAll(2, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(6,linkedList.size());
+    
+    for(int count = 1; count <= linkedList.size(); count++) {
+      Number num = linkedList.get((count - 1));
+      assertEquals(count,num);
+    }
   }
 }

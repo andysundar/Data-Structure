@@ -17,8 +17,9 @@
 package com.andy.ds.linear;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
+import com.andy.ds.linear.contract.SimpleList;
 
-public class LinkedList<T> extends AbstractSimpleList<T> implements Iterable<T> {
+public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterable<T> {
 
   private void addLast(T data) {
     DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
@@ -62,9 +63,7 @@ public class LinkedList<T> extends AbstractSimpleList<T> implements Iterable<T> 
    */
   public boolean addAt(int index, T data) {
     boolean isOk = false;
-    if (isIndexOutOfBound(index)) {
-      throw new IndexOutOfBoundsException(getOutOfBoundMessage());
-    }
+    checkIndexBoundForPosition(index);
 
     if (index == INDEX_START) {
       addFirst(data);
@@ -79,13 +78,48 @@ public class LinkedList<T> extends AbstractSimpleList<T> implements Iterable<T> 
       node.setData(data);
       node.setNextReference(ithNode.getNextReference());
       ithNode.setNextReference(node);
-      isOk = true;
       setSize((getSize() + 1));
+      isOk = true;
     }
 
     return isOk;
   }
 
+  public boolean addAll(int index,SimpleList<? extends T> list){
+    boolean isOk = false;
+    checkIndexBoundForPosition(index);
+    
+    if(index != INDEX_START && index != getSize()){
+      DoubleLinkedRefDataObject<T> ithNode = getIthNode((index - 1));
+      DoubleLinkedRefDataObject<T> subListStart = null;
+      DoubleLinkedRefDataObject<T> subListLast = null;
+      int subListsize = 0;
+      for(T data:list){
+        DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+        node.setData(data);
+        if(subListStart == null){
+          subListStart = node;
+          subListLast = node;
+        }else {
+          subListLast.setNextReference(node);
+          subListLast = node;  
+        }
+        subListsize++;        
+      }
+      subListLast.setNextReference(ithNode.getNextReference());
+      ithNode.setNextReference(subListStart);
+      setSize((getSize() + subListsize));
+    } else {
+      for(T data:list){
+        addAt(index, data);
+        index++;
+      }
+    }
+   
+    return isOk;
+  }
+
+  
   private void removeFirst() {
     DoubleLinkedRefDataObject<T> nextStartNode = getStartNode().getNextReference();
     getStartNode().setData(null);
@@ -103,9 +137,7 @@ public class LinkedList<T> extends AbstractSimpleList<T> implements Iterable<T> 
    */
   public boolean removeAt(int index) {
     boolean isOk = false;
-    if (isIndexOutOfBound(index)) {
-      throw new IndexOutOfBoundsException(getOutOfBoundMessage());
-    }
+    checkIndexBoundForElement(index);
     if (index == INDEX_START) {
       removeFirst();
       isOk = true;
@@ -234,9 +266,7 @@ public class LinkedList<T> extends AbstractSimpleList<T> implements Iterable<T> 
    */
 
   private DoubleLinkedRefDataObject<T> getIthNode(int index) {
-    if (isIndexOutOfBound(index)) {
-      throw new IndexOutOfBoundsException(getOutOfBoundMessage());
-    }
+    checkIndexBoundForElement(index);
     DoubleLinkedRefDataObject<T> node = getStartNode();
 
     if (index != INDEX_START && index < (getSize() - 1)) {
