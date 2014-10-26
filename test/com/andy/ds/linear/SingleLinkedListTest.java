@@ -367,28 +367,32 @@ public class SingleLinkedListTest {
   }
   
   @Test
-  public void testAddAll_whenListIsEmpty(){
+  public void testAddAll_SimpleList_whenListIsEmpty(){
     SimpleList<Number> linkedList = new SingleLinkedList<Number>();
     SimpleList<Integer> sublinkedList = new SingleLinkedList<Integer>();
     sublinkedList.add(1);
+    sublinkedList.add(2);
+    sublinkedList.add(3);
     linkedList.addAll(0, sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(0));
   }
   
   @Test
-  public void testAddAll_whenSubListAddedtoEnd(){
+  public void testAddAll_whenSimpleListAddedtoEnd(){
     SimpleList<Number> linkedList = new SingleLinkedList<Number>();
     linkedList.add(4);
     SimpleList<Integer> sublinkedList = new SingleLinkedList<Integer>();
     sublinkedList.add(1);
+    sublinkedList.add(2);
+    sublinkedList.add(3);
     linkedList.addAll(1, sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(1));
   }
   
   @Test
-  public void testAddAll_whenSubListAddedInBetween(){
+  public void testAddAll_whenSimpleListAddedInBetween(){
     SimpleList<Number> linkedList = new SingleLinkedList<Number>();
     linkedList.add(1);
     linkedList.add(2);
@@ -397,6 +401,88 @@ public class SingleLinkedListTest {
     sublinkedList.add(3);
     sublinkedList.add(4);
     sublinkedList.add(5);
+    linkedList.addAll(2, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(6,linkedList.size());
+    
+    for(int count = 1; count <= linkedList.size(); count++) {
+      Number num = linkedList.get((count - 1));
+      assertEquals(count,num);
+    }
+  }
+  
+  
+  @Test
+  public void testAddAll_Collection_whenListIsEmpty(){
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
+    java.util.LinkedList<Integer> sublinkedList = new java.util.LinkedList<Integer>();
+    sublinkedList.add(1);
+    sublinkedList.add(2);
+    sublinkedList.add(3);
+    linkedList.addAll(0, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(1,linkedList.get(0));
+  }
+  
+  @Test
+  public void testAddAll_whenCollectionAddedtoEnd(){
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
+    linkedList.add(4);
+    java.util.LinkedList<Integer> sublinkedList = new java.util.LinkedList<Integer>();
+    sublinkedList.add(1);
+    sublinkedList.add(2);
+    sublinkedList.add(3);
+    linkedList.addAll(1, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(1,linkedList.get(1));
+  }
+  
+  @Test
+  public void testAddAll_whenCollectionAddedInBetween(){
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
+    linkedList.add(1);
+    linkedList.add(2);
+    linkedList.add(6);
+    java.util.LinkedList<Integer> sublinkedList = new java.util.LinkedList<Integer>();
+    sublinkedList.add(3);
+    sublinkedList.add(4);
+    sublinkedList.add(5);
+    linkedList.addAll(2, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(6,linkedList.size());
+    
+    for(int count = 1; count <= linkedList.size(); count++) {
+      Number num = linkedList.get((count - 1));
+      assertEquals(count,num);
+    }
+  }
+  
+  @Test
+  public void testAddAll_Array_whenListIsEmpty(){
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
+    Integer  []sublinkedList = {1,2,3};
+    linkedList.addAll(0, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(1,linkedList.get(0));
+  }
+  
+  @Test
+  public void testAddAll_whenArrayAddedtoEnd(){
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
+    linkedList.add(4);
+    Integer  []sublinkedList = {5,6,7};
+    linkedList.addAll(1, sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(5,linkedList.get(1));
+  }
+  
+  @Test
+  public void testAddAll_whenArrayAddedInBetween(){
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
+    linkedList.add(1);
+    linkedList.add(2);
+    linkedList.add(6);
+    Integer  []sublinkedList = {3,4,5};
     linkedList.addAll(2, sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(6,linkedList.size());

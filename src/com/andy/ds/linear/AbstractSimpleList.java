@@ -134,6 +134,17 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     }
     return typeObject;
   }
+  
+  public Object[] toArray() {
+   Object[] object = new Object[size];
+
+    int index = 0;
+    for (T simpleList : this) {
+      object[index] = simpleList;
+      index++;
+    }
+    return object;
+  }
 
   public boolean equals(Object o) {
     if (o == this) {
@@ -164,9 +175,27 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     return hashCode;
   }
 
+  protected boolean addElementsToEndOrFrontOfList(int index, Object []objects){
+    boolean isOk = false;
+    if(index == INDEX_START || index == getSize()){
+      for(Object dataObject:objects){
+        @SuppressWarnings("unchecked")
+        T data = (T)dataObject;
+        isOk = addAt(index, data);
+        if(!isOk) {
+          break;
+        }
+        index++;
+      }
+    }
+    return isOk;
+  }
+  
   public Iterator<T> iterator() {
     return new SimpleListIterator();
   }
+  
+ 
 
   /**
    * Iterator for lists

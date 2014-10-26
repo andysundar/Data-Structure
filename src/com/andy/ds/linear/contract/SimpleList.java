@@ -16,6 +16,7 @@
 
 package com.andy.ds.linear.contract;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
@@ -36,7 +37,10 @@ public interface SimpleList<T> extends Iterable<T>{
   Iterator<T> iterator();
   boolean isEmpty();
   T[] toArray(T classType);
+  Object[] toArray();
   boolean equals(Object o);
   int hashCode();
   boolean addAll(int index,SimpleList<? extends T> list);
+  boolean addAll(int index,Collection<? extends T> list);
+  boolean addAll(int index,T...array);
 }

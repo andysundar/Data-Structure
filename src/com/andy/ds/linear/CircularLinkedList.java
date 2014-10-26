@@ -33,6 +33,8 @@
 
 package com.andy.ds.linear;
 
+import java.util.Collection;
+
 import com.andy.adt.DoubleLinkedRefDataObject;
 import com.andy.ds.linear.contract.SimpleList;
 
@@ -113,6 +115,21 @@ public class CircularLinkedList<T> extends DoubleLinkedList<T> {
   @Override
   public boolean addAll(int index, SimpleList<? extends T> list) {
     boolean flag = super.addAll(index,list);
+    makeCircularLink();
+    return flag;
+  }
+  
+  @Override
+  public boolean addAll(int index, Collection<? extends T> list) {
+    boolean flag = super.addAll(index,list);
+    makeCircularLink();
+    return flag;
+  }
+  
+  @Override
+  public boolean addAll(int index,T...array) {
+    boolean flag = super.addAll(index,array);
+    makeCircularLink();
     return flag;
   }
 }
