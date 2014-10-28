@@ -22,6 +22,25 @@ import com.andy.adt.DoubleLinkedRefDataObject;
 import com.andy.ds.linear.contract.SimpleList;
 
 public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
+  
+  public DoubleLinkedList(){
+    
+  }
+  
+  public DoubleLinkedList(SimpleList<? extends T> list){
+    this();
+    addAll(list);
+  }
+  
+  public DoubleLinkedList(Collection<? extends T> collection){
+    this();
+    addAll(collection);
+  }
+  
+  public DoubleLinkedList(T...array){
+    this();
+    addAll(array);
+  }
 
   @Override
   protected DoubleLinkedRefDataObject<T> addFirst(T data) {

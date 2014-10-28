@@ -23,6 +23,25 @@ import com.andy.ds.linear.contract.SimpleList;
 
 public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterable<T> {
 
+  public SingleLinkedList(){
+    
+  }
+  
+  public SingleLinkedList(SimpleList<? extends T> list){
+    this();
+    addAll(list);
+  }
+  
+  public SingleLinkedList(Collection<? extends T> collection){
+    this();
+    addAll(collection);
+  }
+  
+  public SingleLinkedList(T...array){
+    this();
+    addAll(array);
+  }
+  
   private void addLast(T data) {
     DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
     getLastNode().setNextReference(node);
@@ -69,7 +88,6 @@ public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterab
 
     if (index == INDEX_START) {
       addFirst(data);
-      setLastNode(getStartNode());
       isOk = true;
     } else if (index == getSize()) {
       addLast(data);
@@ -297,5 +315,5 @@ public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterab
     }
     return node;
   }
-  
+ 
 }

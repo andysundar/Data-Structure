@@ -1,6 +1,5 @@
 /**
  * Copyright [2012] Anindya Bandopadhyay
-<<<<<<< HEAD
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +14,6 @@
  * limitations under the License.
  *
  * @Author Anindya Bandopadhyay
-=======
->>>>>>> f008bdf68fa6ca54317ed3429c250b04ccc94133
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +36,27 @@ import com.andy.adt.DoubleLinkedRefDataObject;
 import com.andy.ds.linear.contract.SimpleList;
 
 public class CircularLinkedList<T> extends DoubleLinkedList<T> {
+  
+public CircularLinkedList(){
+    
+  }
+  
+  public CircularLinkedList(SimpleList<? extends T> list){
+    this();
+    addAll(list);
+  }
+  
+  public CircularLinkedList(Collection<? extends T> collection){
+    this();
+    addAll(collection);
+  }
+  
+  public CircularLinkedList(T...array){
+    this();
+    addAll(array);
+  }
+
+  
   /**
    * Get the last node and put the reference of start node into last node
    * next reference.

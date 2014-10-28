@@ -368,12 +368,11 @@ public class SingleLinkedListTest {
   
   @Test
   public void testAddAll_SimpleList_whenListIsEmpty(){
-    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
     SimpleList<Integer> sublinkedList = new SingleLinkedList<Integer>();
     sublinkedList.add(1);
     sublinkedList.add(2);
     sublinkedList.add(3);
-    linkedList.addAll(0, sublinkedList);
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(0));
   }
@@ -386,7 +385,7 @@ public class SingleLinkedListTest {
     sublinkedList.add(1);
     sublinkedList.add(2);
     sublinkedList.add(3);
-    linkedList.addAll(1, sublinkedList);
+    linkedList.addAll(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(1));
   }
@@ -414,12 +413,11 @@ public class SingleLinkedListTest {
   
   @Test
   public void testAddAll_Collection_whenListIsEmpty(){
-    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
     java.util.LinkedList<Integer> sublinkedList = new java.util.LinkedList<Integer>();
     sublinkedList.add(1);
     sublinkedList.add(2);
     sublinkedList.add(3);
-    linkedList.addAll(0, sublinkedList);
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(0));
   }
@@ -432,7 +430,7 @@ public class SingleLinkedListTest {
     sublinkedList.add(1);
     sublinkedList.add(2);
     sublinkedList.add(3);
-    linkedList.addAll(1, sublinkedList);
+    linkedList.addAll(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(1));
   }
@@ -459,9 +457,8 @@ public class SingleLinkedListTest {
   
   @Test
   public void testAddAll_Array_whenListIsEmpty(){
-    SimpleList<Number> linkedList = new SingleLinkedList<Number>();
     Integer  []sublinkedList = {1,2,3};
-    linkedList.addAll(0, sublinkedList);
+    SimpleList<Number> linkedList = new SingleLinkedList<Number>(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(0));
   }
@@ -471,7 +468,7 @@ public class SingleLinkedListTest {
     SimpleList<Number> linkedList = new SingleLinkedList<Number>();
     linkedList.add(4);
     Integer  []sublinkedList = {5,6,7};
-    linkedList.addAll(1, sublinkedList);
+    linkedList.addAll(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(5,linkedList.get(1));
   }

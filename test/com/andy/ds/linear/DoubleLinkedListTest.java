@@ -271,4 +271,34 @@ public class DoubleLinkedListTest {
       index++;
     }
   }
+  
+  @Test
+  public void testAddAll_SimpleList_whenListIsEmpty(){
+    SimpleList<Integer> sublinkedList = new DoubleLinkedList<Integer>();
+    sublinkedList.add(1);
+    sublinkedList.add(2);
+    sublinkedList.add(3);
+    SimpleList<Number> linkedList = new DoubleLinkedList<Number>(sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(1,linkedList.get(0));
+  }
+
+ @Test
+  public void testAddAll_Collection_whenListIsEmpty(){
+    java.util.LinkedList<Integer> sublinkedList = new java.util.LinkedList<Integer>();
+    sublinkedList.add(1);
+    sublinkedList.add(2);
+    sublinkedList.add(3);
+    SimpleList<Number> linkedList = new DoubleLinkedList<Number>(sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(1,linkedList.get(0));
+  }
+
+ @Test
+  public void testAddAll_Array_whenListIsEmpty(){
+    Integer  []sublinkedList = {1,2,3};
+    SimpleList<Number> linkedList = new DoubleLinkedList<Number>(sublinkedList);
+    assertFalse(linkedList.isEmpty());
+    assertEquals(1,linkedList.get(0));
+  }
 }

@@ -16,6 +16,7 @@
 package com.andy.ds.linear;
 
 
+import java.util.Collection;
 import java.util.Iterator;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
@@ -181,10 +182,8 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
       for(Object dataObject:objects){
         @SuppressWarnings("unchecked")
         T data = (T)dataObject;
-        isOk = addAt(index, data);
-        if(!isOk) {
-          break;
-        }
+        addAt(index, data);
+        isOk = true;
         index++;
       }
     }
@@ -196,6 +195,18 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
   }
   
  
+  
+  public boolean addAll(SimpleList<? extends T> list){
+    return addAll(getSize(),list);
+  }
+  
+  public boolean addAll(Collection<? extends T> collection){
+    return addAll(getSize(),collection);
+  }
+  
+  public boolean addAll(T...array){
+    return addAll(getSize(),array);
+  }
 
   /**
    * Iterator for lists
@@ -204,7 +215,7 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
    * 
    */
 
-  private class SimpleListIterator implements Iterator<T> {
+  private final class SimpleListIterator implements Iterator<T> {
 
     private DoubleLinkedRefDataObject<T> currentNode = getStartNode();
     int index = 0;

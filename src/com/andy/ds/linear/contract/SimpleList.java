@@ -43,4 +43,7 @@ public interface SimpleList<T> extends Iterable<T>{
   boolean addAll(int index,SimpleList<? extends T> list);
   boolean addAll(int index,Collection<? extends T> list);
   boolean addAll(int index,T...array);
+  boolean addAll(SimpleList<? extends T> list);
+  boolean addAll(Collection<? extends T> list);
+  boolean addAll(T...array);
 }

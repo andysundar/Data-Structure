@@ -149,12 +149,11 @@ public class CircularLinkedListTest {
   
   @Test
   public void testAddAll_SimpleList_whenListIsEmpty(){
-    SimpleList<Number> linkedList = new CircularLinkedList<Number>();
     SimpleList<Integer> sublinkedList = new CircularLinkedList<Integer>();
     sublinkedList.add(1);
     sublinkedList.add(2);
     sublinkedList.add(3);
-    linkedList.addAll(0, sublinkedList);
+    SimpleList<Number> linkedList = new CircularLinkedList<Number>(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(0));
   }
@@ -167,7 +166,7 @@ public class CircularLinkedListTest {
     sublinkedList.add(1);
     sublinkedList.add(2);
     sublinkedList.add(3);
-    linkedList.addAll(1, sublinkedList);
+    linkedList.addAll(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(1));
   }
@@ -195,12 +194,11 @@ public class CircularLinkedListTest {
   
   @Test
   public void testAddAll_Collection_whenListIsEmpty(){
-    SimpleList<Number> linkedList = new CircularLinkedList<Number>();
     java.util.LinkedList<Integer> sublinkedList = new java.util.LinkedList<Integer>();
     sublinkedList.add(1);
     sublinkedList.add(2);
     sublinkedList.add(3);
-    linkedList.addAll(0, sublinkedList);
+    SimpleList<Number> linkedList = new CircularLinkedList<Number>(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(0));
   }
@@ -213,7 +211,7 @@ public class CircularLinkedListTest {
     sublinkedList.add(1);
     sublinkedList.add(2);
     sublinkedList.add(3);
-    linkedList.addAll(1, sublinkedList);
+    linkedList.addAll(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(1));
   }
@@ -240,9 +238,8 @@ public class CircularLinkedListTest {
   
   @Test
   public void testAddAll_Array_whenListIsEmpty(){
-    SimpleList<Number> linkedList = new CircularLinkedList<Number>();
     Integer  []sublinkedList = {1,2,3};
-    linkedList.addAll(0, sublinkedList);
+    SimpleList<Number> linkedList = new CircularLinkedList<Number>(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(0));
   }
@@ -252,7 +249,7 @@ public class CircularLinkedListTest {
     SimpleList<Number> linkedList = new CircularLinkedList<Number>();
     linkedList.add(4);
     Integer  []sublinkedList = {5,6,7};
-    linkedList.addAll(1, sublinkedList);
+    linkedList.addAll(sublinkedList);
     assertFalse(linkedList.isEmpty());
     assertEquals(5,linkedList.get(1));
   }
