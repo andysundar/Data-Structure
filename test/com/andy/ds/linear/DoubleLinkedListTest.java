@@ -209,11 +209,12 @@ public class DoubleLinkedListTest {
     assertTrue(slDO.hasNext());
   }
 
-  @Test(expected = UnsupportedOperationException.class)
+  @Test
   public void testIterator_Remove() {
     addDataToList();
     Iterator<Integer> slDO = doubleLinkedList.iterator();
     slDO.remove();
+    assertEquals(9,doubleLinkedList.size());
   }
 
   @Test

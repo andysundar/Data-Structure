@@ -218,13 +218,6 @@ public class SingleLinkedListTest {
     assertTrue(slDO.hasNext());
   }
 
-  @Test(expected = UnsupportedOperationException.class)
-  public void testIterator_Remove() {
-    addDataToList();
-    Iterator<Integer> slIterator = linkedList.iterator();
-    slIterator.remove();
-  }
-
   @Test
   public void testIterator() {
     addDataToList();
@@ -233,6 +226,7 @@ public class SingleLinkedListTest {
       assertEquals(Integer.valueOf(index), element);
       index++;
     }
+    assertEquals(index, linkedList.size());
   }
 
   @Test

@@ -232,8 +232,7 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     }
 
     public void remove() {
-      throw new UnsupportedOperationException(
-              "SimpleListIterator doesn't support this remove feature. Please use the other remove APIs available.");
+      AbstractSimpleList.this.removeAt(index);
     }
   }
 
