@@ -200,7 +200,7 @@ public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterab
    * @return if node successfully remove then true else false
    */
 
-  public boolean remove(T dataToBeRemoved) {
+  public boolean removeFirstOccurance(T dataToBeRemoved) {
     return remove(dataToBeRemoved, false);
   }
 

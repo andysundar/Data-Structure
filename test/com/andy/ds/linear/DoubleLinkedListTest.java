@@ -87,22 +87,22 @@ public class DoubleLinkedListTest {
       assertTrue(doubleLinkedList.add(counter));
     }
 
-    assertFalse(doubleLinkedList.remove(11));
+    assertFalse(doubleLinkedList.removeFirstOccurance(11));
 
-    assertTrue(doubleLinkedList.remove(5));
+    assertTrue(doubleLinkedList.removeFirstOccurance(5));
     assertEquals(9, doubleLinkedList.size());
 
-    assertTrue(doubleLinkedList.remove(1));
+    assertTrue(doubleLinkedList.removeFirstOccurance(1));
     assertEquals(8, doubleLinkedList.size());
 
-    assertTrue(doubleLinkedList.remove(10));
+    assertTrue(doubleLinkedList.removeFirstOccurance(10));
     assertEquals(7, doubleLinkedList.size());
   }
 
   @Test
   public void testRemove_whenDataIsNull() {
     assertTrue(doubleLinkedList.add(1));
-    assertFalse(doubleLinkedList.remove(null));
+    assertFalse(doubleLinkedList.removeFirstOccurance(null));
   }
 
   @Test
@@ -142,9 +142,10 @@ public class DoubleLinkedListTest {
 
   @Test
   public void testRemoveAll_whenDataIsNull() {
-    assertTrue(doubleLinkedList.add(null));
-    assertTrue(doubleLinkedList.add(null));
-    assertTrue(doubleLinkedList.removeAll(null));
+    Integer i = null;
+    assertTrue(doubleLinkedList.add(i));
+    assertTrue(doubleLinkedList.add(i));
+    assertTrue(doubleLinkedList.removeAll(i));
 
   }
 
@@ -302,4 +303,33 @@ public class DoubleLinkedListTest {
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(0));
   }
+ 
+ @Test
+ public void testRetainAll_whenListIsEmpty(){
+   Integer  []subArray = {1,2,3};
+   assertFalse(doubleLinkedList.retainAll(subArray));
+ }
+ 
+ @Test
+ public void testRetainAll_whenListIsNotEmpty(){
+   addDataToList();
+   Integer  []subArray = {1,9,10,5};
+   assertTrue(doubleLinkedList.retainAll(subArray));
+   assertEquals(subArray.length -1 , doubleLinkedList.size());
+ }
+ 
+ @Test
+ public void testRemoveAll_whenListIsEmpty(){
+   Integer  []subArray = {1,2,3};
+   assertFalse(doubleLinkedList.retainAll(subArray));
+ }
+ 
+ @Test
+ public void testRemoveAll_whenListIsNotEmpty(){
+   addDataToList();
+   Integer  []subArray = {1,9,10,5};
+   int resultSize = doubleLinkedList.size() - subArray.length + 1;
+   assertTrue(doubleLinkedList.removeAll(subArray));
+   assertEquals(resultSize, doubleLinkedList.size());
+ }
 }

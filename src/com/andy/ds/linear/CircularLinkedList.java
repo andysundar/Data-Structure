@@ -87,7 +87,7 @@ public CircularLinkedList(){
   }
 
   @Override
-  public boolean remove(T data) {
+  public boolean removeFirstOccurance(T data) {
     DoubleLinkedRefDataObject<T> findToBeDeleteNode = getStartNode();
     while ((findToBeDeleteNode != null) && (!isEqualData(data, findToBeDeleteNode.getData()))) {
       findToBeDeleteNode = findToBeDeleteNode.getNextReference();

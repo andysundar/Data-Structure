@@ -149,7 +149,7 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
    * @param data
    * @return return true if removed successfully else false.
    */
-  public boolean remove(T data) {
+  public boolean removeFirstOccurance(T data) {
     DoubleLinkedRefDataObject<T> findToBeDeleteNode = getStartNode();
     while ((findToBeDeleteNode != null) && (!isEqualData(data, findToBeDeleteNode.getData()))) {
       findToBeDeleteNode = findToBeDeleteNode.getNextReference();
@@ -158,35 +158,6 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
     return unLinkNode(findToBeDeleteNode);
   }
 
-  /**
-   * Unlink the node from the list chain.
-   * 
-   * @param node
-   * @return return true if object found and removed successfully.
-   */
-  protected boolean unLinkNode(DoubleLinkedRefDataObject<T> node) {
-    boolean isOk = false;
-    if (node != null) {
-      DoubleLinkedRefDataObject<T> beforeDeleteNode = node.getPreviousReference();
-      DoubleLinkedRefDataObject<T> afterDeleteNode = node.getNextReference();
-      if (beforeDeleteNode != null) {
-        beforeDeleteNode.setNextReference(afterDeleteNode);
-      } else {
-        setStartNode(afterDeleteNode);
-      }
-      if (afterDeleteNode != null) {
-        afterDeleteNode.setPreviousReference(beforeDeleteNode);
-      } else {
-        setLastNode(beforeDeleteNode);
-      }
-      node.setData(null);
-      node.setNextReference(null);
-      node.setPreviousReference(null);
-      setSize((getSize() - 1));
-      isOk = true;
-    }
-    return isOk;
-  }
 
   /**
    * Remove all element matching from the list.

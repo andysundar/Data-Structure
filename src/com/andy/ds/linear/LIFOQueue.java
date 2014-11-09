@@ -33,7 +33,7 @@ public class LIFOQueue<E> implements SimpleQueue<E>{
     if (data == null) {
       return null;
     }
-    queue.remove(data);
+    queue.removeFirstOccurance(data);
     return data;
   }
 

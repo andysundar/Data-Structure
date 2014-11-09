@@ -135,13 +135,13 @@ public class SingleLinkedListTest {
     for (int index = 1; index <= 10; index++) {
       assertTrue(linkedList.add(index));
     }
-    assertTrue(linkedList.remove(5));
+    assertTrue(linkedList.removeFirstOccurance(5));
     assertEquals(Integer.valueOf(9), Integer.valueOf(linkedList.size()));
 
-    assertTrue(linkedList.remove(10));
+    assertTrue(linkedList.removeFirstOccurance(10));
     assertEquals(Integer.valueOf(8), Integer.valueOf(linkedList.size()));
 
-    assertTrue(linkedList.remove(1));
+    assertTrue(linkedList.removeFirstOccurance(1));
     assertEquals(Integer.valueOf(7), Integer.valueOf(linkedList.size()));
 
     assertEquals(Integer.valueOf(2), linkedList.get(0));
@@ -151,7 +151,7 @@ public class SingleLinkedListTest {
   @Test
   public void testRemove_WhenDataIsNull() {
     assertTrue(linkedList.add(1));
-    assertFalse(linkedList.remove(null));
+    assertFalse(linkedList.removeFirstOccurance(null));
   }
 
   @Test
@@ -171,11 +171,12 @@ public class SingleLinkedListTest {
 
   @Test
   public void testRemoveAll_withDataAsParam_WhenDataIsNull() {
-    assertTrue(linkedList.add(null));
-    assertTrue(linkedList.add(null));
-    assertTrue(linkedList.add(null));
-    assertTrue(linkedList.add(null));
-    assertTrue(linkedList.removeAll(null));
+    Integer i = null;
+    assertTrue(linkedList.add(i));
+    assertTrue(linkedList.add(i));
+    assertTrue(linkedList.add(i));
+    assertTrue(linkedList.add(i));
+    assertTrue(linkedList.removeAll(i));
   }
 
   @Test
@@ -263,7 +264,7 @@ public class SingleLinkedListTest {
 
   @Test
   public void testRemove_whenNoElementInList() {
-    assertFalse(linkedList.remove(null));
+    assertFalse(linkedList.removeFirstOccurance(null));
   }
 
   @Test

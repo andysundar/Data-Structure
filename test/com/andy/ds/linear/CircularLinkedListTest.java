@@ -68,18 +68,18 @@ public class CircularLinkedListTest {
   @Test
   public void testRemove_whenDataPresentInList() {
     assertTrue(circularLinkedList.add(1));
-    assertTrue(circularLinkedList.remove(1));
+    assertTrue(circularLinkedList.removeFirstOccurance(1));
   }
 
   @Test
   public void testRemove_whenDataNotPresentInList() {
     assertTrue(circularLinkedList.add(1));
-    assertFalse(circularLinkedList.remove(2));
+    assertFalse(circularLinkedList.removeFirstOccurance(2));
   }
 
   @Test
   public void testRemove_whenListIsEmpty() {
-    assertFalse(circularLinkedList.remove(2));
+    assertFalse(circularLinkedList.removeFirstOccurance(2));
   }
 
   @Test
@@ -87,14 +87,14 @@ public class CircularLinkedListTest {
     assertTrue(circularLinkedList.add(1));
     assertTrue(circularLinkedList.add(2));
     assertTrue(circularLinkedList.add(3));
-    assertTrue(circularLinkedList.remove(3));
+    assertTrue(circularLinkedList.removeFirstOccurance(3));
     checkStartAndLast();
   }
 
   @Test
   public void testRemove_whenDataIsNull() {
     assertTrue(circularLinkedList.add(null));
-    assertTrue(circularLinkedList.remove(null));
+    assertTrue(circularLinkedList.removeFirstOccurance(null));
   }
 
   @Test
@@ -283,7 +283,7 @@ public class CircularLinkedListTest {
     sublinkedList.add(5);
     linkedList.addAll(2, sublinkedList);
     
-    linkedList.remove(4);
+    linkedList.removeFirstOccurance(4);
     linkedList.removeAt(3);
 
     int length = linkedList.size();

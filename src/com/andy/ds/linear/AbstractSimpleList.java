@@ -194,6 +194,10 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     return new SimpleListIterator();
   }
   
+  private SimpleListIterator simpleListIterator() {
+    return new SimpleListIterator();
+  }
+  
  
   
   public boolean addAll(SimpleList<? extends T> list){
@@ -209,6 +213,136 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
   }
 
   /**
+   * Unlink the node from the list chain.
+   * 
+   * @param node
+   * @return return true if object found and removed successfully.
+   */
+  protected boolean unLinkNode(DoubleLinkedRefDataObject<T> node) {
+    boolean isOk = false;
+    if (node != null) {
+      DoubleLinkedRefDataObject<T> beforeDeleteNode = node.getPreviousReference();
+      DoubleLinkedRefDataObject<T> afterDeleteNode = node.getNextReference();
+      if (beforeDeleteNode != null) {
+        beforeDeleteNode.setNextReference(afterDeleteNode);
+      } else {
+        setStartNode(afterDeleteNode);
+      }
+      if (afterDeleteNode != null) {
+        afterDeleteNode.setPreviousReference(beforeDeleteNode);
+      } else {
+        setLastNode(beforeDeleteNode);
+      }
+      node.setData(null);
+      node.setNextReference(null);
+      node.setPreviousReference(null);
+      setSize((getSize() - 1));
+      isOk = true;
+    }
+    return isOk;
+  }
+  
+  public boolean removeAll(Collection<? extends T> collection) {
+    boolean isOk = false;
+    SimpleListIterator iterator = simpleListIterator();
+    for (T subListData : collection) {
+      if(removeAllElements(iterator,subListData)){
+        isOk = true;
+      }
+      iterator.reset();
+    }
+    return isOk;
+  }
+  
+  
+
+  public boolean removeAll(SimpleList<? extends T> list) {
+    boolean isOk = false;
+    SimpleListIterator iterator = simpleListIterator();
+    for (T subListData : list) {
+      if(removeAllElements(iterator,subListData)){
+        isOk = true;
+      }
+      iterator.reset();
+    }
+    return isOk;
+  }
+  
+  public boolean removeAll(T...array) {
+    boolean isOk = false;
+    SimpleListIterator iterator = simpleListIterator();
+    for (T subListData : array) {
+      if(removeAllElements(iterator,subListData)){
+        isOk = true;
+      }
+      iterator.reset();
+    }
+    return isOk;
+  }
+  
+  private boolean removeAllElements(Iterator<T> iterator,T subListData) {
+   while(iterator.hasNext()){
+      T data = iterator.next();
+      if(isEqualData(data, subListData)){
+          iterator.remove();
+          return true;
+        }
+      }
+    return false;
+  }
+  
+  public boolean retainAll(Collection<? extends T> collection){
+    boolean isOk = false;
+    Iterator<T> iterator = iterator();
+    while (iterator.hasNext()) {
+     T data = iterator.next();
+      if (!collection.contains(data)) {
+        iterator.remove();
+        isOk = true;
+      }
+    }
+    return isOk;
+  }
+  
+  public boolean retainAll(SimpleList<? extends T> list){
+    boolean isOk = false;
+    Iterator<T> iterator = iterator();
+    while (iterator.hasNext()) {
+      boolean present = false;
+      T data = iterator.next();
+      for (T subListData : list) {
+        if (isEqualData(data, subListData)) {
+          present = true;
+        }
+      }
+      if (!present) {
+        iterator.remove();
+        isOk = true;
+      }
+    }
+    return isOk;
+  }
+  
+  public boolean retainAll(T... array) {
+    boolean isOk = false;
+    Iterator<T> iterator = iterator();
+    while (iterator.hasNext()) {
+      boolean present = false;
+      T data = iterator.next();
+      for (T subListData : array) {
+        if (isEqualData(data, subListData)) {
+          present = true;
+        }
+      }
+      if (!present) {
+        iterator.remove();
+        isOk = true;
+      }
+    }
+    return isOk;
+  }
+  
+  /**
    * Iterator for lists
    * 
    * @author Anindya Bandopadhyay
@@ -217,22 +351,36 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
 
   private final class SimpleListIterator implements Iterator<T> {
 
-    private DoubleLinkedRefDataObject<T> currentNode = getStartNode();
-    int index = 0;
+    private DoubleLinkedRefDataObject<T> currentNode;
+    private DoubleLinkedRefDataObject<T> previousNode;
+    int index;
 
+    public SimpleListIterator(){
+      reset();
+    }
+    
+    void reset(){
+      currentNode = getStartNode();
+      previousNode = getStartNode();
+      index = 0;  
+    }
+    
     public boolean hasNext() {
       return (index != size);
     }
 
     public T next() {
       T data = currentNode.getData();
+      previousNode = currentNode;
       currentNode = currentNode.getNextReference();
       index++;
       return data;
     }
 
     public void remove() {
-      AbstractSimpleList.this.removeAt(index);
+      if(AbstractSimpleList.this.unLinkNode(previousNode)){
+        index--;
+      }
     }
   }
 
