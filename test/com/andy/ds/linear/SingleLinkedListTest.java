@@ -131,7 +131,7 @@ public class SingleLinkedListTest {
   }
 
   @Test
-  public void testRemove() {
+  public void testRemoveFirstOccurance() {
     for (int index = 1; index <= 10; index++) {
       assertTrue(linkedList.add(index));
     }
@@ -149,7 +149,7 @@ public class SingleLinkedListTest {
   }
 
   @Test
-  public void testRemove_WhenDataIsNull() {
+  public void testRemoveFirstOccurance_WhenDataIsNull() {
     assertTrue(linkedList.add(1));
     assertFalse(linkedList.removeFirstOccurance(null));
   }
@@ -263,7 +263,7 @@ public class SingleLinkedListTest {
   }
 
   @Test
-  public void testRemove_whenNoElementInList() {
+  public void testRemoveFirstOccurance_whenNoElementInList() {
     assertFalse(linkedList.removeFirstOccurance(null));
   }
 
@@ -309,7 +309,7 @@ public class SingleLinkedListTest {
   }
   
   @Test
-  public void testToArray(){
+  public void testToArray_withParameter(){
     for(int index =1 ; index < 11; index++) {
       assertTrue(linkedList.add(index));
     }
@@ -482,6 +482,21 @@ public class SingleLinkedListTest {
     for(int count = 1; count <= linkedList.size(); count++) {
       Number num = linkedList.get((count - 1));
       assertEquals(count,num);
+    }
+  }
+  
+  @Test
+  public void testToArray(){
+    for(int index =1 ; index < 11; index++) {
+      assertTrue(linkedList.add(index));
+    }
+    int listSize = linkedList.size();
+    Object[] intArray = linkedList.toArray();
+    assertEquals(listSize,intArray.length);
+    int index = 0;
+    for(Integer data:linkedList) {
+      assertEquals(data,intArray[index]);
+      index++;
     }
   }
 }

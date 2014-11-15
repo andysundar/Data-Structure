@@ -66,24 +66,24 @@ public class CircularLinkedListTest {
   }
 
   @Test
-  public void testRemove_whenDataPresentInList() {
+  public void testRemoveFirstOccurance_whenDataPresentInList() {
     assertTrue(circularLinkedList.add(1));
     assertTrue(circularLinkedList.removeFirstOccurance(1));
   }
 
   @Test
-  public void testRemove_whenDataNotPresentInList() {
+  public void testRemoveFirstOccurance_whenDataNotPresentInList() {
     assertTrue(circularLinkedList.add(1));
     assertFalse(circularLinkedList.removeFirstOccurance(2));
   }
 
   @Test
-  public void testRemove_whenListIsEmpty() {
+  public void testRemoveFirstOccurance_whenListIsEmpty() {
     assertFalse(circularLinkedList.removeFirstOccurance(2));
   }
 
   @Test
-  public void testRemove_whenDataInMiddleOfTheList() {
+  public void testRemoveFirstOccurance_whenDataInMiddleOfTheList() {
     assertTrue(circularLinkedList.add(1));
     assertTrue(circularLinkedList.add(2));
     assertTrue(circularLinkedList.add(3));
@@ -92,7 +92,7 @@ public class CircularLinkedListTest {
   }
 
   @Test
-  public void testRemove_whenDataIsNull() {
+  public void testRemoveFirstOccurance_whenDataIsNull() {
     assertTrue(circularLinkedList.add(null));
     assertTrue(circularLinkedList.removeFirstOccurance(null));
   }
@@ -168,7 +168,7 @@ public class CircularLinkedListTest {
     sublinkedList.add(3);
     linkedList.addAll(sublinkedList);
     assertFalse(linkedList.isEmpty());
-    assertEquals(1,linkedList.get(1));
+    assertEquals(4,linkedList.get(1));
   }
   
   @Test
@@ -213,7 +213,7 @@ public class CircularLinkedListTest {
     sublinkedList.add(3);
     linkedList.addAll(sublinkedList);
     assertFalse(linkedList.isEmpty());
-    assertEquals(1,linkedList.get(1));
+    assertEquals(4,linkedList.get(1));
   }
   
   @Test
@@ -251,7 +251,7 @@ public class CircularLinkedListTest {
     Integer  []sublinkedList = {5,6,7};
     linkedList.addAll(sublinkedList);
     assertFalse(linkedList.isEmpty());
-    assertEquals(5,linkedList.get(1));
+    assertEquals(4,linkedList.get(1));
   }
   
   @Test

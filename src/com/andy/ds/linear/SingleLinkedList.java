@@ -23,25 +23,25 @@ import com.andy.ds.linear.contract.SimpleList;
 
 public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterable<T> {
 
-  public SingleLinkedList(){
-    
+  public SingleLinkedList() {
+
   }
-  
-  public SingleLinkedList(SimpleList<? extends T> list){
+
+  public SingleLinkedList(SimpleList<? extends T> list) {
     this();
     addAll(list);
   }
-  
-  public SingleLinkedList(Collection<? extends T> collection){
+
+  public SingleLinkedList(Collection<? extends T> collection) {
     this();
     addAll(collection);
   }
-  
-  public SingleLinkedList(T...array){
+
+  public SingleLinkedList(T... array) {
     this();
     addAll(array);
   }
-  
+
   private void addLast(T data) {
     DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
     getLastNode().setNextReference(node);
@@ -105,56 +105,97 @@ public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterab
     return isOk;
   }
 
-  public boolean addAll(int index,SimpleList<? extends T> list){
-    Object[] objects = list.toArray();
-    return addAllElements(index, objects);
-  }
-
-  
-  public boolean addAll(int index,Collection<? extends T> collection){
-    Object[] objects = collection.toArray();
-    return addAllElements(index, objects);
-  }
-  
-  public boolean addAll(int index,T...array){
-    return addAllElements(index, array);
-  }
-
-  private boolean addAllElements(int index, Object []objects) {
+  public boolean addAll(int index, SimpleList<? extends T> list) {
     boolean isOk = false;
     checkIndexBoundForPosition(index);
-    
-    if(index != INDEX_START && index != getSize()){
-      DoubleLinkedRefDataObject<T> ithNode = getIthNode((index - 1));
-      DoubleLinkedRefDataObject<T> subListStart = null;
-      DoubleLinkedRefDataObject<T> subListLast = null;
-      int subListsize = 0;
-      
-      for(Object dataObject:objects){
-        DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
-        @SuppressWarnings("unchecked")
-        T data = (T)dataObject;
-        node.setData(data);
-        if(subListStart == null){
-          subListStart = node;
-          subListLast = node;
-        }else {
-          subListLast.setNextReference(node);
-          subListLast = node;  
-        }
-        subListsize++;        
+    DoubleLinkedRefDataObject<T> subListStart = null;
+    DoubleLinkedRefDataObject<T> subListLast = null;
+    int subListsize = 0;
+
+    for (T data : list) {
+      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+      node.setData(data);
+      if (subListStart == null) {
+        subListStart = node;
+        subListLast = node;
+      } else {
+        subListLast.setNextReference(node);
+        subListLast = node;
       }
-      subListLast.setNextReference(ithNode.getNextReference());
-      ithNode.setNextReference(subListStart);
-      setSize((getSize() + subListsize));
-      isOk = true;
-    } else {
-      addElementsToEndOrFrontOfList(index, objects);
+      subListsize++;
     }
-   
+    adjustWithCurrentList(index, subListStart, subListLast, subListsize);
+    isOk = true;
+
+    return isOk;
+
+  }
+
+  public boolean addAll(int index, Collection<? extends T> collection) {
+    boolean isOk = false;
+    checkIndexBoundForPosition(index);
+    DoubleLinkedRefDataObject<T> subListStart = null;
+    DoubleLinkedRefDataObject<T> subListLast = null;
+    int subListsize = 0;
+
+    for (T data : collection) {
+      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+      node.setData(data);
+      if (subListStart == null) {
+        subListStart = node;
+        subListLast = node;
+      } else {
+        subListLast.setNextReference(node);
+        subListLast = node;
+      }
+      subListsize++;
+    }
+    adjustWithCurrentList(index, subListStart, subListLast, subListsize);
+    isOk = true;
+
+    return isOk;
+
+  }
+
+  public boolean addAll(int index, T... array) {
+    boolean isOk = false;
+    checkIndexBoundForPosition(index);
+    DoubleLinkedRefDataObject<T> subListStart = null;
+    DoubleLinkedRefDataObject<T> subListLast = null;
+    int subListsize = 0;
+
+    for (T data : array) {
+      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+      node.setData(data);
+      if (subListStart == null) {
+        subListStart = node;
+        subListLast = node;
+      } else {
+        subListLast.setNextReference(node);
+        subListLast = node;
+      }
+      subListsize++;
+    }
+
+    adjustWithCurrentList(index, subListStart, subListLast, subListsize);
+    isOk = true;
+
     return isOk;
   }
-  
+
+  protected void adjustWithCurrentList(int index, DoubleLinkedRefDataObject<T> subListStart,
+          DoubleLinkedRefDataObject<T> subListLast, int subListsize) {
+    if (!isEmpty()) {
+      DoubleLinkedRefDataObject<T> ithNode = getIthNode((index - 1));
+      subListLast.setNextReference(ithNode.getNextReference());
+      ithNode.setNextReference(subListStart);
+    } else {
+      setStartNode(subListStart);
+      setLastNode(subListLast);
+    }
+    setSize((getSize() + subListsize));
+  }
+
   private void removeFirst() {
     DoubleLinkedRefDataObject<T> nextStartNode = getStartNode().getNextReference();
     getStartNode().setData(null);
@@ -315,5 +356,5 @@ public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterab
     }
     return node;
   }
- 
+
 }

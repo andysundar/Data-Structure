@@ -24,12 +24,7 @@ import com.andy.adt.DoubleLinkedRefDataObject;
 public interface SimpleList<T> extends Iterable<T>{
   DoubleLinkedRefDataObject<T> getStartNode();
   DoubleLinkedRefDataObject<T> getLastNode();
-  boolean add(T data);
-  boolean addAt(int index, T data);
-  boolean removeAt(int index);
-  boolean removeFirstOccurance(T dataToBeRemoved);
-  boolean removeAll(T dataToBeRemoved);
-  boolean removeAll();
+  
   T get(int index);
   int size();
   int indexOf(T data);
@@ -40,15 +35,25 @@ public interface SimpleList<T> extends Iterable<T>{
   Object[] toArray();
   boolean equals(Object o);
   int hashCode();
+  
+  boolean add(T data);
+  boolean addAt(int index, T data);
   boolean addAll(int index,SimpleList<? extends T> list);
   boolean addAll(int index,Collection<? extends T> list);
   boolean addAll(int index,T...array);
   boolean addAll(SimpleList<? extends T> list);
   boolean addAll(Collection<? extends T> list);
   boolean addAll(T...array);
+
+  
+  boolean removeAt(int index);
+  boolean removeFirstOccurance(T dataToBeRemoved);
+  boolean removeAll(T dataToBeRemoved);
+  boolean removeAll();
   boolean removeAll(SimpleList<? extends T> list);
   boolean removeAll(Collection<? extends T> collection);
   boolean removeAll(T...array);
+  
   boolean retainAll(SimpleList<? extends T> list);
   boolean retainAll(Collection<? extends T> collection);
   boolean retainAll(T...array);

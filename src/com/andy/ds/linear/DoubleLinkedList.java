@@ -272,54 +272,94 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
   }
 
   public boolean addAll(int index, SimpleList<? extends T> list) {
-    Object[] object = list.toArray();
-    return addAllElements(index, object);
+    checkIndexBoundForPosition(index);
+    boolean isOk = false;
+
+    DoubleLinkedRefDataObject<T> subListStart = null;
+    DoubleLinkedRefDataObject<T> subListLast = null;
+    int subListsize = 0;
+    for (T data : list) {
+      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+      node.setData(data);
+      if (subListStart == null) {
+        subListStart = node;
+        subListLast = node;
+      } else {
+        node.setPreviousReference(subListLast);
+        subListLast.setNextReference(node);
+        subListLast = node;
+      }
+      subListsize++;
+    }
+    adjustWithCurrentList(index, subListStart, subListLast, subListsize);
+    isOk = true;
+    return isOk;
   }
   
   public boolean addAll(int index, Collection<? extends T> collection) {
-    Object[] object = collection.toArray();
-    return addAllElements(index, object);
+    checkIndexBoundForPosition(index);
+    boolean isOk = false;
+
+    DoubleLinkedRefDataObject<T> subListStart = null;
+    DoubleLinkedRefDataObject<T> subListLast = null;
+    int subListsize = 0;
+    for (T data : collection) {
+      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+      node.setData(data);
+      if (subListStart == null) {
+        subListStart = node;
+        subListLast = node;
+      } else {
+        node.setPreviousReference(subListLast);
+        subListLast.setNextReference(node);
+        subListLast = node;
+      }
+      subListsize++;
+    }
+    adjustWithCurrentList(index, subListStart, subListLast, subListsize);
+    isOk = true;
+    return isOk;
   }
   
   public boolean addAll(int index, T... array) {
-    return addAllElements(index, array);
+    checkIndexBoundForPosition(index);
+    boolean isOk = false;
+
+    DoubleLinkedRefDataObject<T> subListStart = null;
+    DoubleLinkedRefDataObject<T> subListLast = null;
+    int subListsize = 0;
+    for (T data : array) {
+      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+      node.setData(data);
+      if (subListStart == null) {
+        subListStart = node;
+        subListLast = node;
+      } else {
+        node.setPreviousReference(subListLast);
+        subListLast.setNextReference(node);
+        subListLast = node;
+      }
+      subListsize++;
+    }
+    adjustWithCurrentList(index, subListStart, subListLast, subListsize);
+    isOk = true;
+    return isOk;
   }
   
-  private boolean addAllElements(int index, Object[] objects) {
-    checkIndexBoundForPosition(index);
-    
-    boolean isOk = false;
-    if(index != INDEX_START && index != getSize()){
+  @Override
+  protected void adjustWithCurrentList(int index, DoubleLinkedRefDataObject<T> subListStart,
+          DoubleLinkedRefDataObject<T> subListLast, int subListsize) {
+    if (!isEmpty()) {
       DoubleLinkedRefDataObject<T> ithNode = getIthNode((index - 1));
-      DoubleLinkedRefDataObject<T> subListStart = null;
-      DoubleLinkedRefDataObject<T> subListLast = null;
-      int subListsize = 0;
-      for(Object dataObject:objects){
-        DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
-        @SuppressWarnings("unchecked")
-        T data = (T)dataObject;
-        node.setData(data);
-        if(subListStart == null){
-          subListStart = node;
-          subListLast = node;
-        }else {
-          node.setPreviousReference(subListLast);
-          subListLast.setNextReference(node);
-          subListLast = node;  
-        }
-        subListsize++;        
-      }
       subListLast.setNextReference(ithNode.getNextReference());
       ithNode.getNextReference().setPreviousReference(subListLast);
       subListStart.setPreviousReference(ithNode);
       ithNode.setNextReference(subListStart);
-      setSize((getSize() + subListsize));
-      isOk = true;
     } else {
-      addElementsToEndOrFrontOfList(index, objects);
+      setStartNode(subListStart);
+      setLastNode(subListLast);
     }
-   
-    return isOk;
+    setSize((getSize() + subListsize));
   }
   
 }

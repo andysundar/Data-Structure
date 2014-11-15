@@ -22,6 +22,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -31,10 +33,38 @@ import com.andy.ds.linear.contract.SimpleList;
 
 public class DoubleLinkedListTest {
   private SimpleList<Integer> doubleLinkedList = null;
-
+  private SimpleList<Integer>  simpleListforEmptyList = null;
+  private SimpleList<Integer>  simpleList = null;
+  private List<Integer>  linkedListforEmptyList = null;
+  private List<Integer>  linkedList = null;
+  private Integer  []subArrayForEmpty = {1,2,3};
+  private Integer  []subArray = {1,9,10,5};
+  
   @Before
   public void setUp() throws Exception {
     doubleLinkedList = new DoubleLinkedList<Integer>();
+    
+    simpleListforEmptyList = new SingleLinkedList<Integer>();
+    simpleListforEmptyList.add(1);
+    simpleListforEmptyList.add(2);
+    simpleListforEmptyList.add(3);
+    
+    simpleList = new SingleLinkedList<Integer>();
+    simpleList.add(0);
+    simpleList.add(9);
+    simpleList.add(10);
+    simpleList.add(5);
+    
+    linkedListforEmptyList = new LinkedList<Integer>();
+    linkedListforEmptyList.add(1);
+    linkedListforEmptyList.add(2);
+    linkedListforEmptyList.add(3);
+    
+    linkedList = new LinkedList<Integer>();
+    linkedList.add(2);
+    linkedList.add(10);
+    linkedList.add(9);
+    linkedList.add(5);
   }
 
   @After
@@ -82,7 +112,7 @@ public class DoubleLinkedListTest {
   }
 
   @Test
-  public void testRemove() {
+  public void testRemoveFirstOccurance() {
     for (int counter = 1; counter < 11; counter++) {
       assertTrue(doubleLinkedList.add(counter));
     }
@@ -100,7 +130,7 @@ public class DoubleLinkedListTest {
   }
 
   @Test
-  public void testRemove_whenDataIsNull() {
+  public void testRemoveFirstOccurance_whenDataIsNull() {
     assertTrue(doubleLinkedList.add(1));
     assertFalse(doubleLinkedList.removeFirstOccurance(null));
   }
@@ -276,60 +306,99 @@ public class DoubleLinkedListTest {
   
   @Test
   public void testAddAll_SimpleList_whenListIsEmpty(){
-    SimpleList<Integer> sublinkedList = new DoubleLinkedList<Integer>();
-    sublinkedList.add(1);
-    sublinkedList.add(2);
-    sublinkedList.add(3);
-    SimpleList<Number> linkedList = new DoubleLinkedList<Number>(sublinkedList);
+   SimpleList<Number> linkedList = new DoubleLinkedList<Number>(simpleListforEmptyList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(0));
   }
 
  @Test
   public void testAddAll_Collection_whenListIsEmpty(){
-    java.util.LinkedList<Integer> sublinkedList = new java.util.LinkedList<Integer>();
-    sublinkedList.add(1);
-    sublinkedList.add(2);
-    sublinkedList.add(3);
-    SimpleList<Number> linkedList = new DoubleLinkedList<Number>(sublinkedList);
+    SimpleList<Number> linkedList = new DoubleLinkedList<Number>(linkedListforEmptyList);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(0));
   }
 
  @Test
   public void testAddAll_Array_whenListIsEmpty(){
-    Integer  []sublinkedList = {1,2,3};
-    SimpleList<Number> linkedList = new DoubleLinkedList<Number>(sublinkedList);
+    SimpleList<Number> linkedList = new DoubleLinkedList<Number>(subArrayForEmpty);
     assertFalse(linkedList.isEmpty());
     assertEquals(1,linkedList.get(0));
   }
  
  @Test
- public void testRetainAll_whenListIsEmpty(){
-   Integer  []subArray = {1,2,3};
-   assertFalse(doubleLinkedList.retainAll(subArray));
+ public void testRetainAll_Array_whenListIsEmpty(){
+   assertFalse(doubleLinkedList.retainAll(subArrayForEmpty));
  }
  
  @Test
- public void testRetainAll_whenListIsNotEmpty(){
+ public void testRetainAll_Array_whenListIsNotEmpty(){
    addDataToList();
-   Integer  []subArray = {1,9,10,5};
    assertTrue(doubleLinkedList.retainAll(subArray));
    assertEquals(subArray.length -1 , doubleLinkedList.size());
  }
  
  @Test
- public void testRemoveAll_whenListIsEmpty(){
-   Integer  []subArray = {1,2,3};
+ public void testRetainAll_SimpleList_whenListIsEmpty(){
+   assertFalse(doubleLinkedList.retainAll(simpleListforEmptyList));
+ }
+ 
+ @Test
+ public void testRetainAll_SimpleList_whenListIsNotEmpty(){
+   addDataToList();
+   assertTrue(doubleLinkedList.retainAll(simpleList));
+   assertEquals(simpleList.size() -1 , doubleLinkedList.size());
+ }
+ 
+ 
+ @Test
+ public void testRetainAll_Collection_whenListIsEmpty(){
+   assertFalse(doubleLinkedList.retainAll(linkedListforEmptyList));
+ }
+ 
+ @Test
+ public void testRetainAll_Collection_whenListIsNotEmpty(){
+   addDataToList();
+   assertTrue(doubleLinkedList.retainAll(linkedList));
+   assertEquals(linkedList.size() -1 , doubleLinkedList.size());
+ }
+ 
+ 
+ @Test
+ public void testRemoveAll_Array_whenListIsEmpty(){
    assertFalse(doubleLinkedList.retainAll(subArray));
  }
  
  @Test
- public void testRemoveAll_whenListIsNotEmpty(){
-   addDataToList();
-   Integer  []subArray = {1,9,10,5};
+ public void testRemoveAll_Array_whenListIsNotEmpty(){
+   addDataToList();  
    int resultSize = doubleLinkedList.size() - subArray.length + 1;
    assertTrue(doubleLinkedList.removeAll(subArray));
+   assertEquals(resultSize, doubleLinkedList.size());
+ }
+ 
+ @Test
+ public void testRemoveAll_Collection_whenListIsEmpty(){
+   assertFalse(doubleLinkedList.removeAll(linkedListforEmptyList));
+ }
+ 
+ @Test
+ public void testRemoveAll_Collection_whenListIsNotEmpty(){
+   addDataToList();
+   int resultSize = doubleLinkedList.size() - linkedList.size() + 1;
+   assertTrue(doubleLinkedList.removeAll(linkedList));
+   assertEquals(resultSize, doubleLinkedList.size());
+ }
+ 
+ @Test
+ public void testRemoveAll_SimpleList_whenListIsEmpty(){
+   assertFalse(doubleLinkedList.removeAll(simpleListforEmptyList));
+ }
+ 
+ @Test
+ public void testRemoveAll_SimpleList_whenListIsNotEmpty(){
+   addDataToList();
+   int resultSize = doubleLinkedList.size() - simpleList.size() + 1;
+   assertTrue(doubleLinkedList.removeAll(simpleList));
    assertEquals(resultSize, doubleLinkedList.size());
  }
 }

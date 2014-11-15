@@ -176,20 +176,6 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     return hashCode;
   }
 
-  protected boolean addElementsToEndOrFrontOfList(int index, Object []objects){
-    boolean isOk = false;
-    if(index == INDEX_START || index == getSize()){
-      for(Object dataObject:objects){
-        @SuppressWarnings("unchecked")
-        T data = (T)dataObject;
-        addAt(index, data);
-        isOk = true;
-        index++;
-      }
-    }
-    return isOk;
-  }
-  
   public Iterator<T> iterator() {
     return new SimpleListIterator();
   }
@@ -307,6 +293,7 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
   public boolean retainAll(SimpleList<? extends T> list){
     boolean isOk = false;
     Iterator<T> iterator = iterator();
+    
     while (iterator.hasNext()) {
       boolean present = false;
       T data = iterator.next();
@@ -341,6 +328,9 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     }
     return isOk;
   }
+  
+  protected abstract void adjustWithCurrentList(int index, DoubleLinkedRefDataObject<T> subListStart,
+          DoubleLinkedRefDataObject<T> subListLast, int subListsize);
   
   /**
    * Iterator for lists
