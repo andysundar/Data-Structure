@@ -271,6 +271,23 @@ public class CircularLinkedListTest {
     }
   }
   
+  @Test 
+  public void testSubList(){
+    addDataToList();
+    SimpleList<Integer> simpleList = circularLinkedList.createSubList(4, 8);
+    int count = 3 ;
+    for(Integer data : simpleList){
+      assertEquals(Integer.valueOf(count), data);
+      count++;
+    }
+  }
+  
+  private void addDataToList() {
+     for (int i = 0; i < 10; i++) {
+      circularLinkedList.add(i);
+    }
+  }
+
   @Test
   public void testLinkOfCircularLinkedList(){
     SimpleList<Number> linkedList = new CircularLinkedList<Number>();
@@ -300,6 +317,5 @@ public class CircularLinkedListTest {
         break;
       }
     }
-
   }
 }

@@ -37,7 +37,7 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
     addAll(collection);
   }
   
-  public DoubleLinkedList(T...array){
+  public DoubleLinkedList(T array[]){
     this();
     addAll(array);
   }
@@ -321,7 +321,7 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
     return isOk;
   }
   
-  public boolean addAll(int index, T... array) {
+  public boolean addAll(int index, T array[]) {
     checkIndexBoundForPosition(index);
     boolean isOk = false;
 

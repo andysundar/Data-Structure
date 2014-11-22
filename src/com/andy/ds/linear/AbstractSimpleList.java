@@ -29,6 +29,8 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
   private DoubleLinkedRefDataObject<T> startNode;
   private DoubleLinkedRefDataObject<T> lastNode;
 
+  public static final String START_END_INDEX_MESSAGE = "Start index cannot be greater than end index.";
+  
   protected DoubleLinkedRefDataObject<T> addFirst(T data) {
     DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
     node.setData(data);
@@ -194,39 +196,11 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     return addAll(getSize(),collection);
   }
   
-  public boolean addAll(T...array){
+  public boolean addAll(T array[]){
     return addAll(getSize(),array);
   }
 
-  /**
-   * Unlink the node from the list chain.
-   * 
-   * @param node
-   * @return return true if object found and removed successfully.
-   */
-  protected boolean unLinkNode(DoubleLinkedRefDataObject<T> node) {
-    boolean isOk = false;
-    if (node != null) {
-      DoubleLinkedRefDataObject<T> beforeDeleteNode = node.getPreviousReference();
-      DoubleLinkedRefDataObject<T> afterDeleteNode = node.getNextReference();
-      if (beforeDeleteNode != null) {
-        beforeDeleteNode.setNextReference(afterDeleteNode);
-      } else {
-        setStartNode(afterDeleteNode);
-      }
-      if (afterDeleteNode != null) {
-        afterDeleteNode.setPreviousReference(beforeDeleteNode);
-      } else {
-        setLastNode(beforeDeleteNode);
-      }
-      node.setData(null);
-      node.setNextReference(null);
-      node.setPreviousReference(null);
-      setSize((getSize() - 1));
-      isOk = true;
-    }
-    return isOk;
-  }
+ 
   
   public boolean removeAll(Collection<? extends T> collection) {
     boolean isOk = false;
@@ -254,7 +228,7 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     return isOk;
   }
   
-  public boolean removeAll(T...array) {
+  public boolean removeAll(T array[]) {
     boolean isOk = false;
     SimpleListIterator iterator = simpleListIterator();
     for (T subListData : array) {
@@ -310,7 +284,7 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     return isOk;
   }
   
-  public boolean retainAll(T... array) {
+  public boolean retainAll(T array[]) {
     boolean isOk = false;
     Iterator<T> iterator = iterator();
     while (iterator.hasNext()) {
@@ -325,6 +299,68 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
         iterator.remove();
         isOk = true;
       }
+    }
+    return isOk;
+  }
+  
+  public SimpleList<T> createSubList(int fromIndex,int toIndex){
+    if(fromIndex > toIndex ){
+      throw new IndexOutOfBoundsException(START_END_INDEX_MESSAGE);
+    }
+    checkIndexBoundForElement(fromIndex);
+    checkIndexBoundForElement(toIndex);
+    SimpleList<T> simpleList = null;
+    if(this instanceof SingleLinkedList){
+      simpleList = new SingleLinkedList<>();
+    } else if(this instanceof CircularLinkedList){
+      simpleList = new CircularLinkedList<>();
+    } else if(this instanceof DoubleLinkedList){
+      simpleList = new DoubleLinkedList<>();
+    } 
+    
+    int count = 0;
+    if(simpleList != null){
+      Iterator<T> iterator = iterator();
+      while (iterator.hasNext()) {
+        T data = iterator.next();
+        if(count >= fromIndex  && count < toIndex){
+          simpleList.add(data);
+        }
+        if(count == toIndex){
+          simpleList.add(data);
+          break;
+        }
+      }
+    }
+    return simpleList;
+  }
+  
+  /**
+   * Unlink the node from the list chain.
+   * 
+   * @param node
+   * @return return true if object found and removed successfully.
+   */
+  protected boolean unLinkNode(DoubleLinkedRefDataObject<T> node) {
+    boolean isOk = false;
+    if (node != null) {
+      DoubleLinkedRefDataObject<T> beforeDeleteNode = node.getPreviousReference();
+      DoubleLinkedRefDataObject<T> afterDeleteNode = node.getNextReference();
+      if (beforeDeleteNode != null) {
+        beforeDeleteNode.setNextReference(afterDeleteNode);
+      } else {
+        setStartNode(afterDeleteNode);
+      }
+      if (afterDeleteNode != null) {
+        afterDeleteNode.setPreviousReference(beforeDeleteNode);
+      } else {
+        setLastNode(beforeDeleteNode);
+      }
+      node.setData(null);
+      node.setNextReference(null);
+      node.setPreviousReference(null);
+      setSize((getSize() - 1));
+      isOk = true;
     }
     return isOk;
   }

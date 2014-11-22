@@ -401,4 +401,15 @@ public class DoubleLinkedListTest {
    assertTrue(doubleLinkedList.removeAll(simpleList));
    assertEquals(resultSize, doubleLinkedList.size());
  }
+ 
+ @Test 
+ public void testSubList(){
+   addDataToList();
+   SimpleList<Integer> simpleList = doubleLinkedList.createSubList(4, 8);
+   int count = 3 ;
+   for(Integer data : simpleList){
+     assertEquals(Integer.valueOf(count), data);
+     count++;
+   }
+ }
 }

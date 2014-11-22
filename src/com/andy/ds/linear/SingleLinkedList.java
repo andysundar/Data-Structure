@@ -37,7 +37,7 @@ public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterab
     addAll(collection);
   }
 
-  public SingleLinkedList(T... array) {
+  public SingleLinkedList(T array[]) {
     this();
     addAll(array);
   }
@@ -157,7 +157,7 @@ public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterab
 
   }
 
-  public boolean addAll(int index, T... array) {
+  public boolean addAll(int index, T array[]) {
     boolean isOk = false;
     checkIndexBoundForPosition(index);
     DoubleLinkedRefDataObject<T> subListStart = null;
