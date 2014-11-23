@@ -503,24 +503,24 @@ public class SingleLinkedListTest {
   }
   
   @Test(expected=IndexOutOfBoundsException.class)
-  public void testSubList_whenListIsEmpty() {
+  public void testCreateSubList_whenListIsEmpty() {
     singleLinkedList.createSubList(0, 10);
   }
   
   @Test(expected=IndexOutOfBoundsException.class)
-  public void testSubList_withStartIndexViolation(){
+  public void testCreateSubList_withStartIndexViolation(){
     addDataToList();
     singleLinkedList.createSubList(-23, 4);
   }
   
   @Test(expected=IndexOutOfBoundsException.class)
-  public void testSubList_withEndIndexViolation(){
+  public void testCreateSubList_withEndIndexViolation(){
     addDataToList();
     singleLinkedList.createSubList(0, 12);
   }
   
   @Test
-  public void testSubList_withStartEndIndexViolation(){
+  public void testCreateSubList_withStartEndIndexViolation(){
     addDataToList();
     thrown.expect(IndexOutOfBoundsException.class);
     thrown.expectMessage(SingleLinkedList.START_END_INDEX_MESSAGE);
@@ -528,7 +528,7 @@ public class SingleLinkedListTest {
   }
   
   @Test 
-  public void testSubList(){
+  public void testCreateSubList(){
     addDataToList();
     SimpleList<Integer> simpleList = singleLinkedList.createSubList(4, 8);
     int count = 3 ;
