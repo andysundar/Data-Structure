@@ -368,6 +368,25 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
   protected abstract void adjustWithCurrentList(int index, DoubleLinkedRefDataObject<T> subListStart,
           DoubleLinkedRefDataObject<T> subListLast, int subListsize);
   
+  
+  public String toString(){
+    StringBuilder sb = new StringBuilder();
+    sb.append("[");
+    String comma = "";
+    for(T value: this)
+    {
+      sb.append(comma);
+      if(value == null) {
+        sb.append("null");
+      } else {
+        sb.append(value.toString());
+      }
+      comma = ", ";
+    }
+    sb.append("]");
+    return sb.toString();
+  }
+  
   /**
    * Iterator for lists
    * 
