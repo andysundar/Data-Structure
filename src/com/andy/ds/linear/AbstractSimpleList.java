@@ -16,18 +16,23 @@
 package com.andy.ds.linear;
 
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
 import com.andy.ds.linear.contract.SimpleList;
 
-public abstract class AbstractSimpleList<T> implements SimpleList<T> {
+public abstract class AbstractSimpleList<T> implements SimpleList<T>,Serializable {
 
-  private int size;
+  private static final long serialVersionUID = 1L;
   protected static final int INDEX_START = 0;
-  private DoubleLinkedRefDataObject<T> startNode;
-  private DoubleLinkedRefDataObject<T> lastNode;
+  
+  private transient int size;
+  private transient DoubleLinkedRefDataObject<T> startNode;
+  private transient DoubleLinkedRefDataObject<T> lastNode;
 
   public static final String START_END_INDEX_MESSAGE = "Start index cannot be greater than end index.";
   
@@ -387,6 +392,15 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T> {
     return sb.toString();
   }
   
+  
+  private void writeObject(ObjectOutputStream outStream) throws IOException{
+    //Removing the transient fields from this stream
+    outStream.defaultWriteObject();
+    outStream.write(getSize());
+    for(T object:this) {
+      outStream.writeObject(object);
+    }
+  }
   /**
    * Iterator for lists
    * 

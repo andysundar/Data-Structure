@@ -30,6 +30,8 @@
 
 package com.andy.ds.linear;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Collection;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
@@ -37,6 +39,8 @@ import com.andy.ds.linear.contract.SimpleList;
 
 public class CircularLinkedList<T> extends DoubleLinkedList<T> {
   
+  private static final long serialVersionUID = 4653901968694701044L;
+
 public CircularLinkedList(){
     
   }
@@ -149,5 +153,10 @@ public CircularLinkedList(){
     boolean flag = super.addAll(index,array);
     makeCircularLink();
     return flag;
+  }
+  
+  protected void readObject(ObjectInputStream inStream) throws IOException, ClassNotFoundException {
+    super.readObject(inStream);
+    makeCircularLink();
   }
 }

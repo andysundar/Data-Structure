@@ -16,12 +16,18 @@
 
 package com.andy.ds.linear;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Collection;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
 import com.andy.ds.linear.contract.SimpleList;
 
 public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterable<T> {
+
+  private static final long serialVersionUID = -2764432369805533337L;
+
+
 
   public SingleLinkedList() {
 
@@ -356,5 +362,14 @@ public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterab
     }
     return node;
   }
-
+  
+  private void readObject(ObjectInputStream inStream) throws IOException, ClassNotFoundException {
+    inStream.defaultReadObject();
+    int size = inStream.readInt();
+    @SuppressWarnings("unchecked")
+    T data = (T)inStream.readObject();
+    
+    setSize(size);
+    add(data);
+  }
 }

@@ -22,8 +22,8 @@ public class DoubleLinkedRefDataObject<T> implements Cloneable,Serializable{
 	
 	private static final long serialVersionUID = -1250475451233884271L;
 	private T data;
-	private DoubleLinkedRefDataObject<T> nextReference;
-	private DoubleLinkedRefDataObject<T> previousReference;
+	private transient DoubleLinkedRefDataObject<T> nextReference;
+	private transient DoubleLinkedRefDataObject<T> previousReference;
 	
 	public T getData() {
 		return data;

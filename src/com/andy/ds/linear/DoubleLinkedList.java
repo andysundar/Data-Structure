@@ -16,6 +16,8 @@
 
 package com.andy.ds.linear;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Collection;
 
 import com.andy.adt.DoubleLinkedRefDataObject;
@@ -23,6 +25,8 @@ import com.andy.ds.linear.contract.SimpleList;
 
 public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
   
+  private static final long serialVersionUID = -1148710922805563919L;
+
   public DoubleLinkedList(){
     
   }
@@ -362,4 +366,13 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
     setSize((getSize() + subListsize));
   }
   
+  protected void readObject(ObjectInputStream inStream) throws IOException, ClassNotFoundException {
+    inStream.defaultReadObject();
+    int size = inStream.readInt();
+    @SuppressWarnings("unchecked")
+    T data = (T)inStream.readObject();
+    
+    setSize(size);
+    add(data);
+  }
 }
