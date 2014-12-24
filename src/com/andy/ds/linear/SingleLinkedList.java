@@ -366,10 +366,13 @@ public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterab
   private void readObject(ObjectInputStream inStream) throws IOException, ClassNotFoundException {
     inStream.defaultReadObject();
     int size = inStream.readInt();
-    @SuppressWarnings("unchecked")
-    T data = (T)inStream.readObject();
     
     setSize(size);
-    add(data);
+    for(int index = 0; index < size ; index++){
+      @SuppressWarnings("unchecked")
+      T data = (T)inStream.readObject();
+      add(data);
+    }
+    
   }
 }
