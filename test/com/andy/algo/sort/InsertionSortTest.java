@@ -16,10 +16,11 @@
 
 package com.andy.algo.sort;
 
+import static org.junit.Assert.assertFalse;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertFalse;
 
 public class InsertionSortTest {
 
@@ -39,12 +40,22 @@ public class InsertionSortTest {
 
 	@Test
 	public void testSort() {
-		Integer sortResult[] = intSort.sort(dataForSort);
-		for(int i = 0; i < sortResult.length; i++){
-			int nextIndex = (i +1)==sortResult.length?i:(i+1);
-			assertFalse("Insertion Sort is fail due to " + sortResult[i] + " before "+ sortResult[nextIndex]+ " in result array.", 
-					(sortResult[i]>sortResult[nextIndex]));
+		 intSort.sort(dataForSort);
+		for(int i = 0; i < dataForSort.length; i++){
+			int nextIndex = (i +1)==dataForSort.length?i:(i+1);
+			assertFalse("Insertion Sort is fail due to " + dataForSort[i] + " before "+ dataForSort[nextIndex]+ " in result array.", 
+					(dataForSort[i]>dataForSort[nextIndex]));
 		}	
 	}
+	
+	@Test
+  public void testSort_withComparator() {
+     intSort.sort(dataForSort, new WrapperIntegerComparator());
+    for(int i = 0; i < dataForSort.length; i++){
+      int nextIndex = (i +1)== dataForSort.length?i:(i+1);
+      assertFalse("Insertion Sort is fail due to " + dataForSort[i] + " before "+ dataForSort[nextIndex]+ " in result array.", 
+          (dataForSort[i]>dataForSort[nextIndex]));
+    } 
+  }
 
 }
