@@ -18,15 +18,15 @@ package com.andy.algo.sort;
 
 import java.util.Comparator;
 
-public class InsertionSort<T>{
-  
-	public void sort(T[] list,Comparator<? super T> comparator) {
-	  T temp = null;
+public class InsertionSort<T> {
+
+  public void sort(T[] list, Comparator<? super T> comparator) {
+    T temp = null;
     int size = list.length;
-    for(int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
       int index = i;
       int subIndex = (i - 1);
-      while(subIndex > -1 && (comparator.compare(list[subIndex], list[index]) == 1)){
+      while (subIndex > -1 && (comparator.compare(list[subIndex], list[index]) == 1)) {
         temp = list[index];
         list[index] = list[subIndex];
         list[subIndex] = temp;
@@ -36,15 +36,15 @@ public class InsertionSort<T>{
     }
   }
 
-	public void sort(Comparable<? super T>[] list) {
-	  Comparable<? super T> temp = null;
+  public void sort(Comparable<? super T>[] list) {
+    Comparable<? super T> temp = null;
     int size = list.length;
-    for(int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
       int index = i;
-      int subIndex = (i - 1);     
+      int subIndex = (i - 1);
       @SuppressWarnings("unchecked")
       T o = (T) list[index];
-      while(subIndex > -1 && (list[subIndex].compareTo(o)== 1)){
+      while (subIndex > -1 && (list[subIndex].compareTo(o) == 1)) {
         temp = list[index];
         list[index] = list[subIndex];
         list[subIndex] = temp;
@@ -53,5 +53,5 @@ public class InsertionSort<T>{
       }
     }
   }
-	
+
 }
