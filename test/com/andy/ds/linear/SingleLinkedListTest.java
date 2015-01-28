@@ -548,4 +548,14 @@ public class SingleLinkedListTest {
   public void testToString_whenListEmpty(){
     assertEquals("[]",singleLinkedList.toString());
   }
+  
+  @Test
+  public void testReplaceValue() {
+    assertTrue(singleLinkedList.add(1));
+    assertTrue(singleLinkedList.add(2));
+    assertTrue(singleLinkedList.add(3));
+    
+    assertEquals(new Integer(2), singleLinkedList.replaceValue(1,4));
+  }
+
 }

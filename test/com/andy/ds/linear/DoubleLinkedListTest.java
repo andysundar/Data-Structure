@@ -412,4 +412,13 @@ public class DoubleLinkedListTest {
      count++;
    }
  }
+ 
+ @Test
+ public void testReplaceValue() {
+   assertTrue(doubleLinkedList.add(1));
+   assertTrue(doubleLinkedList.add(2));
+   assertTrue(doubleLinkedList.add(3));
+   
+   assertEquals(new Integer(2), doubleLinkedList.replaceValue(1,4));
+ }
 }

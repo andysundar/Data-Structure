@@ -129,6 +129,7 @@ public interface SimpleList<T> extends Iterable<T>{
   boolean addAll(Collection<? extends T> list);
   boolean addAll(T array[]);
 
+  T replaceValue(int at,T data);
   
   boolean removeAt(int index);
   boolean removeFirstOccurance(T dataToBeRemoved);

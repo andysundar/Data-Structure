@@ -377,4 +377,11 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
       add(data);
     }
   }
+  
+  public T replaceValue(int at, T data) {
+    DoubleLinkedRefDataObject<T> tempNode = getIthNode(at);
+    T oldData = tempNode.getData();
+    tempNode.setData(data);
+    return oldData;
+  }
 }

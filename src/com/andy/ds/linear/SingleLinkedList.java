@@ -375,4 +375,12 @@ public class SingleLinkedList<T> extends AbstractSimpleList<T> implements Iterab
     }
     
   }
+  
+  public T replaceValue(int at, T data) {
+    DoubleLinkedRefDataObject<T> tempNode = getIthNode(at);
+    T oldData = tempNode.getData();
+    tempNode.setData(data);
+    return oldData;
+  }
+  
 }
