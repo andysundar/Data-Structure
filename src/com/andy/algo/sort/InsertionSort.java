@@ -17,41 +17,106 @@
 package com.andy.algo.sort;
 
 import java.util.Comparator;
+import java.util.List;
+
+import com.andy.ds.linear.contract.SimpleList;
 
 public class InsertionSort<T> {
 
-  public void sort(T[] list, Comparator<? super T> comparator) {
+  public void sort(T[] objectArray, Comparator<? super T> comparator) {
     T temp = null;
-    int size = list.length;
+    int size = objectArray.length;
     for (int i = 0; i < size; i++) {
       int index = i;
       int subIndex = (i - 1);
-      while (subIndex > -1 && (comparator.compare(list[subIndex], list[index]) == 1)) {
-        temp = list[index];
-        list[index] = list[subIndex];
-        list[subIndex] = temp;
+      while (subIndex > -1 && (comparator.compare(objectArray[subIndex], objectArray[index]) == 1)) {
+        temp = objectArray[index];
+        objectArray[index] = objectArray[subIndex];
+        objectArray[subIndex] = temp;
         subIndex--;
         index--;
       }
     }
   }
 
-  public void sort(Comparable<? super T>[] list) {
+  public void sort(Comparable<? super T>[] objectArray) {
     Comparable<? super T> temp = null;
-    int size = list.length;
+    int size = objectArray.length;
     for (int i = 0; i < size; i++) {
       int index = i;
       int subIndex = (i - 1);
       @SuppressWarnings("unchecked")
-      T o = (T) list[index];
-      while (subIndex > -1 && (list[subIndex].compareTo(o) == 1)) {
-        temp = list[index];
-        list[index] = list[subIndex];
-        list[subIndex] = temp;
+      T o = (T) objectArray[index];
+      while (subIndex > -1 && (objectArray[subIndex].compareTo(o) == 1)) {
+        temp = objectArray[index];
+        objectArray[index] = objectArray[subIndex];
+        objectArray[subIndex] = temp;
         subIndex--;
         index--;
       }
     }
   }
 
+  @SuppressWarnings("hiding")
+  public <T extends Comparable<? super T>> void sort(List<T> list) {
+    T temp = null;
+    int size = list.size();
+    for (int i = 0; i < size; i++) {
+      int index = i;
+      int subIndex = (i - 1);
+      while (subIndex > -1 && (list.get(subIndex).compareTo(list.get(index)) == 1)) {
+        temp = list.set(index, list.get(subIndex));
+        list.set(subIndex, temp);
+        subIndex--;
+        index--;
+      }
+    }
+  }
+  
+  public void sort(List<T> list, Comparator<? super T> comparator) {
+    T temp = null;
+    int size = list.size();
+    for (int i = 0; i < size; i++) {
+      int index = i;
+      int subIndex = (i - 1);
+      while (subIndex > -1 && (comparator.compare(list.get(subIndex), list.get(index)) == 1)) {
+        temp = list.set(index,list.get(subIndex));
+        list.set(subIndex,temp);
+        subIndex--;
+        index--;
+      }
+    }
+  }
+  
+  
+  @SuppressWarnings("hiding")
+  public <T extends Comparable<? super T>> void sort(SimpleList<T> list) {
+    T temp = null;
+    int size = list.size();
+    for (int i = 0; i < size; i++) {
+      int index = i;
+      int subIndex = (i - 1);
+      while (subIndex > -1 && (list.get(subIndex).compareTo(list.get(index)) == 1)) {
+        temp =  list.replaceValue(index, list.get(subIndex));
+        list.replaceValue(subIndex, temp);
+        subIndex--;
+        index--;
+      }
+    }
+  }
+  
+  public void sort(SimpleList<T> list, Comparator<? super T> comparator) {
+    T temp = null;
+    int size = list.size();
+    for (int i = 0; i < size; i++) {
+      int index = i;
+      int subIndex = (i - 1);
+      while (subIndex > -1 && (comparator.compare(list.get(subIndex), list.get(index)) == 1)) {
+        temp =  list.replaceValue(index, list.get(subIndex));
+        list.replaceValue(subIndex, temp);
+        subIndex--;
+        index--;
+      }
+    }
+  }
 }
