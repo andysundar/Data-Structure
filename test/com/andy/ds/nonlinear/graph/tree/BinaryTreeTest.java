@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.andy.ds.nonlinear;
+package com.andy.ds.nonlinear.graph.tree;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -24,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.andy.adt.TreeDataObject;
+import com.andy.ds.nonlinear.graph.tree.BinaryTree;
 
 public class BinaryTreeTest {
   private BinaryTree<Integer> binaryTree;

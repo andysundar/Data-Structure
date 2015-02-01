@@ -20,7 +20,7 @@
  * limitations under the License.
  */
 
-package com.andy.ds.nonlinear;
+package com.andy.ds.nonlinear.graph.tree;
 
 import org.junit.After;
 import org.junit.Before;
@@ -28,6 +28,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.andy.adt.TreeDataObject;
+import com.andy.ds.nonlinear.graph.tree.RedBlackTree;
 
 import static org.junit.Assert.*;
 

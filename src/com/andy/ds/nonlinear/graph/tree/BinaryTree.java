@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.andy.ds.nonlinear;
+package com.andy.ds.nonlinear.graph.tree;
 
 import com.andy.adt.TreeDataObject;
 
