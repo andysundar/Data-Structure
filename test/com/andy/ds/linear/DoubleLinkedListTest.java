@@ -117,22 +117,22 @@ public class DoubleLinkedListTest {
       assertTrue(doubleLinkedList.add(counter));
     }
 
-    assertFalse(doubleLinkedList.removeFirstOccurance(11));
+    assertFalse(doubleLinkedList.removeFirstOccurrence(11));
 
-    assertTrue(doubleLinkedList.removeFirstOccurance(5));
+    assertTrue(doubleLinkedList.removeFirstOccurrence(5));
     assertEquals(9, doubleLinkedList.size());
 
-    assertTrue(doubleLinkedList.removeFirstOccurance(1));
+    assertTrue(doubleLinkedList.removeFirstOccurrence(1));
     assertEquals(8, doubleLinkedList.size());
 
-    assertTrue(doubleLinkedList.removeFirstOccurance(10));
+    assertTrue(doubleLinkedList.removeFirstOccurrence(10));
     assertEquals(7, doubleLinkedList.size());
   }
 
   @Test
   public void testRemoveFirstOccurance_whenDataIsNull() {
     assertTrue(doubleLinkedList.add(1));
-    assertFalse(doubleLinkedList.removeFirstOccurance(null));
+    assertFalse(doubleLinkedList.removeFirstOccurrence(null));
   }
 
   @Test

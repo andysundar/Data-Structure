@@ -41,14 +41,14 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
     addAll(collection);
   }
   
-  public DoubleLinkedList(T array[]){
+  public DoubleLinkedList(T[] array){
     this();
     addAll(array);
   }
 
   @Override
   protected DoubleLinkedRefDataObject<T> addFirst(T data) {
-    DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+    DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<>();
     node.setData(data);
     node.setNextReference(getStartNode());
     if(getStartNode() != null) {
@@ -67,7 +67,7 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
    * @param data
    */
   protected void addLast(T data) {
-    DoubleLinkedRefDataObject<T> dataObject = new DoubleLinkedRefDataObject<T>();
+    DoubleLinkedRefDataObject<T> dataObject = new DoubleLinkedRefDataObject<>();
     dataObject.setData(data);
     dataObject.setPreviousReference(getLastNode());
     getLastNode().setNextReference(dataObject);
@@ -113,7 +113,7 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
       addLast(data);
       isOk = true;
     } else {
-      DoubleLinkedRefDataObject<T> dataObject = new DoubleLinkedRefDataObject<T>();
+      DoubleLinkedRefDataObject<T> dataObject = new DoubleLinkedRefDataObject<>();
       DoubleLinkedRefDataObject<T> iThDataObject = getIthNode(index);
       dataObject.setData(data);
       dataObject.setNextReference(iThDataObject);
@@ -153,7 +153,7 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
    * @param data
    * @return return true if removed successfully else false.
    */
-  public boolean removeFirstOccurance(T data) {
+  public boolean removeFirstOccurrence(T data) {
     DoubleLinkedRefDataObject<T> findToBeDeleteNode = getStartNode();
     while ((findToBeDeleteNode != null) && (!isEqualData(data, findToBeDeleteNode.getData()))) {
       findToBeDeleteNode = findToBeDeleteNode.getNextReference();
@@ -283,7 +283,7 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
     DoubleLinkedRefDataObject<T> subListLast = null;
     int subListsize = 0;
     for (T data : list) {
-      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<>();
       node.setData(data);
       if (subListStart == null) {
         subListStart = node;
@@ -308,7 +308,7 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
     DoubleLinkedRefDataObject<T> subListLast = null;
     int subListsize = 0;
     for (T data : collection) {
-      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<>();
       node.setData(data);
       if (subListStart == null) {
         subListStart = node;
@@ -325,7 +325,7 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
     return isOk;
   }
   
-  public boolean addAll(int index, T array[]) {
+  public boolean addAll(int index, T[] array) {
     checkIndexBoundForPosition(index);
     boolean isOk = false;
 
@@ -333,7 +333,7 @@ public class DoubleLinkedList<T> extends AbstractSimpleList<T> {
     DoubleLinkedRefDataObject<T> subListLast = null;
     int subListsize = 0;
     for (T data : array) {
-      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+      DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<>();
       node.setData(data);
       if (subListStart == null) {
         subListStart = node;

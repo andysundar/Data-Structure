@@ -37,7 +37,7 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T>,Serializabl
   public static final String START_END_INDEX_MESSAGE = "Start index cannot be greater than end index.";
   
   protected DoubleLinkedRefDataObject<T> addFirst(T data) {
-    DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<T>();
+    DoubleLinkedRefDataObject<T> node = new DoubleLinkedRefDataObject<>();
     node.setData(data);
     node.setNextReference(getStartNode());
     setStartNode(node);
@@ -50,7 +50,7 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T>,Serializabl
 
   protected boolean isEqualData(T dataOne, T dataTwo) {
     if (dataOne == null) {
-      return (dataOne == dataTwo);
+      return (null == dataTwo);
     }
     return (dataOne.equals(dataTwo));
   }
@@ -201,7 +201,7 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T>,Serializabl
     return addAll(getSize(),collection);
   }
   
-  public boolean addAll(T array[]){
+  public boolean addAll(T[] array){
     return addAll(getSize(),array);
   }
 
@@ -233,7 +233,7 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T>,Serializabl
     return isOk;
   }
   
-  public boolean removeAll(T array[]) {
+  public boolean removeAll(T[] array) {
     boolean isOk = false;
     SimpleListIterator iterator = simpleListIterator();
     for (T subListData : array) {
@@ -289,7 +289,7 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T>,Serializabl
     return isOk;
   }
   
-  public boolean retainAll(T array[]) {
+  public boolean retainAll(T[] array) {
     boolean isOk = false;
     Iterator<T> iterator = iterator();
     while (iterator.hasNext()) {
@@ -436,6 +436,7 @@ public abstract class AbstractSimpleList<T> implements SimpleList<T>,Serializabl
       return data;
     }
 
+    @Override
     public void remove() {
       if(AbstractSimpleList.this.unLinkNode(previousNode)){
         index--;

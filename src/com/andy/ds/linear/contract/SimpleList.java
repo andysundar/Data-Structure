@@ -124,22 +124,22 @@ public interface SimpleList<T> extends Iterable<T>{
   boolean addAt(int index, T data);
   boolean addAll(int index,SimpleList<? extends T> list);
   boolean addAll(int index,Collection<? extends T> list);
-  boolean addAll(int index,T array[]);
+  boolean addAll(int index,T[] array);
   boolean addAll(SimpleList<? extends T> list);
   boolean addAll(Collection<? extends T> list);
-  boolean addAll(T array[]);
+  boolean addAll(T[] array);
 
   T replaceValue(int at,T data);
   
   boolean removeAt(int index);
-  boolean removeFirstOccurance(T dataToBeRemoved);
+  boolean removeFirstOccurrence(T dataToBeRemoved);
   boolean removeAll(T dataToBeRemoved);
   boolean removeAll();
   boolean removeAll(SimpleList<? extends T> list);
   boolean removeAll(Collection<? extends T> collection);
-  boolean removeAll(T array[]);
+  boolean removeAll(T[] array);
   
   boolean retainAll(SimpleList<? extends T> list);
   boolean retainAll(Collection<? extends T> collection);
-  boolean retainAll(T array[]);
+  boolean retainAll(T[] array);
 }

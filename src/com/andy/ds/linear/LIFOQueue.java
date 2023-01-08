@@ -22,7 +22,7 @@ import com.andy.ds.linear.contract.SimpleQueue;
 
 public class LIFOQueue<E> implements SimpleQueue<E>{
 
-  private SimpleList<E> queue = new SingleLinkedList<E>();
+  private SimpleList<E> queue = new SingleLinkedList<>();
 
   public boolean enter(E data) {
     return queue.add(data);
@@ -33,7 +33,7 @@ public class LIFOQueue<E> implements SimpleQueue<E>{
     if (data == null) {
       return null;
     }
-    queue.removeFirstOccurance(data);
+    queue.removeFirstOccurrence(data);
     return data;
   }
 

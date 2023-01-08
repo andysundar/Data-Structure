@@ -55,7 +55,7 @@ public CircularLinkedList(){
     addAll(collection);
   }
   
-  public CircularLinkedList(T array[]){
+  public CircularLinkedList(T[] array){
     this();
     addAll(array);
   }
@@ -91,7 +91,7 @@ public CircularLinkedList(){
   }
 
   @Override
-  public boolean removeFirstOccurance(T data) {
+  public boolean removeFirstOccurrence(T data) {
     DoubleLinkedRefDataObject<T> findToBeDeleteNode = getStartNode();
     while ((findToBeDeleteNode != null) && (!isEqualData(data, findToBeDeleteNode.getData()))) {
       findToBeDeleteNode = findToBeDeleteNode.getNextReference();
@@ -149,7 +149,7 @@ public CircularLinkedList(){
   }
   
   @Override
-  public boolean addAll(int index,T array[]) {
+  public boolean addAll(int index,T[] array) {
     boolean flag = super.addAll(index,array);
     makeCircularLink();
     return flag;

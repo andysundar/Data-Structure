@@ -139,13 +139,13 @@ public class SingleLinkedListTest {
     for (int index = 1; index <= 10; index++) {
       assertTrue(singleLinkedList.add(index));
     }
-    assertTrue(singleLinkedList.removeFirstOccurance(5));
+    assertTrue(singleLinkedList.removeFirstOccurrence(5));
     assertEquals(Integer.valueOf(9), Integer.valueOf(singleLinkedList.size()));
 
-    assertTrue(singleLinkedList.removeFirstOccurance(10));
+    assertTrue(singleLinkedList.removeFirstOccurrence(10));
     assertEquals(Integer.valueOf(8), Integer.valueOf(singleLinkedList.size()));
 
-    assertTrue(singleLinkedList.removeFirstOccurance(1));
+    assertTrue(singleLinkedList.removeFirstOccurrence(1));
     assertEquals(Integer.valueOf(7), Integer.valueOf(singleLinkedList.size()));
 
     assertEquals(Integer.valueOf(2), singleLinkedList.get(0));
@@ -155,7 +155,7 @@ public class SingleLinkedListTest {
   @Test
   public void testRemoveFirstOccurance_WhenDataIsNull() {
     assertTrue(singleLinkedList.add(1));
-    assertFalse(singleLinkedList.removeFirstOccurance(null));
+    assertFalse(singleLinkedList.removeFirstOccurrence(null));
   }
 
   @Test
@@ -268,7 +268,7 @@ public class SingleLinkedListTest {
 
   @Test
   public void testRemoveFirstOccurance_whenNoElementInList() {
-    assertFalse(singleLinkedList.removeFirstOccurance(null));
+    assertFalse(singleLinkedList.removeFirstOccurrence(null));
   }
 
   @Test
